@@ -50,8 +50,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.vp_alp.R
-import com.example.vp_alp.data.loadNear
-import com.example.vp_alp.model.near
+
+import com.example.vp_alp_new.data.loadNear
+import com.example.vp_alp_new.model.near
 
 @Composable
 fun nearme(nearcardlist:List<near>) {

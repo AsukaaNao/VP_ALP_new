@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.vp_alp.R
 
+
 @Composable
 fun landing() {
     val context = LocalContext.current

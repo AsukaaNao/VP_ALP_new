@@ -49,14 +49,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.vp_alp.R
-import com.example.vp_alp.data.loadNear
-import com.example.vp_alp.model.near
+
+import com.example.vp_alp_new.data.loadNear
+import com.example.vp_alp_new.model.near
 import androidx.compose.runtime.*
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.Divider
-import com.example.vp_alp.data.loadReview
-import com.example.vp_alp.model.rating
+import com.example.vp_alp_new.data.loadReview
+import com.example.vp_alp_new.model.rating
 
 
 @Composable
