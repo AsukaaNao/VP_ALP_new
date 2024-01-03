@@ -49,7 +49,7 @@ import com.example.vp_alp.R
 import kotlinx.coroutines.NonDisposableHandle.parent
 
 @Composable
-fun WishListScreen(navController: NavController) {
+fun LikedListResto(navController: NavController) {
     Box(modifier = Modifier
         .fillMaxSize()
         .verticalScroll(rememberScrollState())) {

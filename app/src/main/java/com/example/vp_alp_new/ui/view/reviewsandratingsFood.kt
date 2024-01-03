@@ -61,7 +61,7 @@ import com.example.vp_alp_new.model.rating
 
 
 @Composable
-fun reviewsandratings(reviewcardlist:List<rating>) {
+fun reviewsandratingsFood(reviewcardlist:List<rating>) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -112,7 +112,7 @@ fun reviewsandratings(reviewcardlist:List<rating>) {
             columns = GridCells.Fixed(1),
         ) {
             items(reviewcardlist){
-                reviewCard(
+                reviewFoodCard(
                     it,
                     Modifier
                         .padding(4.dp)
@@ -136,7 +136,7 @@ fun reviewsandratings(reviewcardlist:List<rating>) {
 
 
 @Composable
-fun reviewCard(rating: rating, modifier: Modifier = Modifier) {
+fun reviewFoodCard(rating: rating, modifier: Modifier = Modifier) {
     val context = LocalContext.current
 
     Column(
@@ -225,7 +225,7 @@ fun reviewCard(rating: rating, modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun reviewandratingsPreview(){
-    reviewsandratings(loadReview())
+fun reviewandratingsFoodPreview(){
+    reviewsandratingsFood(loadReview())
 
 }

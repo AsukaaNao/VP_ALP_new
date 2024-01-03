@@ -9,12 +9,12 @@ import androidx.compose.foundation.shape.ZeroCornerSize
 //import androidx.compose.material.Surface
 //import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.focus.FocusRequester.Companion.createRefs
 import androidx.compose.ui.graphics.BlendMode.Companion.Screen
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -31,8 +32,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-//import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintLayout
+//import androidx.constraintlayout.compose.ConstraintLayout
+//import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.NavController
 //import com.example.foodstore.navigation.Screen
 //import com.example.foodstore.ui.theme.black
@@ -41,17 +43,13 @@ import androidx.navigation.NavController
 //import com.example.foodstore.ui.theme.white
 //import com.example.foodstore.R
 //import com.example.foodstore.ui.theme.bgwhitelight
+//import com.example.foodstore.ui.theme.colorprimarywhite
 //import com.example.foodstore.ui.theme.pink
 import com.example.vp_alp.R
-import com.example.vp_alp_new.ui.theme.bgwhitelight
-import com.example.vp_alp_new.ui.theme.black
-import com.example.vp_alp_new.ui.theme.colorPrimary
-import com.example.vp_alp_new.ui.theme.ghost_white
-import com.example.vp_alp_new.ui.theme.pink
-import com.example.vp_alp_new.ui.theme.white
+import kotlinx.coroutines.NonDisposableHandle.parent
 
 @Composable
-fun NearMeScreen(navController: NavController) {
+fun WishListScreenFood(navController: NavController) {
     Box(modifier = Modifier
         .fillMaxSize()
         .verticalScroll(rememberScrollState())) {
@@ -66,7 +64,7 @@ fun NearMeScreen(navController: NavController) {
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 }) {
-                HeaderHomeNearItems(navController)
+                HeaderHomeWishItems()
             }
 
             Surface(
@@ -85,17 +83,17 @@ fun NearMeScreen(navController: NavController) {
                     .fillMaxSize()
                     .padding(20.dp)) {
 
-                    NearItemsSection(navController)
+                    WishItemsSection(navController)
                     Spacer(modifier = Modifier.padding(10.dp))
-                    NearItemsSection2(navController)
+                    WishItemsSection2(navController)
                     Spacer(modifier = Modifier.padding(10.dp))
-                    NearItemsSection3(navController)
+                    WishItemsSection3(navController)
                     Spacer(modifier = Modifier.padding(10.dp))
-                    NearItemsSection(navController)
+                    WishItemsSection(navController)
                     Spacer(modifier = Modifier.padding(10.dp))
-                    NearItemsSection2(navController)
+                    WishItemsSection2(navController)
                     Spacer(modifier = Modifier.padding(10.dp))
-                    NearItemsSection3(navController)
+                    WishItemsSection3(navController)
                     Spacer(modifier = Modifier.padding(10.dp))
                 }
             }
@@ -107,11 +105,11 @@ fun NearMeScreen(navController: NavController) {
 
 @Preview
 @Composable
-fun NearMeScreenPreview() = NearMeScreen(NavController(LocalContext.current))
+fun WishListScreenPreview() = WishListScreen(NavController(LocalContext.current))
 
 
 @Composable
-fun NearItemsSection(navController: NavController) {
+fun WishItemsSection(navController: NavController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -228,7 +226,7 @@ fun NearItemsSection(navController: NavController) {
 }
 
 @Composable
-fun NearItemsSection2(navController: NavController) {
+fun WishItemsSection2(navController: NavController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -305,6 +303,7 @@ fun NearItemsSection2(navController: NavController) {
 
 
                 }
+
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -344,7 +343,7 @@ fun NearItemsSection2(navController: NavController) {
 }
 
 @Composable
-fun NearItemsSection3(navController: NavController) {
+fun WishItemsSection3(navController: NavController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -462,10 +461,11 @@ fun NearItemsSection3(navController: NavController) {
 
 @Preview
 @Composable
-fun NearItemsSectionPreview() = NearItemsSection(NavController(LocalContext.current))
+fun WishItemsSectionPreview() = WishItemsSection(NavController(LocalContext.current))
 
+@Preview
 @Composable
-fun HeaderHomeNearItems(navController : NavController) {
+fun HeaderHomeWishItems() {
     Image(
         painter = painterResource(id = R.drawable.login_bg_white),
         contentDescription = "login_bg",
@@ -479,9 +479,7 @@ fun HeaderHomeNearItems(navController : NavController) {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        IconButton(onClick = {
-            navController.navigate(Screen.HomeScreen.route)
-        }) {
+        IconButton(onClick = { }) {
             Icon(
                 modifier = Modifier.size(32.dp, 32.dp),
                 imageVector = Icons.Default.KeyboardArrowLeft,
@@ -491,7 +489,7 @@ fun HeaderHomeNearItems(navController : NavController) {
         }
 
         Text(
-            text = "Near Me Foods",
+            text = "Wish List Foods",
             color = black,
             modifier = Modifier.padding(start = 16.dp),
             fontWeight = FontWeight.Bold,
