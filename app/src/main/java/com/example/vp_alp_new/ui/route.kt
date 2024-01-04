@@ -12,15 +12,20 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.vp_alp_new.data.DataStoreManager
+import com.example.vp_alp_new.repository.MyDBContainer
+import com.example.vp_alp_new.ui.view.LoginScreen
+import com.example.vp_alp_new.viewModel.LoginViewModel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 enum class ListScreen() {
     Account,
     AddRestoReview,
-    AddMenuReview,
+    AddFoodReview,
     EditAccount,
     FoodDetail,
+    FoodReview,
     Home,
     Landing,
     LikedListFood,
@@ -30,15 +35,9 @@ enum class ListScreen() {
     PopularList,
     Register,
     RestoDetail,
-    FoodReview,
     RestoReview,
     WishListFood,
     WishListResto,
-
-
-
-
-
 
 
 }
@@ -47,38 +46,104 @@ enum class ListScreen() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RestoAppsRoute() {
-//    val navController = rememberNavController()
-//    val dataStore = DataStoreManager(LocalContext.current)
-//
-//    GlobalScope.launch {
-//        dataStore.getToken.collect { token ->
-//            if (token != null) {
-//                MyDBContainer.ACCESS_TOKEN = token
-//            }
-//        }
-//    }
-//    Scaffold { innerPadding ->
-//        NavHost(
-//            navController = navController,
-//            startDestination = ListScreen.Login.name,
-//            modifier = Modifier.padding(innerPadding)
-//        ) {
-//            composable(ListScreen.Login.name) {
-//                if (MyDBContainer.ACCESS_TOKEN.isEmpty()) {
-//                    val loginViewModel: LoginViewModel = viewModel()
-//                    LoginView(
+    val navController = rememberNavController()
+    val dataStore = DataStoreManager(LocalContext.current)
+
+    GlobalScope.launch {
+        dataStore.getToken.collect { token ->
+            if (token != null) {
+                MyDBContainer.ACCESS_TOKEN = token
+            }
+        }
+    }
+    Scaffold { innerPadding ->
+        NavHost(
+            navController = navController,
+            startDestination = ListScreen.Login.name,
+            modifier = Modifier.padding(innerPadding)
+        ) {
+            //list screeen dibawah ini yaa
+
+
+
+            composable(ListScreen.Account.name) {
+
+            }
+
+            composable(ListScreen.AddRestoReview.name) {
+
+            }
+            composable(ListScreen.AddFoodReview.name) {
+
+            }
+
+            composable(ListScreen.EditAccount.name) {
+
+            }
+            composable(ListScreen.FoodDetail.name) {
+
+            }
+            composable(ListScreen.FoodReview.name) {
+
+            }
+            composable(ListScreen.Home.name) {
+
+            }
+            composable(ListScreen.Landing.name) {
+
+            }
+            composable(ListScreen.LikedListFood.name) {
+
+            }
+            composable(ListScreen.LikedListResto.name) {
+
+            }
+
+
+            composable(ListScreen.Login.name) {
+                if (MyDBContainer.ACCESS_TOKEN.isEmpty()) {
+                    val loginViewModel: LoginViewModel = viewModel()
+                    LoginScreen(
 //                        loginViewModel = loginViewModel,
-//                        navController = navController,
+                        navController = navController,
 //                        dataStore = dataStore
-//                    )
-//                } else {
+                    )
+                } else {
 //                    navController.navigate(ListScreen.ListMovie.name) {
 //                        popUpTo(ListScreen.Login.name) { inclusive = true }
 //                    }
-//                }
-//            }
-//            composable(ListScreen.Register.name) {
-//            }
+                }
+            }
+            composable(ListScreen.NearMe.name) {
+
+            }
+            composable(ListScreen.PopularList.name) {
+
+            }
+
+
+
+
+
+            composable(ListScreen.Register.name) {
+            }
+
+            composable(ListScreen.RestoDetail.name) {
+
+            }
+            composable(ListScreen.RestoReview.name) {
+
+            }
+
+            composable(ListScreen.WishListFood.name) {
+
+            }
+            composable(ListScreen.WishListResto.name) {
+
+            }
+
+
+
 //            composable(ListScreen.ListMovie.name){
 //                val listMovieViewModel: ListMovieViewModel = viewModel()
 //                val status = listMovieViewModel.listMovieUIState
@@ -124,6 +189,6 @@ fun RestoAppsRoute() {
 //            composable(ListScreen.Profile.name) {
 //                ProfileView()
 //            }
-//        }
-//    }
+        }
+    }
 }
