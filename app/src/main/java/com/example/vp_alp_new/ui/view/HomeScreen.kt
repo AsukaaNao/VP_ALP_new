@@ -18,12 +18,20 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.focus.FocusRequester.Companion.createRefs
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.BlendMode.Companion.Screen
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.graphicsLayer
@@ -38,12 +46,18 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.android.volley.toolbox.ImageRequest
 import com.example.foodstore.R
 import com.example.foodstore.navigation.Screen
 import com.example.foodstore.ui.theme.*
+import com.example.vp_alp.R
+import com.example.vp_alp_new.ui.ListScreen
+import com.example.vp_alp_new.ui.theme.colorPrimary
+import com.example.vp_alp_new.ui.theme.light_gray
+import com.example.vp_alp_new.ui.theme.white
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.delay
 
@@ -151,7 +165,7 @@ fun HeaderHome(navController: NavController?) {
                             IconButton(
                                 modifier = Modifier.size(24.dp),
                                 onClick = {
-                                    navController?.navigate(Screen.SearchScreen.route)
+                                    navController?.navigate(ListScreen.SearchScreen.route)
                                 }) {
                                 Icon(
                                     imageVector = Icons.Default.Search,

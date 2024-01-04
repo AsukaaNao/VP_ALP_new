@@ -15,6 +15,10 @@ import androidx.navigation.compose.rememberNavController
 import com.example.vp_alp_new.data.DataStoreManager
 import com.example.vp_alp_new.repository.MyDBContainer
 import com.example.vp_alp_new.ui.view.LoginScreen
+import com.example.vp_alp_new.ui.view.landing
+import com.example.vp_alp_new.ui.view.nearme
+import com.example.vp_alp_new.viewModel.ListRestoUIState
+import com.example.vp_alp_new.viewModel.ListRestoViewModel
 import com.example.vp_alp_new.viewModel.LoginViewModel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -28,7 +32,6 @@ enum class ListScreen() {
     FoodReview,
     Home,
     Landing,
-    LikedListFood,
     LikedListResto,
     Login,
     NearMe,
@@ -36,7 +39,7 @@ enum class ListScreen() {
     Register,
     RestoDetail,
     RestoReview,
-    WishListFood,
+    SearchScreen,
     WishListResto,
 
 
@@ -65,7 +68,6 @@ fun RestoAppsRoute() {
             //list screeen dibawah ini yaa
 
 
-
             composable(ListScreen.Account.name) {
 
             }
@@ -92,11 +94,9 @@ fun RestoAppsRoute() {
             composable(ListScreen.Landing.name) {
 
             }
-            composable(ListScreen.LikedListFood.name) {
 
-            }
             composable(ListScreen.LikedListResto.name) {
-
+                landing()
             }
 
 
@@ -115,7 +115,26 @@ fun RestoAppsRoute() {
                 }
             }
             composable(ListScreen.NearMe.name) {
-
+                val listRestoViewModel: ListRestoViewModel = viewModel()
+                val status = listRestoViewModel.listRestoUIState
+                when (status) {
+                    is ListRestoUIState.Loading -> {}
+                    is ListRestoUIState.Success -> {}
+//                        nearme(
+                    //panggil api
+//                        movieList = status.data,
+//                        onFavClicked = {movie ->
+//                            listMovieViewModel.onFavClicked(movie)
+//                        },
+//                        onCardClick = {
+//                            navController.navigate(ListScreen.MovieDetail.name+"/"+it.id)
+//                        },
+//                        listRestoViewModel,
+//                        navController,
+//                        dataStore
+//                    )
+                    is ListRestoUIState.Error -> {}
+                }
             }
             composable(ListScreen.PopularList.name) {
 
@@ -134,14 +153,13 @@ fun RestoAppsRoute() {
             composable(ListScreen.RestoReview.name) {
 
             }
-
-            composable(ListScreen.WishListFood.name) {
+            composable(ListScreen.SearchScreen.name) {
 
             }
+
             composable(ListScreen.WishListResto.name) {
 
             }
-
 
 
 //            composable(ListScreen.ListMovie.name){
