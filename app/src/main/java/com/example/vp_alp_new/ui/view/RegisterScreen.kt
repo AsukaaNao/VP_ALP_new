@@ -11,12 +11,22 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Phone
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.BlendMode.Companion.Screen
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.node.CanFocusChecker.end
+import androidx.compose.ui.node.CanFocusChecker.start
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
@@ -35,6 +45,12 @@ import androidx.navigation.NavController
 import com.example.foodstore.R
 import com.example.foodstore.navigation.Screen
 import com.example.foodstore.ui.theme.*
+import com.example.vp_alp.R
+import com.example.vp_alp_new.ui.theme.colorPrimary
+import com.example.vp_alp_new.ui.theme.dark_gray
+import com.example.vp_alp_new.ui.theme.light_gray
+import com.example.vp_alp_new.ui.theme.white
+import kotlinx.coroutines.NonDisposableHandle.parent
 
 @Composable
 fun RegisterScreen(navController: NavController) {

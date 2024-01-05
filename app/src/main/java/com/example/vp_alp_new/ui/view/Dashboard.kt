@@ -63,11 +63,11 @@ fun Dashboard(
                 else -> {}
             }
             when (section) {
-                DashboardSection.Favorite -> PopularListScreen(navController)
+                DashboardSection.Favorite -> LikedListResto(navController)
                 else -> {}
             }
             when (section) {
-                DashboardSection.Profile -> ProfileScreen(navController)
+                DashboardSection.Profile -> Account(navController)
                 else -> {}
             }
         }

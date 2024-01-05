@@ -23,6 +23,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -37,6 +38,8 @@ import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.node.CanFocusChecker.end
+import androidx.compose.ui.node.CanFocusChecker.start
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -55,8 +58,11 @@ import com.example.foodstore.navigation.Screen
 import com.example.foodstore.ui.theme.*
 import com.example.vp_alp.R
 import com.example.vp_alp_new.ui.ListScreen
+import com.example.vp_alp_new.ui.theme.black
 import com.example.vp_alp_new.ui.theme.colorPrimary
+import com.example.vp_alp_new.ui.theme.ghost_white
 import com.example.vp_alp_new.ui.theme.light_gray
+import com.example.vp_alp_new.ui.theme.pink
 import com.example.vp_alp_new.ui.theme.white
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.delay
@@ -165,7 +171,7 @@ fun HeaderHome(navController: NavController?) {
                             IconButton(
                                 modifier = Modifier.size(24.dp),
                                 onClick = {
-                                    navController?.navigate(ListScreen.SearchScreen.route)
+//                                    navController?.navigate(ListScreen.SearchScreen.route)
                                 }) {
                                 Icon(
                                     imageVector = Icons.Default.Search,
@@ -362,7 +368,7 @@ fun CategoryView(navController : NavController) {
                 backgroundColor = Color(0xffFFFFFF),
                 navController = navController
             )
-            Text(text = "Snacks", style = MaterialTheme.typography.caption)
+//            Text(text = "Snacks", style = MaterialTheme.typography.caption)
         }
 
     }
@@ -376,7 +382,7 @@ fun CategoryButton(
     navController: NavController
 ) {
     IconButton(onClick = {
-        navController.navigate(Screen.NearMeScreen.route)
+//        navController.navigate(Screen.NearMeScreen.route)
     }) {
         Box(
             Modifier
@@ -441,7 +447,7 @@ fun PopularItems(navController: NavController) {
                 .wrapContentHeight()
                 .clip(RoundedCornerShape(20.dp))
                 .background(white)
-                .clickable { navController.navigate(Screen.DetailsScreen.route) }
+//                .clickable { navController.navigate(Screen.DetailsScreen.route) }
         ) {
             Column(
                 modifier = Modifier
@@ -465,7 +471,7 @@ fun PopularItems(navController: NavController) {
                     ) {
                         IconButton(
                             onClick = {
-                                navController.navigate(Screen.RestoDetailsScreen.route)
+//                                navController.navigate(Screen.RestoDetailsScreen.route)
                             }) {
                             Text(
                                 text = "Ayam Keprabon - GWalk",
@@ -480,7 +486,7 @@ fun PopularItems(navController: NavController) {
                             IconButton(
                                 modifier = Modifier.size(20.dp),
                                 onClick = {
-                                    navController.navigate(Screen.RestoReviewScreen.route)
+//                                    navController.navigate(Screen.RestoReviewScreen.route)
                                 }) {
                                 Icon(
                                     imageVector = Icons.Default.Star,
@@ -493,7 +499,7 @@ fun PopularItems(navController: NavController) {
                             IconButton(
                                 modifier = Modifier.size(20.dp),
                                 onClick = {
-                                    navController.navigate(Screen.RestoReviewScreen.route)
+//                                    navController.navigate(Screen.RestoReviewScreen.route)
                                 }) {
                                 Text(
                                     text = "4.6",
@@ -538,7 +544,7 @@ fun PopularItems(navController: NavController) {
                                 contentAlignment = Alignment.Center
                             ) {
                                 IconButton(onClick = {
-                                    navController.navigate(Screen.PopularListScreen.route)
+//                                    navController.navigate(Screen.PopularListScreen.route)
                                 }) {
                                     Icon(
                                         imageVector = Icons.Default.Favorite,

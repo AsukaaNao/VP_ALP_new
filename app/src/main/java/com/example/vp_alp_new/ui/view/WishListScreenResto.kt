@@ -45,6 +45,7 @@ import androidx.navigation.NavController
 //import com.example.foodstore.ui.theme.colorprimarywhite
 //import com.example.foodstore.ui.theme.pink
 import com.example.vp_alp.R
+import com.example.vp_alp_new.ui.theme.white
 import kotlinx.coroutines.NonDisposableHandle.parent
 
 @Composable

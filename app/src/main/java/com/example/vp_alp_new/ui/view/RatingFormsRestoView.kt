@@ -46,7 +46,7 @@ private val Abumuda = Color(0xFF9C9C9C)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RatingFormsView(
+fun RatingRestoFormsView(
     modifier: Modifier = Modifier,
     rating: Double = 0.0,
     stars: Int = 5,
@@ -161,11 +161,11 @@ fun RatingFormsView(
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun RatingFormsPreview() {
+fun RatingRestoFormsPreview() {
         var rating_1 by remember{
             mutableDoubleStateOf(0.0)
         }
-        RatingFormsView(
+        RatingRestoFormsView(
             modifier = Modifier.size(50.dp),
             rating = rating_1,
         ){

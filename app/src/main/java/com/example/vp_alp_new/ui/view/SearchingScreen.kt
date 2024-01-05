@@ -23,11 +23,16 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.BlendMode.Companion.Screen
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -41,6 +46,11 @@ import androidx.navigation.NavController
 import com.example.foodstore.ui.theme.*
 import com.example.foodstore.R
 import com.example.foodstore.navigation.Screen
+import com.example.vp_alp_new.ui.ListScreen
+import com.example.vp_alp_new.ui.theme.black
+import com.example.vp_alp_new.ui.theme.colorPrimary
+import com.example.vp_alp_new.ui.theme.ghost_white
+import com.example.vp_alp_new.ui.theme.white
 
 @Preview(showBackground = true)
 @Composable
@@ -124,7 +134,7 @@ fun HeaderCartSearchingItems(navController: NavController?) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         IconButton(onClick = {
-            navController?.navigate(Screen.HomeScreen.route)
+            navController?.navigate(ListScreen.Home.name)
         }) {
             Icon(
                 modifier = Modifier.size(32.dp, 32.dp),
