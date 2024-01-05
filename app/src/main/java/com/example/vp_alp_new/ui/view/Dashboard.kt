@@ -1,37 +1,37 @@
 package com.example.vp_alp_new.ui.view
 
 import androidx.compose.animation.Crossfade
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
+
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.contentColorFor
-//import androidx.compose.material.BottomNavigation
-//import androidx.compose.material.BottomNavigationItem
-//import androidx.compose.material.Icon
-//import androidx.compose.material.MaterialTheme
-//import androidx.compose.material.Scaffold
-//import androidx.compose.material.contentColorFor
-//import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.material.BottomNavigation
+import androidx.compose.material.BottomNavigationItem
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.ui.Alignment
+
+
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.vp_alp.R
+import com.example.vp_alp_new.data.loadNear
 import com.example.vp_alp_new.ui.theme.colorPrimary
 
-//import com.example.foodstore.ui.theme.colorPrimary
-//import com.example.foodstore.R
-//import com.example.foodstore.navigation.Screen
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -54,23 +54,12 @@ fun Dashboard(
             modifier = modifier,
             targetState = sectionState.value,
             label = ""
-        )
-        { section ->
+        ) { section ->
             when (section) {
-                DashboardSection.Home -> HomeScreen(navController)
-                else -> {}
-            }
-            when (section) {
-                DashboardSection.List -> SearchingScreen(navController)
-                else -> {}
-            }
-            when (section) {
-//                DashboardSection.Favorite -> LikedListResto(navController)
-                else -> {}
-            }
-            when (section) {
-//                DashboardSection.Profile -> Account(navController)
-                else -> {}
+                DashboardSection.Home -> HomeView(loadNear())
+                DashboardSection.Search -> SearchingScreen(navController)
+                DashboardSection.Favorite -> LikedListView(loadNear())
+                DashboardSection.Profile -> AccountView()
             }
         }
     }
@@ -86,33 +75,40 @@ private fun BottomBar(
     currentSection: DashboardSection,
     onSectionSelected: (DashboardSection) -> Unit,
 ) {
-//    BottomNavigation(
-//        modifier = Modifier.height(50.dp),
-//        backgroundColor = MaterialTheme.colors.background,
-//        contentColor = contentColorFor(MaterialTheme.colors.background)
-//    ) {
-//        items.forEach { section ->
-//
-//            val selected = section == currentSection
-//
-//            val iconRes = if (selected) section.selectedIcon else section.icon
-//
-//            BottomNavigationItem(
-//                icon = {
-//                    Icon(
-//                        painter = painterResource(id = iconRes),
-//                        modifier = Modifier.size(24.dp),
-//                        contentDescription = "Bottom nav icons"
-//                    )
-//                },
-//                selected = selected,
-//                unselectedContentColor = Color.Gray,
-//                selectedContentColor = colorPrimary,
-//                onClick = { onSectionSelected(section) },
-//                alwaysShowLabel = false
-//            )
-//        }
-//    }
+
+    BottomNavigation(
+        modifier = Modifier.height(50.dp),
+        backgroundColor = MaterialTheme.colorScheme.background,
+        contentColor = contentColorFor(MaterialTheme.colorScheme.background)
+    ) {
+        items.forEach { section ->
+            val selected = section == currentSection
+            val iconRes = if (selected) section.selectedIcon else section.icon
+            val iconColor = if (selected) colorPrimary else Color.Gray // Determine icon color
+
+            BottomNavigationItem(
+                icon = {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Icon(
+                            painter = painterResource(id = iconRes),
+                            modifier = Modifier.size(24.dp),
+                            contentDescription = "Bottom nav icons",
+                            tint = iconColor // Apply the determined color as tint
+                        )
+                        Text(
+                            text = section.name,
+                            color = if (selected) colorPrimary else Color.Gray
+                        )
+                    }
+                },
+                selected = selected,
+                unselectedContentColor = Color.Gray,
+                selectedContentColor = colorPrimary,
+                onClick = { onSectionSelected(section) },
+                alwaysShowLabel = false
+            )
+        }
+    }
 }
 @Preview
 @Composable
@@ -125,8 +121,8 @@ private enum class DashboardSection(
     val icon: Int,
     val selectedIcon: Int,
 ) {
-    Home(R.drawable.ic_home, R.drawable.ic_home),
-    List(R.drawable.ic_search, R.drawable.ic_search),
-    Favorite(R.drawable.ic_hearth, R.drawable.ic_hearth),
-    Profile(R.drawable.ic_user, R.drawable.ic_user),
+    Home(R.drawable.baseline_home_24, R.drawable.baseline_home_24),
+    Search(R.drawable.baseline_search_24, R.drawable.baseline_search_24),
+    Favorite(R.drawable.baseline_favoriteblck_24, R.drawable.baseline_favoriteblck_24),
+    Profile(R.drawable.baseline_person_24, R.drawable.baseline_person_24),
 }
