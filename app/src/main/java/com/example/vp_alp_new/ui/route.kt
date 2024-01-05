@@ -27,6 +27,7 @@ enum class ListScreen() {
     Account,
     AddRestoReview,
     AddFoodReview,
+    Dashboard,
     EditAccount,
     FoodDetail,
     FoodReview,
@@ -35,7 +36,6 @@ enum class ListScreen() {
     LikedListResto,
     Login,
     NearMe,
-    PopularList,
     Register,
     RestoDetail,
     RestoReview,
@@ -76,6 +76,9 @@ fun RestoAppsRoute() {
 
             }
             composable(ListScreen.AddFoodReview.name) {
+
+            }
+            composable(ListScreen.Dashboard.name) {
 
             }
 
@@ -136,9 +139,7 @@ fun RestoAppsRoute() {
                     is ListRestoUIState.Error -> {}
                 }
             }
-            composable(ListScreen.PopularList.name) {
-
-            }
+           
 
 
 
