@@ -573,3 +573,6 @@ fun PopularItems(navController: NavController) {
 @Preview
 @Composable
 fun PopularItemsPreview() = PopularItems(NavController(LocalContext.current))
+
+
+

@@ -2,20 +2,16 @@ package com.example.vp_alp_new.ui.view
 
 import android.widget.Toast
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -26,10 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.foundation.lazy.grid.GridItemSpan
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
@@ -42,8 +35,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -55,7 +46,7 @@ import com.example.vp_alp_new.data.loadNear
 import com.example.vp_alp_new.model.near
 
 @Composable
-fun nearme(nearcardlist:List<near>) {
+fun WishListView(nearcardlist:List<near>) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -74,7 +65,7 @@ fun nearme(nearcardlist:List<near>) {
                 modifier = Modifier.padding(end=16.dp)
             )
             Text(
-                text = "Near Me",
+                text = "Wishlist",
                 style = TextStyle(
                     fontSize = 20.sp,
                     lineHeight = 21.sp,
@@ -91,7 +82,7 @@ fun nearme(nearcardlist:List<near>) {
             columns = GridCells.Fixed(1),
         ) {
             items(nearcardlist){
-                nearCard(
+                RestoCard(
                     it,
                     Modifier
                         .padding(4.dp)
@@ -115,7 +106,7 @@ fun nearme(nearcardlist:List<near>) {
 
 
 @Composable
-fun nearCard(near: near, modifier: Modifier = Modifier) {
+fun RestoCard(near: near, modifier: Modifier = Modifier) {
     val    context = LocalContext.current
     Column(modifier = Modifier
         .padding(vertical = 8.dp)
@@ -243,7 +234,7 @@ fun nearCard(near: near, modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun nearmePreview(){
-    nearme(loadNear())
+fun wishlistPreview(){
+    WishListView(loadNear())
 
 }
