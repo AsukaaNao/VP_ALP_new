@@ -92,11 +92,11 @@ fun RestoAppsRoute() {
 
             }
             composable(ListScreen.Landing.name) {
-
+                landing()
             }
 
             composable(ListScreen.LikedListResto.name) {
-                landing()
+
             }
 
 
