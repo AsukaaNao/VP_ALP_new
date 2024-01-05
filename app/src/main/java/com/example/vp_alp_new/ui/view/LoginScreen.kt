@@ -9,10 +9,20 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.BlendMode.Companion.Screen
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -28,18 +38,26 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.constraintlayout.compose.ConstraintLayout
+//import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
-import com.example.foodstore.R
-import com.example.foodstore.navigation.Screen
-import com.example.foodstore.ui.theme.*
+import com.example.vp_alp.R
+import com.example.vp_alp_new.ui.theme.colorPrimary
+import com.example.vp_alp_new.ui.theme.dark_gray
+import com.example.vp_alp_new.ui.theme.ghost_white
+import com.example.vp_alp_new.ui.theme.light_gray
+import com.example.vp_alp_new.ui.theme.white
 
+//import com.example.foodstore.R
+//import com.example.foodstore.navigation.Screen
+//import com.example.foodstore.ui.theme.*
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(navController: NavController) {
     val firaSansFamily = FontFamily(
-        Font(R.font.dmsansregular, FontWeight.Normal),
-        Font(R.font.dmsansmedium, FontWeight.Medium),
-        Font(R.font.dmsansbold, FontWeight.Bold),
+//        Font(R.font.dmsansregular, FontWeight.Normal),
+//        Font(R.font.dmsansmedium, FontWeight.Medium),
+//        Font(R.font.dmsansbold, FontWeight.Bold),
     )
 
     Box(
@@ -47,21 +65,21 @@ fun LoginScreen(navController: NavController) {
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ) {
-        ConstraintLayout {
-
-            val (logoimageref, loginformref) = createRefs()
-
-            Box(contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .height(280.dp)
-                    .constrainAs(logoimageref) {
-                        top.linkTo(loginformref.top)
-                        bottom.linkTo(loginformref.top)
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
-                    }) {
-                Header()
-            }
+//        ConstraintLayout {
+//
+//            val (logoimageref, loginformref) = createRefs()
+//
+//            Box(contentAlignment = Alignment.Center,
+//                modifier = Modifier
+//                    .height(280.dp)
+//                    .constrainAs(logoimageref) {
+//                        top.linkTo(loginformref.top)
+//                        bottom.linkTo(loginformref.top)
+//                        start.linkTo(parent.start)
+//                        end.linkTo(parent.end)
+//                    }) {
+//                Header()
+//            }
 
             Surface(
                 color = ghost_white,
@@ -72,11 +90,11 @@ fun LoginScreen(navController: NavController) {
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(top = 80.dp)
-                    .constrainAs(loginformref) {
-                        bottom.linkTo(parent.bottom)
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
-                    }
+//                    .constrainAs(loginformref) {
+//                        bottom.linkTo(parent.bottom)
+//                        start.linkTo(parent.start)
+//                        end.linkTo(parent.end)
+//                    }
             ) {
                 Column(
                     modifier = Modifier
@@ -95,7 +113,7 @@ fun LoginScreen(navController: NavController) {
 
                     Text(
                         text = "Email Address",
-                        style = MaterialTheme.typography.subtitle1,
+//                        style = MaterialTheme.typography.subtitle1,
                         color = dark_gray,
                         modifier = Modifier.padding(
                             top = 10.dp,
@@ -133,7 +151,7 @@ fun LoginScreen(navController: NavController) {
                             )
                         },
                         colors = TextFieldDefaults.textFieldColors(
-                            backgroundColor = white,
+//                            backgroundColor = white,
                             focusedIndicatorColor = Color.Transparent,
                             unfocusedIndicatorColor = Color.Transparent,
                             disabledIndicatorColor = Color.Transparent
@@ -150,7 +168,7 @@ fun LoginScreen(navController: NavController) {
 
                     Text(
                         text = "Password",
-                        style = MaterialTheme.typography.subtitle1,
+//                        style = MaterialTheme.typography.subtitle1,
                         color = dark_gray,
                         modifier = Modifier.padding(
                             top = 10.dp,
@@ -188,7 +206,7 @@ fun LoginScreen(navController: NavController) {
                             )
                         },
                         colors = TextFieldDefaults.textFieldColors(
-                            backgroundColor = white,
+//                            backgroundColor = white,
                             focusedIndicatorColor = Color.Transparent,
                             unfocusedIndicatorColor = Color.Transparent,
                             disabledIndicatorColor = Color.Transparent
@@ -211,7 +229,7 @@ fun LoginScreen(navController: NavController) {
                     ) {
                         Text(
                             text = "Forgot Password",
-                            style = MaterialTheme.typography.subtitle2,
+//                            style = MaterialTheme.typography.subtitle2,
                             color = colorPrimary,
                             textAlign = TextAlign.End,
                             modifier = Modifier
@@ -223,9 +241,9 @@ fun LoginScreen(navController: NavController) {
                     Button(
                         onClick = {
                             navController.popBackStack()
-                            navController.navigate(Screen.HomeScreen.route)
+//                            navController.navigate(Screen.HomeScreen.route)
                         },
-                        colors = ButtonDefaults.buttonColors(backgroundColor = colorPrimary),
+//                        colors = ButtonDefaults.buttonColors(backgroundColor = colorPrimary),
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(
@@ -238,7 +256,7 @@ fun LoginScreen(navController: NavController) {
                         Text(
                             text = "Login",
                             color = white,
-                            style = MaterialTheme.typography.button,
+//                            style = MaterialTheme.typography.button,
                             modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)
                         )
                     }
@@ -257,11 +275,11 @@ fun LoginScreen(navController: NavController) {
                                     this.length
                                 )
                             },
-                            style = MaterialTheme.typography.subtitle1,
+//                            style = MaterialTheme.typography.subtitle1,
                             textAlign = TextAlign.Center,
                             modifier = Modifier.clickable {
                                 navController.popBackStack()
-                                navController.navigate(Screen.RegisterScreen.route)
+//                                navController.navigate(Screen.RegisterScreen.route)
                             }
                         )
                     }
@@ -272,7 +290,7 @@ fun LoginScreen(navController: NavController) {
 
         }
     }
-}
+//}
 
 @Preview
 @Composable

@@ -4,6 +4,7 @@ import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -32,6 +33,7 @@ import com.example.vp_alp_new.ui.theme.colorPrimary
 //import com.example.foodstore.R
 //import com.example.foodstore.navigation.Screen
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Dashboard(
     navController: NavController,
@@ -63,11 +65,11 @@ fun Dashboard(
                 else -> {}
             }
             when (section) {
-                DashboardSection.Favorite -> LikedListResto(navController)
+//                DashboardSection.Favorite -> LikedListResto(navController)
                 else -> {}
             }
             when (section) {
-                DashboardSection.Profile -> Account(navController)
+//                DashboardSection.Profile -> Account(navController)
                 else -> {}
             }
         }
@@ -84,33 +86,33 @@ private fun BottomBar(
     currentSection: DashboardSection,
     onSectionSelected: (DashboardSection) -> Unit,
 ) {
-    BottomNavigation(
-        modifier = Modifier.height(50.dp),
-        backgroundColor = MaterialTheme.colors.background,
-        contentColor = contentColorFor(MaterialTheme.colors.background)
-    ) {
-        items.forEach { section ->
-
-            val selected = section == currentSection
-
-            val iconRes = if (selected) section.selectedIcon else section.icon
-
-            BottomNavigationItem(
-                icon = {
-                    Icon(
-                        painter = painterResource(id = iconRes),
-                        modifier = Modifier.size(24.dp),
-                        contentDescription = "Bottom nav icons"
-                    )
-                },
-                selected = selected,
-                unselectedContentColor = Color.Gray,
-                selectedContentColor = colorPrimary,
-                onClick = { onSectionSelected(section) },
-                alwaysShowLabel = false
-            )
-        }
-    }
+//    BottomNavigation(
+//        modifier = Modifier.height(50.dp),
+//        backgroundColor = MaterialTheme.colors.background,
+//        contentColor = contentColorFor(MaterialTheme.colors.background)
+//    ) {
+//        items.forEach { section ->
+//
+//            val selected = section == currentSection
+//
+//            val iconRes = if (selected) section.selectedIcon else section.icon
+//
+//            BottomNavigationItem(
+//                icon = {
+//                    Icon(
+//                        painter = painterResource(id = iconRes),
+//                        modifier = Modifier.size(24.dp),
+//                        contentDescription = "Bottom nav icons"
+//                    )
+//                },
+//                selected = selected,
+//                unselectedContentColor = Color.Gray,
+//                selectedContentColor = colorPrimary,
+//                onClick = { onSectionSelected(section) },
+//                alwaysShowLabel = false
+//            )
+//        }
+//    }
 }
 @Preview
 @Composable

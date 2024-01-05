@@ -18,6 +18,7 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -38,8 +39,8 @@ import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.node.CanFocusChecker.end
-import androidx.compose.ui.node.CanFocusChecker.start
+//import androidx.compose.ui.node.CanFocusChecker.end
+//import androidx.compose.ui.node.CanFocusChecker.start
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -48,14 +49,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.constraintlayout.compose.ConstraintLayout
+//import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.android.volley.toolbox.ImageRequest
-import com.example.foodstore.R
-import com.example.foodstore.navigation.Screen
-import com.example.foodstore.ui.theme.*
+//import com.android.volley.toolbox.ImageRequest
+//import com.example.foodstore.R
+//import com.example.foodstore.navigation.Screen
+//import com.example.foodstore.ui.theme.*
 import com.example.vp_alp.R
 import com.example.vp_alp_new.ui.ListScreen
 import com.example.vp_alp_new.ui.theme.black
@@ -64,7 +65,7 @@ import com.example.vp_alp_new.ui.theme.ghost_white
 import com.example.vp_alp_new.ui.theme.light_gray
 import com.example.vp_alp_new.ui.theme.pink
 import com.example.vp_alp_new.ui.theme.white
-import com.squareup.picasso.Picasso
+//import com.squareup.picasso.Picasso
 import kotlinx.coroutines.delay
 
 
@@ -76,23 +77,23 @@ fun HomeScreen(navController: NavController) {
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ) {
-        ConstraintLayout {
+//        ConstraintLayout {
+//
+//            val (logoimageref, loginformref) = createRefs()
+//
+//            Box(contentAlignment = Alignment.Center,
+//                modifier = Modifier
+//                    .height(100.dp)
+//                    .constrainAs(logoimageref) {
+//                        top.linkTo(loginformref.top)
+//                        bottom.linkTo(loginformref.top)
+//                        start.linkTo(parent.start)
+//                        end.linkTo(parent.end)
+//                    }) {
+//                HeaderHome(navController)
+//            }
 
-            val (logoimageref, loginformref) = createRefs()
-
-            Box(contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .height(100.dp)
-                    .constrainAs(logoimageref) {
-                        top.linkTo(loginformref.top)
-                        bottom.linkTo(loginformref.top)
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
-                    }) {
-                HeaderHome(navController)
-            }
-
-            var useremail by remember { mutableStateOf("") }
+//            var useremail by remember { mutableStateOf("") }
 
 
             Surface(
@@ -104,11 +105,11 @@ fun HomeScreen(navController: NavController) {
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(top = 40.dp)
-                    .constrainAs(loginformref) {
-                        bottom.linkTo(parent.bottom)
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
-                    }
+//                    .constrainAs(loginformref) {
+//                        bottom.linkTo(parent.bottom)
+//                        start.linkTo(parent.start)
+//                        end.linkTo(parent.end)
+//                    }
             ) {
                 Column(
                     modifier = Modifier
@@ -131,13 +132,13 @@ fun HomeScreen(navController: NavController) {
 
         }
     }
-}
 
 @Preview
 @Composable
 fun HomeScreenPreview() = HomeScreen(NavController(LocalContext.current))
 
-@Preview
+//@Preview
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HeaderHome(navController: NavController?) {
     Image(
@@ -197,7 +198,7 @@ fun HeaderHome(navController: NavController?) {
                     )
                 },
                 colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = white,
+//                    backgroundColor = white,
                     focusedIndicatorColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent,
                     disabledIndicatorColor = Color.Transparent
@@ -318,7 +319,7 @@ fun CategoryView(navController : NavController) {
                 backgroundColor = Color(0xffFFFFFF),
                 navController = navController
             )
-            Text(text = "Near Me", style = MaterialTheme.typography.caption)
+//            Text(text = "Near Me", style = MaterialTheme.typography.caption)
         }
 
         Column() {
@@ -327,7 +328,7 @@ fun CategoryView(navController : NavController) {
                 backgroundColor = Color(0xffFFFFFF),
                 navController = navController
             )
-            Text(text = "Best Seller", style = MaterialTheme.typography.caption)
+//            Text(text = "Best Seller", style = MaterialTheme.typography.caption)
         }
         Column() {
             CategoryButton(
@@ -335,7 +336,7 @@ fun CategoryView(navController : NavController) {
                 backgroundColor = Color(0xffFFFFFF),
                 navController = navController
             )
-            Text(text = "Hemat < 25K", style = MaterialTheme.typography.caption)
+//            Text(text = "Hemat < 25K", style = MaterialTheme.typography.caption)
         }
 
     }
@@ -351,7 +352,7 @@ fun CategoryView(navController : NavController) {
                 backgroundColor = Color(0xffFFFFFF),
                 navController = navController
             )
-            Text(text = "Foods", style = MaterialTheme.typography.caption)
+//            Text(text = "Foods", style = MaterialTheme.typography.caption)
         }
 
         Column() {
@@ -360,7 +361,7 @@ fun CategoryView(navController : NavController) {
                 backgroundColor = Color(0xffFFFFFF),
                 navController = navController
             )
-            Text(text = "Drink", style = MaterialTheme.typography.caption)
+//            Text(text = "Drink", style = MaterialTheme.typography.caption)
         }
         Column() {
             CategoryButton(

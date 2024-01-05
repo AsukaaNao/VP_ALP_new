@@ -16,7 +16,6 @@ import com.example.vp_alp_new.data.DataStoreManager
 import com.example.vp_alp_new.repository.MyDBContainer
 import com.example.vp_alp_new.ui.view.LoginScreen
 import com.example.vp_alp_new.ui.view.landing
-import com.example.vp_alp_new.ui.view.nearme
 import com.example.vp_alp_new.viewModel.FoodReviewUIState
 import com.example.vp_alp_new.viewModel.FoodReviewViewModel
 import com.example.vp_alp_new.viewModel.ListRestoUIState
