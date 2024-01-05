@@ -1,12 +1,22 @@
 package com.example.vp_alp_new.repository
 
 
-
 import com.example.vp_alp_new.service.MyDBService
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+
+class AuthInterceptor(private val bearerToken: String) : Interceptor {
+    override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
+        val originalRequest = chain.request()
+        val request = originalRequest.newBuilder()
+            .header("Authorization", "Bearer $bearerToken")
+            .build()
+        return chain.proceed(request)
+    }
+}
 class MyDBContainer() {
 
     companion object{
@@ -29,8 +39,7 @@ class MyDBContainer() {
     private val retrofitService: MyDBService by lazy{
         retrofit.create(MyDBService::class.java)
     }
-
-    val myDBRepositories: MyDBRepositories by lazy{
-        MyDBRepositories(retrofitService)
+    val myDBRepositories: MyDBRepository by lazy{
+        MyDBRepository(retrofitService)
     }
 }

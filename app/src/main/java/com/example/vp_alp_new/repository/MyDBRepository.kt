@@ -1,10 +1,10 @@
 package com.example.vp_alp_new.repository
-
 import com.example.vp_alp_new.model.User
 import com.example.vp_alp_new.service.MyDBService
+import okhttp3.Interceptor
 import java.net.HttpURLConnection
 
-class MyDBRepositories(private val myDBService: MyDBService) {
+class MyDBRepository(private val myDBService: MyDBService) {
 
     suspend fun login(email: String, password: String): String{
         val user = User(email = email, password = password)
