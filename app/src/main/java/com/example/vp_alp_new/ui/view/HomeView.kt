@@ -392,21 +392,30 @@ fun HomeView(nearcardlist:List<near>) {
 
 
             val context = LocalContext.current
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(1),
-                modifier = Modifier.padding(top = 10.dp).height(300.dp)
+            Column(
+                modifier = Modifier.padding(top = 10.dp)
             ) {
-                items(nearcardlist){
+                nearcardlist.forEach { item ->
+                    // Buat elemen UI untuk setiap item dalam daftar
                     RestoCard(
-                        it,
+                        item,
                         Modifier
                             .padding(4.dp)
 
                     )
                 }
-                item {
-                    Spacer(modifier = Modifier.height(80.dp))
-                }
+
+//                items(nearcardlist){
+//                    RestoCard(
+//                        it,
+//                        Modifier
+//                            .padding(4.dp)
+//
+//                    )
+//                }
+//                item {
+//                    Spacer(modifier = Modifier.height(80.dp))
+//                }
 
             }
         }
