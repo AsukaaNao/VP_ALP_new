@@ -130,11 +130,9 @@ fun RestoAppsRoute() {
 
             composable(ListScreen.Login.name) {
                 if (MyDBContainer.ACCESS_TOKEN.isEmpty()) {
-                    val loginViewModel: LoginViewModel = viewModel()
                     LoginScreen(
-//                        loginViewModel = loginViewModel,
                         navController = navController,
-//                        dataStore = dataStore
+                        dataStore = dataStore
                     )
                 } else {
 //                    navController.navigate(ListScreen.ListMovie.name) {
