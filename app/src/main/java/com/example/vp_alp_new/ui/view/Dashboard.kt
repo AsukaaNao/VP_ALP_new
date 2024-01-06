@@ -57,7 +57,8 @@ fun Dashboard(
         ) { section ->
             when (section) {
                 DashboardSection.Home -> HomeView(loadNear())
-                DashboardSection.Search -> SearchingScreen(navController)
+                DashboardSection.Search -> SearchingScreen(loadNear())
+//                DashboardSection.Search -> SearchingScreen(navController)
                 DashboardSection.Favorite -> LikedListView(loadNear())
                 DashboardSection.Profile -> AccountView()
             }
