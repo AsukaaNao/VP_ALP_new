@@ -21,31 +21,30 @@ class LoginViewModel: ViewModel() {
         context: Context,
         navController: NavController,
         dataStore: DataStoreManager
-    ){
+    ) {
         viewModelScope.launch {
             val token = MyDBContainer().myDBRepositories.login(email, password)
-            if(token.equals("Incorrect Password", true)){
+            if (token.equals("Incorrect Password", true)) {
                 Toast.makeText(context, token, Toast.LENGTH_LONG).show()
-            }else if(token.equals("User not found", true)){
+            } else if (token.equals("User not found", true)) {
                 Toast.makeText(context, token, Toast.LENGTH_LONG).show()
-            }else{
-//                navController.navigate(ListScreen.ListMovie.name){
-//                    popUpTo(ListScreen.Login.name){inclusive = true}
-//                }
-//                dataStore.saveToken(token)
-//
-//                dataStore.getToken.collect{token->
-//                    if(token != null){
-//                        MyDBContainer.ACCESS_TOKEN = token
-//                    }
+            } else {
+                navController.navigate(ListScreen.Landing.name)
+                dataStore.saveToken(token)
+
+                dataStore.getToken.collect { token ->
+                    if (token != null) {
+                        MyDBContainer.ACCESS_TOKEN = token
+                    }
                 }
             }
         }
 
 
 
-    fun ButtonRegister(){
+        fun ButtonRegister() {
+
+        }
 
     }
-
 }
