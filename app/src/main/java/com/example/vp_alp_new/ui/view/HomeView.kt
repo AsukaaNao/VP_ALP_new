@@ -2,16 +2,20 @@ package com.example.vp_alp_new.ui.view
 
 import android.widget.Toast
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -24,8 +28,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.LocationOn
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -34,8 +43,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -45,6 +58,9 @@ import com.example.vp_alp.R
 import com.example.vp_alp_new.data.loadNear
 import com.example.vp_alp_new.model.near
 
+private val Orange = Color(0xFFFF9F1C)
+private val Kuning = Color(0xFFFFE456)
+
 @Composable
 fun HomeView(nearcardlist:List<near>) {
 
@@ -53,55 +69,343 @@ fun HomeView(nearcardlist:List<near>) {
 
     //tambahin sini tepher
 
+    val backgound = listOf(Orange, Kuning)
+    var searchresult by remember { mutableStateOf("") }
+
+    // Shape for the search bar with rounded corners
+    val shape: Shape = RoundedCornerShape(16.dp)
+
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(20.dp)
+            .background(
+                Brush.horizontalGradient(
+                    backgound
+                )
+            )
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 4.dp)
-
+                .padding(20.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.baseline_arrow_back_24),
-                contentDescription = "image description",
-                contentScale = ContentScale.None,
-                modifier = Modifier.padding(end=16.dp)
-            )
-            Text(
-                text = "Wishlist",
-                style = TextStyle(
-                    fontSize = 20.sp,
-                    lineHeight = 21.sp,
-//                    fontFamily = FontFamily(Font(R.font.inter)),
-                    fontWeight = FontWeight(500),
-                    color = Color(0xFF000000),
-
+            Row (
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                Icon(
+                    imageVector = Icons.Rounded.LocationOn,
+                    contentDescription = "Back",
+                    tint = Color.White,
+                    modifier = Modifier
+                        .padding(horizontal = 5.dp)
+                        .clickable(
+                            onClick = {
+                                //masi gatau
+                            }
+                        )
+                )
+                Text(
+                    text = "Denver Apartment",
+                    color = Color.White,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier
+                        .padding(horizontal = 5.dp)
+                )
+            }
+            Icon(
+                imageVector = Icons.Filled.Favorite,
+                contentDescription = "Back",
+                tint = Color.White,
+                modifier = Modifier
+                    .padding(horizontal = 5.dp)
+                    .clickable(
+                        onClick = {
+                            //masi gatau
+                        }
                     )
             )
 
+
+
         }
-        val context = LocalContext.current
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(1),
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp)
+                .padding(start = 20.dp, end = 20.dp, bottom = 7.dp)
+                .background(Color.White, RoundedCornerShape(10.dp)),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(nearcardlist){
-                RestoCard(
-                    it,
-                    Modifier
-                        .padding(4.dp)
+            // Search icon
+            Icon(
+                imageVector = Icons.Default.Search,
+                contentDescription = "Search",
+                tint = Orange,
+                modifier = Modifier.padding(start = 10.dp)
+            )
 
-                )
-            }
-            item {
-                Spacer(modifier = Modifier.height(80.dp))
-            }
+            // Search TextField
+            BasicTextField(
+                value = searchresult,
+                onValueChange = {
+                    searchresult = it
+//                    onSearch(it)
+                },
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    imeAction = ImeAction.Search
+                ),
+                singleLine = true,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+            )
 
-
+            // You can add a button here for additional actions if needed
         }
+
+
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.White, RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp))
+                .padding(20.dp)
+        ) {
+
+            Image(
+                painter = painterResource(id = R.drawable.__banner_bm_mbm_take_away_nasional2),
+                contentDescription ="",
+                modifier = Modifier
+                    .width(400.dp)
+                    .clip(RoundedCornerShape(20.dp))
+                    .padding(bottom = 10.dp),
+            )
+
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(3),
+            ){
+                item {
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier
+                            .height(100.dp)
+                            .width(100.dp)
+                            .padding(horizontal = 10.dp, vertical = 5.dp)
+                            .border(1.dp, Color.LightGray, shape = RoundedCornerShape(10.dp))
+                            .clickable(
+                                onClick = {
+                                    //masi gatau
+                                }
+                            )
+                    ){
+                        Column (
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ){
+                            Image(
+                                painter = painterResource(id = R.drawable.near),
+                                contentDescription ="",
+                                modifier = Modifier
+                                    .width(70.dp)
+                                    .height(70.dp)
+                            )
+                            Text(
+                                text = "Near Me",
+                                fontWeight = FontWeight.Medium,
+                                fontSize = 12.sp
+                            )
+                        }
+                    }
+                }
+                item {
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier
+                            .height(100.dp)
+                            .width(100.dp)
+                            .padding(horizontal = 10.dp, vertical = 5.dp)
+                            .border(1.dp, Color.LightGray, shape = RoundedCornerShape(10.dp))
+                            .clickable(
+                                onClick = {
+                                    //masi gatau
+                                }
+                            )
+                    ){
+                        Column (
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ){
+                            Image(
+                                painter = painterResource(id = R.drawable.bestseller),
+                                contentDescription ="",
+                                modifier = Modifier
+                                    .width(70.dp)
+                                    .height(70.dp)
+                            )
+                            Text(
+                                text = "Best Sellers",
+                                fontWeight = FontWeight.Medium,
+                                fontSize = 12.sp
+                            )
+                        }
+                    }
+                }
+                item {
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier
+                            .height(100.dp)
+                            .width(100.dp)
+                            .padding(horizontal = 10.dp, vertical = 5.dp)
+                            .border(1.dp, Color.LightGray, shape = RoundedCornerShape(10.dp))
+                            .clickable(
+                                onClick = {
+                                    //masi gatau
+                                }
+                            )
+                    ){
+                        Column (
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ){
+                            Image(
+                                painter = painterResource(id = R.drawable.screenshot_2023_11_25_160959),
+                                contentDescription ="",
+                                modifier = Modifier
+                                    .width(70.dp)
+                                    .height(70.dp)
+                            )
+                            Text(
+                                text = "Hemat <25k",
+                                fontWeight = FontWeight.Medium,
+                                fontSize = 12.sp
+                            )
+                        }
+                    }
+                }
+                item {
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier
+                            .height(100.dp)
+                            .width(100.dp)
+                            .padding(horizontal = 10.dp, vertical = 5.dp)
+                            .border(1.dp, Color.LightGray, shape = RoundedCornerShape(10.dp))
+                            .clickable(
+                                onClick = {
+                                    //masi gatau
+                                }
+                            )
+                    ){
+                        Column (
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ){
+                            Image(
+                                painter = painterResource(id = R.drawable.foods),
+                                contentDescription ="",
+                                modifier = Modifier
+                                    .width(70.dp)
+                                    .height(70.dp)
+                            )
+                            Text(
+                                text = "Foods",
+                                fontWeight = FontWeight.Medium,
+                                fontSize = 12.sp
+                            )
+                        }
+                    }
+                }
+                item {
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier
+                            .height(100.dp)
+                            .width(100.dp)
+                            .padding(horizontal = 10.dp, vertical = 5.dp)
+                            .border(1.dp, Color.LightGray, shape = RoundedCornerShape(10.dp))
+                            .clickable(
+                                onClick = {
+                                    //masi gatau
+                                }
+                            )
+                    ){
+                        Column (
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ){
+                            Image(
+                                painter = painterResource(id = R.drawable.drinks),
+                                contentDescription ="",
+                                modifier = Modifier
+                                    .width(70.dp)
+                                    .height(70.dp)
+                            )
+                            Text(
+                                text = "Drinks",
+                                fontWeight = FontWeight.Medium,
+                                fontSize = 12.sp
+                            )
+                        }
+                    }
+                }
+                item {
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier
+                            .height(100.dp)
+                            .width(100.dp)
+                            .padding(horizontal = 10.dp, vertical = 5.dp)
+                            .border(1.dp, Color.LightGray, shape = RoundedCornerShape(10.dp))
+                            .clickable(
+                                onClick = {
+                                    //masi gatau
+                                }
+                            )
+                    ){
+                        Column (
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ){
+                            Image(
+                                painter = painterResource(id = R.drawable.bestseller),
+                                contentDescription ="",
+                                modifier = Modifier
+                                    .width(70.dp)
+                                    .height(70.dp)
+                            )
+                            Text(
+                                text = "Snacks",
+                                fontWeight = FontWeight.Medium,
+                                fontSize = 12.sp
+                            )
+                        }
+                    }
+                }
+            }
+
+
+
+            val context = LocalContext.current
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(1),
+                modifier = Modifier.padding(top = 10.dp)
+            ) {
+                items(nearcardlist){
+                    RestoCard(
+                        it,
+                        Modifier
+                            .padding(4.dp)
+
+                    )
+                }
+                item {
+                    Spacer(modifier = Modifier.height(80.dp))
+                }
+
+            }
+        }
+
 
 
 
