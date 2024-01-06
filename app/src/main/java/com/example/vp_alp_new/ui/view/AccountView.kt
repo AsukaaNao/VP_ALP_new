@@ -179,8 +179,8 @@ fun template(text:String) {
     )
 }
 
-@Preview(showSystemUi = true, showBackground = true)
-@Composable
-fun AccountPreview() {
-    AccountView()
-}
+//@Preview(showSystemUi = true, showBackground = true)
+//@Composable
+//fun AccountPreview() {
+//    AccountView()
+//}
