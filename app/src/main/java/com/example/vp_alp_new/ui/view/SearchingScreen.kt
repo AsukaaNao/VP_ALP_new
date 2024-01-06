@@ -23,11 +23,17 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.BlendMode.Companion.Screen
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -36,86 +42,92 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintLayout
+//import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
-import com.example.foodstore.ui.theme.*
-import com.example.foodstore.R
-import com.example.foodstore.navigation.Screen
+//import com.example.foodstore.ui.theme.*
+//import com.example.foodstore.R
+//import com.example.foodstore.navigation.Screen
+import com.example.vp_alp_new.ui.ListScreen
+import com.example.vp_alp_new.ui.theme.black
+import com.example.vp_alp_new.ui.theme.colorPrimary
+import com.example.vp_alp_new.ui.theme.ghost_white
+import com.example.vp_alp_new.ui.theme.white
 
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
 @Composable
 fun SearchingScreen(navController:NavController?) {
     Box(modifier = Modifier
         .fillMaxSize()
         .verticalScroll(rememberScrollState())) {
-        ConstraintLayout {
-            val (cartitemsbgref, checkoutref) = createRefs()
-
-            Box(modifier = Modifier
-                .height(100.dp)
-                .constrainAs(cartitemsbgref) {
-                    top.linkTo(cartitemsbgref.top)
-                    bottom.linkTo(cartitemsbgref.top)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                }) {
-                HeaderCartSearchingItems(navController)
-            }
-
-            Surface(color = ghost_white,
-                shape = RoundedCornerShape(40.dp).copy(bottomStart = ZeroCornerSize,
-                    bottomEnd = ZeroCornerSize), modifier = Modifier
-                    .padding(top = 70.dp)
-                    .constrainAs(checkoutref) {
-                        bottom.linkTo(parent.bottom)
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
-                    }) {
-                Column(modifier = Modifier
-                    .fillMaxSize()
-                    .padding(20.dp))
-                {
-                    ButtonGroup(navController)
-                    Spacer(modifier = Modifier.padding(10.dp))
-                    ItemsBarang(navController)
-                    Spacer(modifier = Modifier.padding(10.dp))
-                    ItemsBarang2(navController)
-                    Spacer(modifier = Modifier.padding(10.dp))
-                    ItemsBarang(navController)
-                    Spacer(modifier = Modifier.padding(10.dp))
-                    ItemsBarang2(navController)
-                    Spacer(modifier = Modifier.padding(10.dp))
-                    ItemsBarang(navController)
-                    Spacer(modifier = Modifier.padding(10.dp))
-                    ItemsBarang2(navController)
-                    Spacer(modifier = Modifier.padding(10.dp))
-                    ItemsBarang(navController)
-                    Spacer(modifier = Modifier.padding(10.dp))
-                    ItemsBarang2(navController)
-                    Spacer(modifier = Modifier.padding(10.dp))
-                    ItemsBarang(navController)
-                    Spacer(modifier = Modifier.padding(10.dp))
-                    ItemsBarang2(navController)
-                    Spacer(modifier = Modifier.padding(10.dp))
-//                    Spacer(modifier = Modifier.padding(20.dp))
-//                    ApplyCoupons()
+//        ConstraintLayout {
+//            val (cartitemsbgref, checkoutref) = createRefs()
+//
+//            Box(modifier = Modifier
+//                .height(100.dp)
+//                .constrainAs(cartitemsbgref) {
+//                    top.linkTo(cartitemsbgref.top)
+//                    bottom.linkTo(cartitemsbgref.top)
+//                    start.linkTo(parent.start)
+//                    end.linkTo(parent.end)
+//                }) {
+//                HeaderCartSearchingItems(navController)
+//            }
+//
+//            Surface(color = ghost_white,
+//                shape = RoundedCornerShape(40.dp).copy(bottomStart = ZeroCornerSize,
+//                    bottomEnd = ZeroCornerSize), modifier = Modifier
+//                    .padding(top = 70.dp)
+//                    .constrainAs(checkoutref) {
+//                        bottom.linkTo(parent.bottom)
+//                        start.linkTo(parent.start)
+//                        end.linkTo(parent.end)
+//                    }) {
+//                Column(modifier = Modifier
+//                    .fillMaxSize()
+//                    .padding(20.dp))
+//                {
+//                    ButtonGroup(navController)
 //                    Spacer(modifier = Modifier.padding(10.dp))
-//                    CheckoutDetailss()
-                }
-            }
-        }
+//                    ItemsBarang(navController)
+//                    Spacer(modifier = Modifier.padding(10.dp))
+//                    ItemsBarang2(navController)
+//                    Spacer(modifier = Modifier.padding(10.dp))
+//                    ItemsBarang(navController)
+//                    Spacer(modifier = Modifier.padding(10.dp))
+//                    ItemsBarang2(navController)
+//                    Spacer(modifier = Modifier.padding(10.dp))
+//                    ItemsBarang(navController)
+//                    Spacer(modifier = Modifier.padding(10.dp))
+//                    ItemsBarang2(navController)
+//                    Spacer(modifier = Modifier.padding(10.dp))
+//                    ItemsBarang(navController)
+//                    Spacer(modifier = Modifier.padding(10.dp))
+//                    ItemsBarang2(navController)
+//                    Spacer(modifier = Modifier.padding(10.dp))
+//                    ItemsBarang(navController)
+//                    Spacer(modifier = Modifier.padding(10.dp))
+//                    ItemsBarang2(navController)
+//                    Spacer(modifier = Modifier.padding(10.dp))
+////                    Spacer(modifier = Modifier.padding(20.dp))
+////                    ApplyCoupons()
+////                    Spacer(modifier = Modifier.padding(10.dp))
+////                    CheckoutDetailss()
+//                }
+//            }
+//        }
     }
 }
 
-@Preview
+//@Preview
 @Composable
 fun HeaderCartSearchingItems(navController: NavController?) {
-    Image(
-        painter = painterResource(id = R.drawable.login_bg),
-        contentDescription = "login bg",
-        contentScale = ContentScale.FillWidth,
-        modifier = Modifier.fillMaxSize()
-    )
+//    Image(
+//        painter = painterResource(id = R.drawable.login_bg),
+//        contentDescription = "login bg",
+//        contentScale = ContentScale.FillWidth,
+//        modifier = Modifier.fillMaxSize()
+//    )
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -124,7 +136,7 @@ fun HeaderCartSearchingItems(navController: NavController?) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         IconButton(onClick = {
-            navController?.navigate(Screen.HomeScreen.route)
+            navController?.navigate(ListScreen.Home.name)
         }) {
             Icon(
                 modifier = Modifier.size(32.dp, 32.dp),
@@ -144,7 +156,7 @@ fun HeaderCartSearchingItems(navController: NavController?) {
     }
 }
 
-@Preview
+//@Preview
 @Composable
 fun ItemsBarang(navController: NavController?) {
 
@@ -164,12 +176,12 @@ fun ItemsBarang(navController: NavController?) {
                     .height(70.dp)
                     .clip(RoundedCornerShape(12.dp)),
             ) {
-                Image(
-                    modifier = Modifier
-                        .size(70.dp),
-                    painter = painterResource(R.drawable.keprabon),
-                    contentDescription = "",
-                )
+//                Image(
+//                    modifier = Modifier
+//                        .size(70.dp),
+//                    painter = painterResource(R.drawable.keprabon),
+//                    contentDescription = "",
+//                )
             }
 
             Column(
@@ -180,7 +192,7 @@ fun ItemsBarang(navController: NavController?) {
                     .wrapContentHeight()
             ) {
                 IconButton(onClick = {
-                    navController?.navigate(Screen.RestoDetailsScreen.route)
+//                    navController?.navigate(Screen.RestoDetailsScreen.route)
                 }) {
                     Text(
                         text = "Ayam Keprabon - GWalk",
@@ -220,7 +232,7 @@ fun ItemsBarang(navController: NavController?) {
     }
 }
 
-@Preview
+//@Preview
 @Composable
 fun ItemsBarang2(navController: NavController?) {
     Box(modifier = Modifier
@@ -239,12 +251,12 @@ fun ItemsBarang2(navController: NavController?) {
                     .height(70.dp)
                     .clip(RoundedCornerShape(12.dp)),
             ) {
-                Image(
-                    modifier = Modifier
-                        .size(70.dp),
-                    painter = painterResource(R.drawable.roasted),
-                    contentDescription = "",
-                )
+//                Image(
+//                    modifier = Modifier
+//                        .size(70.dp),
+//                    painter = painterResource(R.drawable.roasted),
+//                    contentDescription = "",
+//                )
             }
 
             Column(
@@ -255,7 +267,7 @@ fun ItemsBarang2(navController: NavController?) {
                     .wrapContentHeight()
             ) {
                 IconButton(onClick = {
-                    navController?.navigate(Screen.RestoDetailsScreen.route)
+//                    navController?.navigate(Screen.RestoDetailsScreen.route)
                 }) {
                     Text(
                         text = "Ayam Lodoho - GWalk",
@@ -270,7 +282,7 @@ fun ItemsBarang2(navController: NavController?) {
                     IconButton(
                         modifier = Modifier.size(20.dp),
                         onClick = {
-                            navController?.navigate(Screen.RestoReviewScreen.route)
+//                            navController?.navigate(Screen.RestoReviewScreen.route)
                         }) {
                         Icon(
                             imageVector = Icons.Default.Star,
@@ -283,7 +295,7 @@ fun ItemsBarang2(navController: NavController?) {
                     IconButton(
                         modifier = Modifier.size(20.dp),
                         onClick = {
-                            navController?.navigate(Screen.RestoReviewScreen.route)
+//                            navController?.navigate(Screen.RestoReviewScreen.route)
                         }) {
                         Text(
                             text = "4.6",
@@ -308,7 +320,7 @@ fun ItemsBarang2(navController: NavController?) {
     }
 }
 
-@Preview
+//@Preview
 @Composable
 fun ButtonGroup(navController: NavController?){
     Row (
@@ -319,136 +331,136 @@ fun ButtonGroup(navController: NavController?){
     ) {
         var searchfield by remember { mutableStateOf("") }
 
-        TextField(
-            value = searchfield,
-            leadingIcon = {
-                Row(
+//        TextField(
+//            value = searchfield,
+//            leadingIcon = {
+//                Row(
 //                        modifier = Modifier.wrapContentWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    content = {
-                        IconButton(
-                            modifier = Modifier.size(24.dp),
-                            onClick = {
-                                navController?.navigate(Screen.SearchScreen.route)
-                            }) {
-                            Icon(
-                                imageVector = Icons.Default.Search,
-                                contentDescription = "Search",
-                                tint = colorPrimary,
-                                modifier = Modifier.size(24.dp, 24.dp)
-                            )
-                        }
-                        Canvas(
-                            modifier = Modifier
-                                .height(24.dp)
-                                .padding(start = 10.dp)
-                        ) {
-                            drawLine(
-                                color = light_gray,
-                                start = Offset(0f, 0f),
-                                end = Offset(0f, size.height),
-                                strokeWidth = 2.0F
-                            )
-                        }
+//                    verticalAlignment = Alignment.CenterVertically,
+//                    content = {
+//                        IconButton(
+//                            modifier = Modifier.size(24.dp),
+//                            onClick = {
+//                                navController?.navigate(Screen.SearchScreen.route)
+//                            }) {
+//                            Icon(
+//                                imageVector = Icons.Default.Search,
+//                                contentDescription = "Search",
+//                                tint = colorPrimary,
+//                                modifier = Modifier.size(24.dp, 24.dp)
+//                            )
+//                        }
+//                        Canvas(
+//                            modifier = Modifier
+//                                .height(24.dp)
+//                                .padding(start = 10.dp)
+//                        ) {
+////                            drawLine(
+////                                color = light_gray,
+//                                start = Offset(0f, 0f),
+//                                end = Offset(0f, size.height),
+//                                strokeWidth = 2.0F
+//                            )
+//                        }
+//
+//                    }
+//                )
+//            },
+////            colors = TextFieldDefaults.textFieldColors(
+//                backgroundColor = white,
+//                focusedIndicatorColor = Color.Transparent,
+//                unfocusedIndicatorColor = Color.Transparent,
+//                disabledIndicatorColor = Color.Transparent
+//            ),
+//            modifier = Modifier
+//                .fillMaxWidth(),
+//            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+//            label = { Text(text = "Comments") },
+//            shape = RoundedCornerShape(8.dp),
+//            onValueChange = {
+//                searchfield = it
+//            }
+//        )
 
-                    }
-                )
-            },
-            colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = white,
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent,
-                disabledIndicatorColor = Color.Transparent
-            ),
-            modifier = Modifier
-                .fillMaxWidth(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-            label = { Text(text = "Comments") },
-            shape = RoundedCornerShape(8.dp),
-            onValueChange = {
-                searchfield = it
-            }
-        )
+//    }
+//    Row(
+//        modifier = Modifier
+//            .fillMaxWidth(),
+//        horizontalArrangement = Arrangement.SpaceBetween,
+//        verticalAlignment = Alignment.CenterVertically
+//    ) {
 
-    }
-    Row(
-        modifier = Modifier
-            .fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
+//        IconButton(onClick = {
+//            navController?.navigate(Screen.NearMeScreen.route)
+//        }) {
+//            ButtonGroup(
+//                onClick = {
+//
+//                },
+//                colors = ButtonDefaults.buttonColors(backgroundColor = dark_gray),
+//                modifier = Modifier
+//                    .padding(
+//                        top = 4.dp,
+//                        bottom = 4.dp
+//                    ),
+//                shape = RoundedCornerShape(8.dp)
+//            ) {
+//                Text(
+//                    text = "Near Me",
+//                    color = white,
+//                    style = MaterialTheme.typography.button,
+//                    modifier = Modifier.padding(top = 2.dp, bottom = 2.dp)
+//                )
+//            }
+//        }
 
-        IconButton(onClick = {
-            navController?.navigate(Screen.NearMeScreen.route)
-        }) {
-            Button(
-                onClick = {
+//        IconButton(onClick = {
+//            navController?.navigate(Screen.PopularListScreen.route)
+//        }) {
+//            Button(
+//                onClick = {
+//
+//                },
+//                colors = ButtonDefaults.buttonColors(backgroundColor = dark_gray),
+//                modifier = Modifier
+//                    .padding(
+//                        top = 4.dp,
+//                        bottom = 4.dp
+//                    ),
+//                shape = RoundedCornerShape(8.dp)
+//            ) {
+//                Text(
+//                    text = "Best Seller",
+//                    color = white,
+//                    style = MaterialTheme.typography.button,
+//                    modifier = Modifier.padding(top = 2.dp, bottom = 2.dp)
+//                )
+//            }
+//        }
 
-                },
-                colors = ButtonDefaults.buttonColors(backgroundColor = dark_gray),
-                modifier = Modifier
-                    .padding(
-                        top = 4.dp,
-                        bottom = 4.dp
-                    ),
-                shape = RoundedCornerShape(8.dp)
-            ) {
-                Text(
-                    text = "Near Me",
-                    color = white,
-                    style = MaterialTheme.typography.button,
-                    modifier = Modifier.padding(top = 2.dp, bottom = 2.dp)
-                )
-            }
-        }
-
-        IconButton(onClick = {
-            navController?.navigate(Screen.PopularListScreen.route)
-        }) {
-            Button(
-                onClick = {
-
-                },
-                colors = ButtonDefaults.buttonColors(backgroundColor = dark_gray),
-                modifier = Modifier
-                    .padding(
-                        top = 4.dp,
-                        bottom = 4.dp
-                    ),
-                shape = RoundedCornerShape(8.dp)
-            ) {
-                Text(
-                    text = "Best Seller",
-                    color = white,
-                    style = MaterialTheme.typography.button,
-                    modifier = Modifier.padding(top = 2.dp, bottom = 2.dp)
-                )
-            }
-        }
-
-        IconButton(onClick = {
-            navController?.navigate(Screen.SearchScreen.route)
-        }) {
-            Button(
-                onClick = {
-
-                },
-                colors = ButtonDefaults.buttonColors(backgroundColor = dark_gray),
-                modifier = Modifier
-                    .padding(
-                        top = 4.dp,
-                        bottom = 4.dp
-                    ),
-                shape = RoundedCornerShape(8.dp)
-            ) {
-                Text(
-                    text = "Hemat < 25K",
-                    color = white,
-                    style = MaterialTheme.typography.button,
-                    modifier = Modifier.padding(top = 2.dp, bottom = 2.dp)
-                )
-            }
-        }
+//        IconButton(onClick = {
+//            navController?.navigate(Screen.SearchScreen.route)
+//        }) {
+//            Button(
+//                onClick = {
+//
+//                },
+//                colors = ButtonDefaults.buttonColors(backgroundColor = dark_gray),
+//                modifier = Modifier
+//                    .padding(
+//                        top = 4.dp,
+//                        bottom = 4.dp
+//                    ),
+//                shape = RoundedCornerShape(8.dp)
+//            ) {
+//                Text(
+//                    text = "Hemat < 25K",
+//                    color = white,
+//                    style = MaterialTheme.typography.button,
+//                    modifier = Modifier.padding(top = 2.dp, bottom = 2.dp)
+//                )
+//            }
+//        }
 
 
     }
