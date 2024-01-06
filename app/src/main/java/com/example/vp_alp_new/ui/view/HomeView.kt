@@ -27,9 +27,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Search
@@ -74,6 +76,7 @@ fun HomeView(nearcardlist:List<near>) {
 
     // Shape for the search bar with rounded corners
     val shape: Shape = RoundedCornerShape(16.dp)
+    val scrollState = rememberScrollState()
 
 
     Column(
@@ -84,6 +87,7 @@ fun HomeView(nearcardlist:List<near>) {
                     backgound
                 )
             )
+            .verticalScroll(scrollState)
     ) {
         Row(
             modifier = Modifier
@@ -188,6 +192,7 @@ fun HomeView(nearcardlist:List<near>) {
             )
 
             LazyVerticalGrid(
+                modifier = Modifier.height(200.dp),
                 columns = GridCells.Fixed(3),
             ){
                 item {
@@ -389,7 +394,7 @@ fun HomeView(nearcardlist:List<near>) {
             val context = LocalContext.current
             LazyVerticalGrid(
                 columns = GridCells.Fixed(1),
-                modifier = Modifier.padding(top = 10.dp)
+                modifier = Modifier.padding(top = 10.dp).height(300.dp)
             ) {
                 items(nearcardlist){
                     RestoCard(
