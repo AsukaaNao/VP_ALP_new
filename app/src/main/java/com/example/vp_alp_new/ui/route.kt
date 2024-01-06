@@ -14,7 +14,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.vp_alp_new.data.DataStoreManager
 import com.example.vp_alp_new.repository.MyDBContainer
+import com.example.vp_alp_new.ui.view.AccountView
 import com.example.vp_alp_new.ui.view.LoginScreen
+import com.example.vp_alp_new.ui.view.RegisterView
 import com.example.vp_alp_new.ui.view.landing
 import com.example.vp_alp_new.viewModel.FoodReviewUIState
 import com.example.vp_alp_new.viewModel.FoodReviewViewModel
@@ -65,14 +67,14 @@ fun RestoAppsRoute() {
     Scaffold { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = ListScreen.Login.name,
+            startDestination = ListScreen.Register.name,
             modifier = Modifier.padding(innerPadding)
         ) {
             //list screeen dibawah ini yaa
 
 
             composable(ListScreen.Account.name) {
-
+                AccountView()
             }
 
             composable(ListScreen.AddRestoReview.name) {
@@ -134,9 +136,13 @@ fun RestoAppsRoute() {
                         dataStore = dataStore
                     )
                 } else {
-//                    navController.navigate(ListScreen.ListMovie.name) {
+//                    navController.navigate(ListScreen.Landing.name) {
 //                        popUpTo(ListScreen.Login.name) { inclusive = true }
 //                    }
+                    LoginScreen(
+                        navController = navController,
+                        dataStore = dataStore
+                    )
                 }
             }
             composable(ListScreen.NearMe.name) {
@@ -168,6 +174,7 @@ fun RestoAppsRoute() {
 
 
             composable(ListScreen.Register.name) {
+                RegisterView(navController = navController)
             }
 
             composable(ListScreen.RestoDetail.name) {

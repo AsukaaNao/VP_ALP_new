@@ -5,6 +5,7 @@ import com.example.vp_alp_new.model.User
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.PATCH
 import retrofit2.http.POST
 
@@ -26,7 +27,7 @@ interface MyDBService {
     @DELETE("delete_user")
     suspend fun deleteUser(): APIResponse
     @GET("user")
-    suspend fun getUserWithID(): APIResponse
+    suspend fun getUser(@Header("Authorization") token: String): User
 
     @GET("user_favresto")
     suspend fun favResto(): APIResponse

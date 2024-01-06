@@ -27,6 +27,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.vp_alp.R
 import com.example.vp_alp_new.data.DataStoreManager
+import com.example.vp_alp_new.ui.ListScreen
 import com.example.vp_alp_new.viewModel.LoginViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -187,7 +188,10 @@ fun LoginScreen(
                             fontWeight = FontWeight(700),
                             color = Color(0xFFFF9F1C),
                             textAlign = TextAlign.Center,
-                        )
+                        ),
+                        modifier = Modifier.clickable {
+                            navController.navigate(ListScreen.Register.name)
+                        }
                     )
                 }
             }

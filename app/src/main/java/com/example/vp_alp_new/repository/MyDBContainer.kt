@@ -1,6 +1,7 @@
 package com.example.vp_alp_new.repository
 
 
+import com.example.vp_alp_new.model.User
 import com.example.vp_alp_new.service.MyDBService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -20,8 +21,8 @@ class AuthInterceptor(private val bearerToken: String) : Interceptor {
 class MyDBContainer() {
 
     companion object{
-        val BASE_IMG = ""
         var ACCESS_TOKEN = ""
+        lateinit var user: User
     }
 
     private val BASE_URL = "http://192.168.0.110/api_alp_vp/public/api/"
