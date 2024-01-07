@@ -13,10 +13,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.vp_alp_new.data.DataStoreManager
+import com.example.vp_alp_new.data.loadNear
 import com.example.vp_alp_new.repository.MyDBContainer
 import com.example.vp_alp_new.ui.view.AccountView
+import com.example.vp_alp_new.ui.view.HomeView
 import com.example.vp_alp_new.ui.view.LoginScreen
 import com.example.vp_alp_new.ui.view.RegisterView
+import com.example.vp_alp_new.ui.view.nearmeView
 
 import com.example.vp_alp_new.viewModel.FoodReviewUIState
 import com.example.vp_alp_new.viewModel.FoodReviewViewModel
@@ -117,7 +120,19 @@ fun RestoAppsRoute() {
 
             }
             composable(ListScreen.Home.name) {
-
+                val listRestoViewModel: ListRestoViewModel = viewModel()
+                val status = listRestoViewModel.listRestoUIState
+                when (status){
+                    is ListRestoUIState.Loading -> {}
+                    is ListRestoUIState.Success -> HomeView(
+                        loadNear(),
+                        navController,
+                        onNearClick = {
+                            navController.navigate(ListScreen.NearMe.name)
+                        },
+                    )
+                    is ListRestoUIState.Error ->{}
+                }
             }
 
 
@@ -146,25 +161,17 @@ fun RestoAppsRoute() {
                 val listRestoViewModel: ListRestoViewModel = viewModel()
                 val status = listRestoViewModel.listRestoUIState
                 when (status) {
-                    is ListRestoUIState.Loading -> {}
-                    is ListRestoUIState.Success -> {}
-//                        nearme(
-                    //panggil api
-//                        movieList = status.data,
-//                        onFavClicked = {movie ->
-//                            listMovieViewModel.onFavClicked(movie)
-//                        },
-//                        onCardClick = {
-//                            navController.navigate(ListScreen.MovieDetail.name+"/"+it.id)
-//                        },
-//                        listRestoViewModel,
-//                        navController,
-//                        dataStore
-//                    )
-                    is ListRestoUIState.Error -> {}
+                    is ListRestoUIState.Loading -> {
+                        // Show a loading indicator or progress bar
+                    }
+                    is ListRestoUIState.Success -> {
+                        nearmeView(loadNear(), navController) // Call nearmeView passing the list of nearby places
+                    }
+                    is ListRestoUIState.Error -> {
+                        // Display an error message or handle the error state
+                    }
                 }
             }
-
 
 
 
