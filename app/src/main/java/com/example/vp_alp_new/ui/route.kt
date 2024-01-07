@@ -17,7 +17,7 @@ import com.example.vp_alp_new.repository.MyDBContainer
 import com.example.vp_alp_new.ui.view.AccountView
 import com.example.vp_alp_new.ui.view.LoginScreen
 import com.example.vp_alp_new.ui.view.RegisterView
-import com.example.vp_alp_new.ui.view.landing
+
 import com.example.vp_alp_new.viewModel.FoodReviewUIState
 import com.example.vp_alp_new.viewModel.FoodReviewViewModel
 import com.example.vp_alp_new.viewModel.ListRestoUIState
@@ -37,7 +37,6 @@ enum class ListScreen() {
     FoodDetail,
     FoodReview,
     Home,
-    Landing,
     LikedListResto,
     Login,
     NearMe,
@@ -120,9 +119,7 @@ fun RestoAppsRoute() {
             composable(ListScreen.Home.name) {
 
             }
-            composable(ListScreen.Landing.name) {
-                landing()
-            }
+
 
             composable(ListScreen.LikedListResto.name) {
 
