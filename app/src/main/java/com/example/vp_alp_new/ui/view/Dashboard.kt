@@ -118,7 +118,7 @@ fun BottomBarPreview() = BottomBar(
     items = DashboardSection.values().toList(),
 ) {}
 
-private enum class DashboardSection(
+enum class DashboardSection(
     val icon: Int,
     val selectedIcon: Int,
 ) {

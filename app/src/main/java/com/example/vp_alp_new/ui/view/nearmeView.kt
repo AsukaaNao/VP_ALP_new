@@ -40,15 +40,22 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.vp_alp.R
 
 import com.example.vp_alp_new.data.loadNear
 import com.example.vp_alp_new.model.near
+import com.example.vp_alp_new.viewModel.NearMeViewModel
 
 @Composable
-fun nearmeView(nearcardlist: List<near>, navController: NavController) {
+fun nearmeView(
+    viewModel: NearMeViewModel = viewModel(),
+    nearcardlist:List<near>,
+    navController: NavController
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -128,5 +135,5 @@ fun nearmeView(nearcardlist: List<near>, navController: NavController) {
 @Composable
 fun nearmePreview() {
     val navController = rememberNavController()
-    nearmeView(loadNear(),navController = navController)
+    nearmeView(nearcardlist = loadNear(),navController = navController)
 }
