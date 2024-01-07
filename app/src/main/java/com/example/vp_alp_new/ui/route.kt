@@ -137,7 +137,7 @@ fun BottomBar2(
 fun RestoAppsRoute() {
     val navController = rememberNavController()
     val dataStore = DataStoreManager(LocalContext.current)
-    var bottomBarYes by remember { mutableStateOf(false) }
+    var bottomBarYes by remember { mutableStateOf(true) }
 
     val sectionState = remember { mutableStateOf(DashboardSection.Home) }
     val navItems = DashboardSection.values().toList()
@@ -177,7 +177,7 @@ fun RestoAppsRoute() {
         }
         NavHost(
             navController = navController,
-            startDestination = ListScreen.Register.name,
+            startDestination = ListScreen.Login.name,
             modifier = Modifier.padding(innerPadding)
         ) {
             //list screeen dibawah ini yaa

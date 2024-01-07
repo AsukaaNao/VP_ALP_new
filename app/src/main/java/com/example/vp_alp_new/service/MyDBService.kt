@@ -1,7 +1,9 @@
 package com.example.vp_alp_new.service
 
 import com.example.vp_alp_new.model.APIResponse
+import com.example.vp_alp_new.model.Restaurant
 import com.example.vp_alp_new.model.User
+import com.example.vp_alp_new.model.near
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -19,7 +21,10 @@ interface MyDBService {
     suspend fun register(@Body user: User): APIResponse
 
     @GET("all_resto")
-    suspend fun all_resto(): APIResponse
+    suspend fun all_resto2(@Header("Authorization") token: String): List<near>
+
+    @GET("all_resto")
+    suspend fun all_resto(@Header("Authorization") token: String): List<Restaurant>
 
 //    @PATCH("update_user")
 //    suspend fun updateUser(@Body request: UpdateUserRequest): APIResponse

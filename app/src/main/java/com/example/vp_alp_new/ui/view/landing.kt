@@ -26,8 +26,6 @@ import android.os.PersistableBundle
 import android.window.SplashScreen
 
 import androidx.activity.compose.setContent
-import androidx.core.content.ContextCompat.startActivity
-import com.example.vp_alp_new.MainActivity
 
 
 @SuppressLint("CustomSplashScreen")
