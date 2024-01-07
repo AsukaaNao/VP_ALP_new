@@ -67,7 +67,7 @@ private val Orange = Color(0xFFFF9F1C)
 private val Kuning = Color(0xFFFFE456)
 
 @Composable
-fun HomeView(nearcardlist:List<near>, navController: NavController,
+fun HomeView(nearcardlist:List<near>,  navController: NavController,
 
              onNearClick: () -> Unit,
 ) {
