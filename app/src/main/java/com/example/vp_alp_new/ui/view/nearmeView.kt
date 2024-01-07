@@ -42,6 +42,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.vp_alp.R
 
 import com.example.vp_alp_new.data.loadNear
@@ -51,7 +53,8 @@ import com.example.vp_alp_new.viewModel.NearMeViewModel
 @Composable
 fun nearmeView(
     viewModel: NearMeViewModel = viewModel(),
-    nearcardlist:List<near>
+    nearcardlist:List<near>,
+    navController: NavController
 ) {
     Column(
         modifier = Modifier
@@ -62,6 +65,10 @@ fun nearmeView(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 4.dp)
+                .clickable {
+                    // Navigate back when the arrow back is clicked
+                    navController.popBackStack()
+                }
 
         ) {
             Image(
@@ -124,10 +131,9 @@ fun nearmeView(
 
 
 
-
-@Preview(showBackground = true, showSystemUi = true)
+@Preview
 @Composable
-fun nearmePreview(){
-    nearmeView(nearcardlist = loadNear())
-
+fun nearmePreview() {
+    val navController = rememberNavController()
+    nearmeView(nearcardlist = loadNear(),navController = navController)
 }

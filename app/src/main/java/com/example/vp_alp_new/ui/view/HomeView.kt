@@ -55,16 +55,22 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.vp_alp.R
 
 import com.example.vp_alp_new.data.loadNear
 import com.example.vp_alp_new.model.near
+import com.example.vp_alp_new.ui.ListScreen
 
 private val Orange = Color(0xFFFF9F1C)
 private val Kuning = Color(0xFFFFE456)
 
 @Composable
-fun HomeView(nearcardlist:List<near>) {
+fun HomeView(nearcardlist:List<near>,  navController: NavController,
+
+             onNearClick: () -> Unit,
+) {
 
 
 
@@ -205,7 +211,7 @@ fun HomeView(nearcardlist:List<near>) {
                             .border(1.dp, Color.LightGray, shape = RoundedCornerShape(10.dp))
                             .clickable(
                                 onClick = {
-                                    //masi gatau
+                                    onNearClick()
                                 }
                             )
                     ){
@@ -392,21 +398,30 @@ fun HomeView(nearcardlist:List<near>) {
 
 
             val context = LocalContext.current
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(1),
-                modifier = Modifier.padding(top = 10.dp).height(300.dp)
+            Column(
+                modifier = Modifier.padding(top = 10.dp)
             ) {
-                items(nearcardlist){
+                nearcardlist.forEach { item ->
+                    // Buat elemen UI untuk setiap item dalam daftar
                     RestoCard(
-                        it,
+                        item,
                         Modifier
                             .padding(4.dp)
 
                     )
                 }
-                item {
-                    Spacer(modifier = Modifier.height(80.dp))
-                }
+
+//                items(nearcardlist){
+//                    RestoCard(
+//                        it,
+//                        Modifier
+//                            .padding(4.dp)
+//
+//                    )
+//                }
+//                item {
+//                    Spacer(modifier = Modifier.height(80.dp))
+//                }
 
             }
         }
@@ -430,10 +445,16 @@ fun HomeView(nearcardlist:List<near>) {
 
 
 
-
-@Preview(showBackground = true, showSystemUi = true)
+@Preview
 @Composable
-fun homePreview(){
-  HomeView(loadNear())
+fun homePreview() {
+    val navController = rememberNavController()
 
+    HomeView(
+        loadNear(),
+        navController = navController,
+        onNearClick = {
+            navController.navigate(ListScreen.NearMe.name)
+        }
+    )
 }
