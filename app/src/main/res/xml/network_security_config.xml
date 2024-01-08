@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
     <base-config cleartextTrafficPermitted="true">
-        <trust-anchors>
-            <!-- Specify your trusted certificates if needed -->
-        </trust-anchors>
+
     </base-config>
-    <!-- Add domain-specific configurations if needed -->
 </network-security-config>
