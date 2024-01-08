@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import java.sql.Time
+import java.time.LocalTime
 
 class FoodDetailViewModel : ViewModel(){
     private val _uiState = MutableStateFlow(
@@ -19,8 +20,8 @@ class FoodDetailViewModel : ViewModel(){
                 4.4,
                 "address",
                 "01234568",
-                Time.valueOf("08:00:00"),
-                Time.valueOf("20:00:00"),
+                LocalTime.parse("08:00:00"),
+                LocalTime.parse("20:00:00"),
                 "https://example.com/restaurant_image.jpg"
             ),
             Category(

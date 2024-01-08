@@ -85,4 +85,6 @@ dependencies {
     implementation ("androidx.activity:activity-ktx:1.4.0")
     implementation ("androidx.compose.ui:ui:1.1.0")
     implementation ("androidx.compose.material:material:1.1.0")
+
+    implementation ("com.github.bumptech.glide:compose:1.0.0-beta01")
 }

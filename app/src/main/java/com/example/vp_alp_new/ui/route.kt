@@ -33,7 +33,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.vp_alp_new.data.DataStoreManager
-import com.example.vp_alp_new.data.loadNear
+//import com.example.vp_alp_new.data.loadNear
 import com.example.vp_alp_new.repository.MyDBContainer
 import com.example.vp_alp_new.ui.theme.colorPrimary
 import com.example.vp_alp_new.ui.view.AccountView
@@ -228,19 +228,9 @@ fun RestoAppsRoute() {
 
             }
             composable(ListScreen.Home.name) {
-//                val listRestoViewModel: ListRestoViewModel = viewModel()
-//                val status = listRestoViewModel.listRestoUIState
-//                when (status){
-//                    is ListRestoUIState.Loading -> {}
-//                    is ListRestoUIState.Success -> HomeView(
-//                        loadNear(),
-//                        navController,
-//                        onNearClick = {
-//                            navController.navigate(ListScreen.NearMe.name)
-//                        },
-//                    )
-//                    is ListRestoUIState.Error ->{}
-//                }
+                HomeView(
+                    navController = navController
+                )
             }
 
 

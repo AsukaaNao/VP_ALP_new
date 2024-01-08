@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import java.sql.Time
+import java.time.LocalTime
 
 class RestoDetailViewModel : ViewModel() {
     val dummyFoodList: MutableList<Food> = mutableListOf(
@@ -20,8 +21,8 @@ class RestoDetailViewModel : ViewModel() {
                 rating = 4.4,
                 address = "123 Main Street",
                 phone = "01234568",
-                open_time = Time.valueOf("08:00:00"),
-                close_time = Time.valueOf("20:00:00"),
+                open_time = LocalTime.parse("08:00:00"),
+                close_time = LocalTime.parse("08:00:00"),
                 image = "https://example.com/restaurant_image.jpg"
             ),
             category = Category(
@@ -42,8 +43,8 @@ class RestoDetailViewModel : ViewModel() {
                 rating = 4.2,
                 address = "456 Pasta Street",
                 phone = "98765432",
-                open_time = Time.valueOf("11:30:00"),
-                close_time = Time.valueOf("22:00:00"),
+                open_time = LocalTime.parse("08:00:00"),
+                close_time = LocalTime.parse("08:00:00"),
                 image = "https://example.com/pasta_palace_image.jpg"
             ),
             category = Category(
@@ -64,8 +65,8 @@ class RestoDetailViewModel : ViewModel() {
                 rating = 4.8,
                 address = "789 Pizza Lane",
                 phone = "56789012",
-                open_time = Time.valueOf("12:00:00"),
-                close_time = Time.valueOf("23:00:00"),
+                open_time = LocalTime.parse("08:00:00"),
+                close_time = LocalTime.parse("08:00:00"),
                 image = "https://example.com/pizza_paradise_image.jpg"
             ),
             category = Category(
@@ -90,8 +91,8 @@ class RestoDetailViewModel : ViewModel() {
                 rating = 4.4,
                 address = "123 Main Street",
                 phone = "01234568",
-                open_time = Time.valueOf("08:00:00"),
-                close_time = Time.valueOf("20:00:00"),
+                open_time = LocalTime.parse("08:00:00"),
+                close_time = LocalTime.parse("08:00:00"),
                 image = "https://example.com/restaurant_image.jpg"
             ),
             category = Category(
@@ -112,8 +113,8 @@ class RestoDetailViewModel : ViewModel() {
                 rating = 4.2,
                 address = "456 Pasta Street",
                 phone = "98765432",
-                open_time = Time.valueOf("11:30:00"),
-                close_time = Time.valueOf("22:00:00"),
+                open_time = LocalTime.parse("08:00:00"),
+                close_time = LocalTime.parse("08:00:00"),
                 image = "https://example.com/pasta_palace_image.jpg"
             ),
             category = Category(
@@ -134,8 +135,8 @@ class RestoDetailViewModel : ViewModel() {
                 rating = 4.8,
                 address = "789 Pizza Lane",
                 phone = "56789012",
-                open_time = Time.valueOf("12:00:00"),
-                close_time = Time.valueOf("23:00:00"),
+                open_time = LocalTime.parse("08:00:00"),
+                close_time = LocalTime.parse("08:00:00"),
                 image = "https://example.com/pizza_paradise_image.jpg"
             ),
             category = Category(
@@ -160,8 +161,8 @@ class RestoDetailViewModel : ViewModel() {
                 4.4,
                 "address",
                 "01234568",
-                Time.valueOf("08:00:00"),
-                Time.valueOf("20:00:00"),
+                open_time = LocalTime.parse("08:00:00"),
+                close_time = LocalTime.parse("08:00:00"),
                 "https://example.com/restaurant_image.jpg",
             ),
             dummyFoodList,

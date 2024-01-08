@@ -7,6 +7,7 @@ data class near(
     var rating: Float,
     var address: String,
     var phone:String,
-    @DrawableRes val image_path:Int,
+//    @DrawableRes val image_path:Int,
+    var image: String ? = ""
 
     )

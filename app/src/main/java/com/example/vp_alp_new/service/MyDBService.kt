@@ -21,10 +21,10 @@ interface MyDBService {
     suspend fun register(@Body user: User): APIResponse
 
     @GET("all_resto")
-    suspend fun all_resto2(@Header("Authorization") token: String): List<near>
+    suspend fun all_resto2(@Header("Authorization") token: String): APIResponse
 
     @GET("all_resto")
-    suspend fun all_resto(@Header("Authorization") token: String): List<Restaurant>
+    suspend fun all_resto(@Header("Authorization") token: String): APIResponse
 
 //    @PATCH("update_user")
 //    suspend fun updateUser(@Body request: UpdateUserRequest): APIResponse

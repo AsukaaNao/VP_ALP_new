@@ -41,7 +41,7 @@ class LoginViewModel: ViewModel() {
                         Log.d("Token : ", MyDBContainer.ACCESS_TOKEN)
                         Log.d("USERNAME : ", MyDBContainer.user.toString())
 
-                        navController.navigate(ListScreen.Account.name)
+                        navController.navigate(ListScreen.Home.name)
                     }
                 }
             }
