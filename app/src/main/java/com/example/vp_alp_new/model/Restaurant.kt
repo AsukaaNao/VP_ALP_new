@@ -4,7 +4,7 @@ import java.sql.Time
 import java.time.LocalTime
 
 data class Restaurant(
-    val id: Any,
+    val id: Int,
     val name: String,
     val rating: Double,
     val address: String,

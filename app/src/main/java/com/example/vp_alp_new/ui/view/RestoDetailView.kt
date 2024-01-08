@@ -1,5 +1,6 @@
 package com.example.vp_alp_new.ui.view
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -18,6 +19,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -31,15 +33,30 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.example.vp_alp.R
 import com.example.vp_alp_new.model.Food
 import com.example.vp_alp_new.viewModel.RestoDetailViewModel
+import java.text.DecimalFormat
+import java.text.NumberFormat
+import java.util.Locale
 
 @Composable
 fun RestoDetailView(
-    viewModel: RestoDetailViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+    viewModel: RestoDetailViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
+    id: Int
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+    val restaurant by viewModel.restaurant.collectAsState()
+    val foods by viewModel.foods.collectAsState()
+    Log.d("resto in view", restaurant.toString())
+
+    Log.d("id in resto detail", id.toString())
+    LaunchedEffect(viewModel, id) {
+        Log.d("LaunchedEffect", "Triggered for id: $id")
+        viewModel.fetchData(id)
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -64,172 +81,178 @@ fun RestoDetailView(
                 contentScale = ContentScale.None
             )
         }
-        Text(
-            text = uiState.restaurant.name,
-            style = TextStyle(
-                fontSize = 24.sp,
-                lineHeight = 21.sp,
+        restaurant?.let { restaurant ->
+            Text(
+                text = restaurant.name,
+                style = TextStyle(
+                    fontSize = 24.sp,
+                    lineHeight = 21.sp,
 //                fontFamily = FontFamily(Font(R.font.inter)),
-                fontWeight = FontWeight(500),
-                color = Color(0xFF000000),
-            ),
-            modifier = Modifier.padding(vertical = 13.dp)
-        )
-        Column(
-            modifier = Modifier
-                .shadow(
-                    elevation = 2.dp,
-                    spotColor = Color(0x40000000),
-                    ambientColor = Color(0x40000000)
-                )
-                .width(321.dp)
-                .padding(horizontal = 8.dp)
-                .background(color = Color(0xFFECECEC), shape = RoundedCornerShape(size = 20.dp)),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Row(
-                Modifier
+                    fontWeight = FontWeight(500),
+                    color = Color(0xFF000000),
+                ),
+                modifier = Modifier.padding(vertical = 13.dp)
+            )
+            Column(
+                modifier = Modifier
                     .fillMaxWidth()
-                    .padding(14.dp)
+                    .padding(horizontal = 8.dp)
+                    .background(
+                        color = Color(0xFFECECEC),
+                        shape = RoundedCornerShape(size = 20.dp)
+                    )
+                    .shadow(
+                        elevation = 2.dp,
+                        spotColor = Color(0x40000000),
+                        ambientColor = Color(0x40000000)
+                    ),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Row(
-                    Modifier.weight(1f),
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(14.dp)
+                ) {
+                    Row(
+                        Modifier.weight(1f),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.star),
+                            contentDescription = "image description",
+                            contentScale = ContentScale.None
+                        )
+                        Text(
+                            text = "${restaurant.rating}",
+                            style = TextStyle(
+                                fontSize = 14.sp,
+                                lineHeight = 21.sp,
+//                    fontFamily = FontFamily(Font(R.font.inter)),
+                                fontWeight = FontWeight(400),
+                                color = Color(0xFF525252)
+                            )
+                        )
+                    }
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "Ratings and reviews",
+                            style = TextStyle(
+                                fontSize = 11.sp,
+                                lineHeight = 21.sp,
+//                    fontFamily = FontFamily(Font(R.font.inter)),
+                                fontWeight = FontWeight(400),
+                                color = Color(0xFF525252),
+                            )
+                        )
+                        Image(
+                            painter = painterResource(id = R.drawable.right_arrow),
+                            contentDescription = "image description",
+                            contentScale = ContentScale.None
+                        )
+                    }
+                }
+                Divider(
+                    Modifier
+                        .padding(0.dp)
+                        .width(291.dp)
+                        .height(0.3.dp)
+                        .background(color = Color(0xFF848484))
+                )
+                Row(
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(14.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.star),
+                        painter = painterResource(id = R.drawable.baseline_location_on_24),
                         contentDescription = "image description",
                         contentScale = ContentScale.None
                     )
                     Text(
-                        text = "${uiState.restaurant.rating}",
-                        style = TextStyle(
-                            fontSize = 14.sp,
-                            lineHeight = 21.sp,
-//                    fontFamily = FontFamily(Font(R.font.inter)),
-                            fontWeight = FontWeight(400),
-                            color = Color(0xFF525252)
-                        )
-                    )
-                }
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = "Ratings and reviews",
+                        text = restaurant.address,
                         style = TextStyle(
                             fontSize = 11.sp,
                             lineHeight = 21.sp,
-//                    fontFamily = FontFamily(Font(R.font.inter)),
-                            fontWeight = FontWeight(400),
-                            color = Color(0xFF525252),
-                        )
-                    )
-                    Image(
-                        painter = painterResource(id = R.drawable.right_arrow),
-                        contentDescription = "image description",
-                        contentScale = ContentScale.None
-                    )
-                }
-            }
-            Divider(
-                Modifier
-                    .padding(0.dp)
-                    .width(291.dp)
-                    .height(0.3.dp)
-                    .background(color = Color(0xFF848484))
-            )
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(14.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.baseline_location_on_24),
-                    contentDescription = "image description",
-                    contentScale = ContentScale.None
-                )
-                Text(
-                    text = uiState.restaurant.address,
-                    style = TextStyle(
-                        fontSize = 11.sp,
-                        lineHeight = 21.sp,
 //                        fontFamily = FontFamily(Font(R.font.inter)),
-                        fontWeight = FontWeight(400),
-                        color = Color(0xFF000000),
-                    )
-                )
-            }
-            Divider(
-                Modifier
-                    .padding(0.dp)
-                    .width(291.dp)
-                    .height(0.3.dp)
-                    .background(color = Color(0xFF848484))
-            )
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(14.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.baseline_local_phone_24),
-                    contentDescription = "image description",
-                    contentScale = ContentScale.None
-                )
-                Text(
-                    text = uiState.restaurant.phone,
-                    style = TextStyle(
-                        fontSize = 11.sp,
-                        lineHeight = 21.sp,
-//                        fontFamily = FontFamily(Font(R.font.inter)),
-                        fontWeight = FontWeight(400),
-                        color = Color(0xFF000000),
-                    )
-                )
-            }
-            Divider(
-                Modifier
-                    .padding(0.dp)
-                    .width(291.dp)
-                    .height(0.3.dp)
-                    .background(color = Color(0xFF848484))
-            )
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(14.dp)
-            ) {
-                Row(
-                    Modifier.weight(1f),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.edit_gray),
-                        contentDescription = "image description",
-                        contentScale = ContentScale.None
-                    )
-                    Text(
-                        text = "Rate Us",
-                        style = TextStyle(
-                            fontSize = 11.sp,
-                            lineHeight = 21.sp,
                             fontWeight = FontWeight(400),
                             color = Color(0xFF000000),
                         )
                     )
                 }
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.right_arrow),
-                        contentDescription = "image description",
-                        contentScale = ContentScale.None
+                    Divider(
+                        Modifier
+                            .padding(0.dp)
+                            .width(291.dp)
+                            .height(0.3.dp)
+                            .background(color = Color(0xFF848484))
                     )
-                }
+                    Row(
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(14.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.baseline_local_phone_24),
+                            contentDescription = "image description",
+                            contentScale = ContentScale.None
+                        )
+                        Text(
+                            text = restaurant.phone,
+                            style = TextStyle(
+                                fontSize = 11.sp,
+                                lineHeight = 21.sp,
+//                        fontFamily = FontFamily(Font(R.font.inter)),
+                                fontWeight = FontWeight(400),
+                                color = Color(0xFF000000),
+                            )
+                        )
+                    }
+            }
+        }
+
+        Divider(
+            Modifier
+                .padding(0.dp)
+                .width(291.dp)
+                .height(0.3.dp)
+                .background(color = Color(0xFF848484))
+        )
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .padding(14.dp)
+        ) {
+            Row(
+                Modifier.weight(1f),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.edit_gray),
+                    contentDescription = "image description",
+                    contentScale = ContentScale.None
+                )
+                Text(
+                    text = "Rate Us",
+                    style = TextStyle(
+                        fontSize = 11.sp,
+                        lineHeight = 21.sp,
+                        fontWeight = FontWeight(400),
+                        color = Color(0xFF000000),
+                    )
+                )
+            }
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.right_arrow),
+                    contentDescription = "image description",
+                    contentScale = ContentScale.None
+                )
             }
         }
         LazyColumn(
@@ -237,7 +260,7 @@ fun RestoDetailView(
         ) {
             item {
                 Text(
-                    text = "Makanan",
+                    text = "Menu",
                     style = TextStyle(
                         fontSize = 14.sp,
                         lineHeight = 21.sp,
@@ -256,20 +279,20 @@ fun RestoDetailView(
                         .background(color = Color(0xFF848484))
                 )
             }
-            items(uiState.foods) {
+            items(foods) {
                 FoodCard(food = it)
             }
             item {
-                Text(
-                    text = "Minuman",
-                    style = TextStyle(
-                        fontSize = 14.sp,
-                        lineHeight = 21.sp,
-                        fontWeight = FontWeight(500),
-                        color = Color(0xFF000000),
-                    ),
-                    modifier = Modifier.padding(12.dp)
-                )
+//                Text(
+//                    text = "Minuman",
+//                    style = TextStyle(
+//                        fontSize = 14.sp,
+//                        lineHeight = 21.sp,
+//                        fontWeight = FontWeight(500),
+//                        color = Color(0xFF000000),
+//                    ),
+//                    modifier = Modifier.padding(12.dp)
+//                )
             }
             item {
                 Divider(
@@ -280,13 +303,14 @@ fun RestoDetailView(
                         .background(color = Color(0xFF848484))
                 )
             }
-            items(uiState.beverages) {
-                FoodCard(food = it)
-            }
+//            items(uiState.beverages) {
+//                FoodCard(food = it)
+//            }
         }
     }
 }
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun FoodCard(food: Food) {
     Row(
@@ -295,9 +319,26 @@ fun FoodCard(food: Food) {
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.ajmere_dale_square_thumbnail),
-            contentDescription = "image description",
+//        Image(
+//            painter = painterResource(id = R.drawable.ajmere_dale_square_thumbnail),
+//            contentDescription = "image description",
+//            contentScale = ContentScale.FillBounds,
+//            modifier = Modifier
+//                .size(119.dp)
+//                .border(
+//                    width = 1.dp,
+//                    color = Color(0xFFFFFFFF),
+//                    shape = RoundedCornerShape(size = 10.dp)
+//                )
+//                .shadow(
+//                    elevation = 4.dp,
+//                    spotColor = Color(0x66000000),
+//                    ambientColor = Color(0x66000000)
+//                )
+//        )
+        GlideImage(
+            model = food.image,
+            contentDescription = "",
             contentScale = ContentScale.FillBounds,
             modifier = Modifier
                 .size(119.dp)
@@ -352,7 +393,7 @@ fun FoodCard(food: Food) {
                 )
             )
             Text(
-                text = "${food.price}",
+                text = formatPrice(food.price),
                 style = TextStyle(
                     fontSize = 11.sp,
                     lineHeight = 21.sp,
@@ -364,8 +405,14 @@ fun FoodCard(food: Food) {
     }
 }
 
-@Preview(showSystemUi = true)
-@Composable
-fun RestoDetailPreiew() {
-    RestoDetailView()
+fun formatPrice(price: Double): String {
+    val numberFormat = NumberFormat.getNumberInstance(Locale.getDefault()) as DecimalFormat
+    numberFormat.applyPattern("#.###")
+    return numberFormat.format(price)
 }
+
+//@Preview(showSystemUi = true)
+//@Composable
+//fun RestoDetailPreiew() {
+//    RestoDetailView()
+//}

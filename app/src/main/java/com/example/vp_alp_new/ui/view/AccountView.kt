@@ -91,36 +91,38 @@ fun AccountView(
                     .padding(start = 5.dp)
                     .weight(1f)
             ){
-                Text(
-                    text = user.name,
-                    style = TextStyle(
-                        fontSize = 14.sp,
-                        lineHeight = 21.sp,
-//                        fontFamily = FontFamily(Font(R.font.inter)),
-                        fontWeight = FontWeight(500),
-                        color = Color(0xFF000000),
+                user?.let {
+                    Text(
+                        text = it.name,
+                        style = TextStyle(
+                            fontSize = 14.sp,
+                            lineHeight = 21.sp,
+                            //                        fontFamily = FontFamily(Font(R.font.inter)),
+                            fontWeight = FontWeight(500),
+                            color = Color(0xFF000000),
+                        )
                     )
-                )
-                Text(
-                    text = user.email,
-                    style = TextStyle(
-                        fontSize = 11.sp,
-                        lineHeight = 21.sp,
+                    Text(
+                        text = it.email,
+                        style = TextStyle(
+                            fontSize = 11.sp,
+                            lineHeight = 21.sp,
 //                        fontFamily = FontFamily(Font(R.font.inter)),
-                        fontWeight = FontWeight(400),
-                        color = Color(0xFFB2B2B2),
+                            fontWeight = FontWeight(400),
+                            color = Color(0xFFB2B2B2),
+                        )
                     )
-                )
-                Text(
-                    text = user.phone,
-                    style = TextStyle(
-                        fontSize = 11.sp,
-                        lineHeight = 21.sp,
+                    Text(
+                        text = it.phone,
+                        style = TextStyle(
+                            fontSize = 11.sp,
+                            lineHeight = 21.sp,
 //                        fontFamily = FontFamily(Font(R.font.inter)),
-                        fontWeight = FontWeight(400),
-                        color = Color(0xFFB2B2B2),
+                            fontWeight = FontWeight(400),
+                            color = Color(0xFFB2B2B2),
+                        )
                     )
-                )
+                }
             }
             Column  {
                 Image(

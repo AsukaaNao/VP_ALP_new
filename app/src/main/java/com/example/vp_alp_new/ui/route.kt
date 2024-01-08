@@ -41,6 +41,7 @@ import com.example.vp_alp_new.ui.view.DashboardSection
 import com.example.vp_alp_new.ui.view.HomeView
 import com.example.vp_alp_new.ui.view.LoginScreen
 import com.example.vp_alp_new.ui.view.RegisterView
+import com.example.vp_alp_new.ui.view.RestoDetailView
 import com.example.vp_alp_new.ui.view.nearmeView
 
 import com.example.vp_alp_new.viewModel.FoodReviewUIState
@@ -112,16 +113,16 @@ fun BottomBar2(
                     onSectionSelected (section)
                     when (section) {
                         DashboardSection.Home -> {
-                            navController.navigate(ListScreen.Account.name)
+                            navController.navigate(ListScreen.Home.name)
                         }
                         DashboardSection.Search -> {
-                            navController.navigate(ListScreen.Account.name)
+                            navController.navigate(ListScreen.SearchScreen.name)
                         }
                         DashboardSection.Favorite -> {
-                            navController.navigate(ListScreen.Account.name)
+                            navController.navigate(ListScreen.LikedListResto.name)
                         }
                         DashboardSection.Profile -> {
-                            navController.navigate(ListScreen.Login.name)
+                            navController.navigate(ListScreen.Account.name)
                         }
                     }
                 },
@@ -184,27 +185,28 @@ fun RestoAppsRoute() {
 
 
             composable(ListScreen.Account.name) {
+                bottomBarYes = true
                 AccountView()
             }
 
             composable(ListScreen.AddRestoReview.name) {
-
+                bottomBarYes = true
             }
             composable(ListScreen.AddFoodReview.name) {
-
+                bottomBarYes = true
             }
             composable(ListScreen.Dashboard.name) {
-
+                bottomBarYes = true
             }
 
             composable(ListScreen.EditAccount.name) {
-
+                bottomBarYes = true
             }
             composable(ListScreen.FoodDetail.name) {
-
+                bottomBarYes = true
             }
             composable(ListScreen.FoodReview.name) {
-
+                bottomBarYes = true
                 val foodReviewViewModel: FoodReviewViewModel = viewModel()
                 val status = foodReviewViewModel.foodReviewUIState
                 when (status) {
@@ -228,6 +230,7 @@ fun RestoAppsRoute() {
 
             }
             composable(ListScreen.Home.name) {
+                bottomBarYes = true
                 HomeView(
                     navController = navController
                 )
@@ -235,7 +238,7 @@ fun RestoAppsRoute() {
 
 
             composable(ListScreen.LikedListResto.name) {
-
+                bottomBarYes = true
             }
 
 
@@ -247,17 +250,18 @@ fun RestoAppsRoute() {
                         dataStore = dataStore
                     )
                 } else {
-                    navController.navigate(ListScreen.Home.name) {
-                        popUpTo(ListScreen.Login.name) { inclusive = true }
-                    }
-//                    bottomBarYes = true
-//                    LoginScreen(
-//                        navController = navController,
-//                        dataStore = dataStore
-//                    )
+//                    navController.navigate(ListScreen.Home.name) {
+//                        popUpTo(ListScreen.Login.name) { inclusive = true }
+//                    }
+                    bottomBarYes = false
+                    LoginScreen(
+                        navController = navController,
+                        dataStore = dataStore
+                    )
                 }
             }
             composable(ListScreen.NearMe.name) {
+                bottomBarYes = true
                 nearmeView(navController = navController)
             }
 
@@ -266,14 +270,17 @@ fun RestoAppsRoute() {
 
 
             composable(ListScreen.Register.name) {
-                bottomBarYes = true
+                bottomBarYes = false
                 RegisterView(navController = navController)
             }
 
-            composable(ListScreen.RestoDetail.name) {
-
+            composable(ListScreen.RestoDetail.name+"/{id}") {backStackEntry ->
+                val id = backStackEntry.arguments?.getString("id")!!.toInt()
+                bottomBarYes = true
+                RestoDetailView(id = id)
             }
             composable(ListScreen.RestoReview.name) {
+                bottomBarYes = true
                 val restoReviewViewModel: RestoReviewViewModel = viewModel()
                 val status = restoReviewViewModel.restoReviewUIState
                 when (status) {
@@ -296,11 +303,11 @@ fun RestoAppsRoute() {
                 }
             }
             composable(ListScreen.SearchScreen.name) {
-
+                bottomBarYes = true
             }
 
             composable(ListScreen.WishListResto.name) {
-
+                bottomBarYes = true
             }
 
 

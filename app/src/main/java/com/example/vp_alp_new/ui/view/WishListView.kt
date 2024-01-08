@@ -1,5 +1,6 @@
 package com.example.vp_alp_new.ui.view
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -40,15 +41,21 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.vp_alp.R
 
 //import com.example.vp_alp_new.data.loadNear
 import com.example.vp_alp_new.model.near
+import com.example.vp_alp_new.ui.ListScreen
+import com.example.vp_alp_new.viewModel.FoodDetailViewModel
 
 @Composable
-fun WishListView(nearcardlist: List<near>) {
+fun WishListView(
+    nearcardlist: List<near>,
+    navController: NavController
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -87,8 +94,8 @@ fun WishListView(nearcardlist: List<near>) {
                 RestoCard(
                     it,
                     Modifier
-                        .padding(4.dp)
-
+                        .padding(4.dp),
+                    navController
                 )
             }
             item {
@@ -105,14 +112,20 @@ fun WishListView(nearcardlist: List<near>) {
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun RestoCard(near: near, modifier: Modifier = Modifier) {
+fun RestoCard(
+    near: near,
+    modifier: Modifier = Modifier,
+    navController: NavController
+    ) {
     val context = LocalContext.current
     Column(modifier = Modifier
         .padding(vertical = 8.dp)
         .clickable {
-            Toast
-                .makeText(context, "Do something ", Toast.LENGTH_SHORT)
-                .show()
+//            Toast
+//                .makeText(context, "Do something ", Toast.LENGTH_SHORT)
+//                .show()
+            Log.d("id", near.id.toString())
+            navController.navigate(ListScreen.RestoDetail.name+"/"+near.id)
         })
     {
         Row(

@@ -25,6 +25,8 @@ class HomeViewModel : ViewModel() {
             val restaurantList: List<near> =
                 MyDBContainer().myDBRepositories.all_resto2(MyDBContainer.ACCESS_TOKEN)
            _uiState.value = restaurantList
+
+            Log.d("List restaurant", restaurantList.toString())
         }
     }
 

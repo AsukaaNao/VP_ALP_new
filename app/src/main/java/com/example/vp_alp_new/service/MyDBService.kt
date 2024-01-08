@@ -10,6 +10,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.PATCH
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface MyDBService {
     @POST("login")
@@ -23,8 +24,9 @@ interface MyDBService {
     @GET("all_resto")
     suspend fun all_resto2(@Header("Authorization") token: String): APIResponse
 
-    @GET("all_resto")
-    suspend fun all_resto(@Header("Authorization") token: String): APIResponse
+    // Food Endpoints
+    @GET("all_foodbyresto")
+    suspend fun allFoodByResto(@Header("Authorization") token: String, @Query("id") id: Int): APIResponse
 
 //    @PATCH("update_user")
 //    suspend fun updateUser(@Body request: UpdateUserRequest): APIResponse
@@ -77,9 +79,6 @@ interface MyDBService {
     @GET("resto_details")
     suspend fun restoDetailsWithFood(): APIResponse
 
-    // Food Endpoints
-    @GET("all_foodbyresto")
-    suspend fun allFoodByResto(): APIResponse
 
 //    @POST("make_foodreviews")
 //    suspend fun createFoodReviews(@Body request: CreateFoodReviewRequest): APIResponse

@@ -100,7 +100,8 @@ fun nearmeView(
                     RestoCard(
                         restaurant,
                         Modifier
-                            .padding(4.dp)
+                            .padding(4.dp),
+                        navController
                     )
                 }
             }
