@@ -27,6 +27,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.Icon
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -46,16 +47,16 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.vp_alp.R
 
-import com.example.vp_alp_new.data.loadNear
+//import com.example.vp_alp_new.data.loadNear
 import com.example.vp_alp_new.model.near
 import com.example.vp_alp_new.viewModel.NearMeViewModel
 
 @Composable
 fun nearmeView(
     viewModel: NearMeViewModel = viewModel(),
-    nearcardlist:List<near>,
     navController: NavController
 ) {
+    val restaurants by viewModel.uiState.collectAsState()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -75,7 +76,7 @@ fun nearmeView(
                 painter = painterResource(id = R.drawable.baseline_arrow_back_24),
                 contentDescription = "image description",
                 contentScale = ContentScale.None,
-                modifier = Modifier.padding(end=16.dp)
+                modifier = Modifier.padding(end = 16.dp)
             )
             Text(
                 text = "Near Me",
@@ -94,13 +95,14 @@ fun nearmeView(
         LazyVerticalGrid(
             columns = GridCells.Fixed(1),
         ) {
-            items(nearcardlist){
-                RestoCard(
-                    it,
-                    Modifier
-                        .padding(4.dp)
-
-                )
+            restaurants?.let { restaurantList ->
+                items(restaurantList) { restaurant ->
+                    RestoCard(
+                        restaurant,
+                        Modifier
+                            .padding(4.dp)
+                    )
+                }
             }
             item {
                 Spacer(modifier = Modifier.height(80.dp))
@@ -110,30 +112,13 @@ fun nearmeView(
         }
 
 
-
-
-
     }
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@Preview
-@Composable
-fun nearmePreview() {
-    val navController = rememberNavController()
-    nearmeView(nearcardlist = loadNear(),navController = navController)
-}
+//@Preview
+//@Composable
+//fun nearmePreview() {
+//    val navController = rememberNavController()
+//    nearmeView(nearcardlist = loadNear(),navController = navController)
+//}

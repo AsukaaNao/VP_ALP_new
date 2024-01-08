@@ -241,35 +241,24 @@ fun RestoAppsRoute() {
 
             composable(ListScreen.Login.name) {
                 if (MyDBContainer.ACCESS_TOKEN.isEmpty()) {
+                    bottomBarYes = false
                     LoginScreen(
                         navController = navController,
                         dataStore = dataStore
                     )
                 } else {
-//                    navController.navigate(ListScreen.Home.name) {
-//                        popUpTo(ListScreen.Login.name) { inclusive = true }
-//                    }
-                    bottomBarYes = true
-                    LoginScreen(
-                        navController = navController,
-                        dataStore = dataStore
-                    )
+                    navController.navigate(ListScreen.Home.name) {
+                        popUpTo(ListScreen.Login.name) { inclusive = true }
+                    }
+//                    bottomBarYes = true
+//                    LoginScreen(
+//                        navController = navController,
+//                        dataStore = dataStore
+//                    )
                 }
             }
             composable(ListScreen.NearMe.name) {
-//                val listRestoViewModel: ListRestoViewModel = viewModel()
-//                val status = listRestoViewModel.listRestoUIState
-//                when (status) {
-//                    is ListRestoUIState.Loading -> {
-//                        // Show a loading indicator or progress bar
-//                    }
-//                    is ListRestoUIState.Success -> {
-//                        nearmeView(loadNear(), navController) // Call nearmeView passing the list of nearby places
-//                    }
-//                    is ListRestoUIState.Error -> {
-//                        // Display an error message or handle the error state
-//                    }
-//                }
+                nearmeView(navController = navController)
             }
 
 
