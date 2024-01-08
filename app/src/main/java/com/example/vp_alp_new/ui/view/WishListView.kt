@@ -40,13 +40,15 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.example.vp_alp.R
 
-import com.example.vp_alp_new.data.loadNear
+//import com.example.vp_alp_new.data.loadNear
 import com.example.vp_alp_new.model.near
 
 @Composable
-fun WishListView(nearcardlist:List<near>) {
+fun WishListView(nearcardlist: List<near>) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -62,7 +64,7 @@ fun WishListView(nearcardlist:List<near>) {
                 painter = painterResource(id = R.drawable.baseline_arrow_back_24),
                 contentDescription = "image description",
                 contentScale = ContentScale.None,
-                modifier = Modifier.padding(end=16.dp)
+                modifier = Modifier.padding(end = 16.dp)
             )
             Text(
                 text = "Wishlist",
@@ -81,7 +83,7 @@ fun WishListView(nearcardlist:List<near>) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(1),
         ) {
-            items(nearcardlist){
+            items(nearcardlist) {
                 RestoCard(
                     it,
                     Modifier
@@ -97,25 +99,24 @@ fun WishListView(nearcardlist:List<near>) {
         }
 
 
-
-
-
     }
 }
 
 
-
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun RestoCard(near: near, modifier: Modifier = Modifier) {
-    val    context = LocalContext.current
+    val context = LocalContext.current
     Column(modifier = Modifier
         .padding(vertical = 8.dp)
         .clickable {
-            Toast.makeText(context, "Do something ", Toast.LENGTH_SHORT).show()
+            Toast
+                .makeText(context, "Do something ", Toast.LENGTH_SHORT)
+                .show()
         })
     {
         Row(
-            modifier=Modifier
+            modifier = Modifier
                 .fillMaxWidth()
         ) {
             Box(
@@ -132,10 +133,19 @@ fun RestoCard(near: near, modifier: Modifier = Modifier) {
                         width = 1.dp,
                         color = Color(0xFFFFFFFF),
                         shape = RoundedCornerShape(size = 10.dp)
-                    ))
+                    )
+            )
             {
-                Image(
-                    painter = painterResource(id = near.image_path),
+//                Image(
+//                    painter = painterResource(id = near.image_path),
+//                    contentDescription = "Image description",
+//                    contentScale = ContentScale.Crop,
+//                    modifier = Modifier
+//                        .fillMaxSize()
+//                        .clip(RoundedCornerShape(size = 10.dp))
+//                )
+                GlideImage(
+                    model = near.image,
                     contentDescription = "Image description",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
@@ -144,8 +154,10 @@ fun RestoCard(near: near, modifier: Modifier = Modifier) {
                 )
             }
 
-            Column(modifier= Modifier
-                .padding(10.dp)) {
+            Column(
+                modifier = Modifier
+                    .padding(10.dp)
+            ) {
                 Text(
                     text = near.name,
                     style = TextStyle(
@@ -156,9 +168,14 @@ fun RestoCard(near: near, modifier: Modifier = Modifier) {
 
                         )
                 )
-                Row(modifier=Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically) {
-                    Image(painter = painterResource(id = R.drawable.baseline_star_rate_24), contentDescription = "")
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.baseline_star_rate_24),
+                        contentDescription = ""
+                    )
                     Text(
                         text = near.rating.toString(),
                         style = TextStyle(
@@ -180,7 +197,7 @@ fun RestoCard(near: near, modifier: Modifier = Modifier) {
                         color = Color(0xFF000000),
 
                         ),
-                    modifier=Modifier.padding(bottom = 2.dp)
+                    modifier = Modifier.padding(bottom = 2.dp)
                 )
                 Text(
                     text = near.address,
@@ -201,9 +218,12 @@ fun RestoCard(near: near, modifier: Modifier = Modifier) {
 
                     var isLiked by remember { mutableStateOf(false) }
 
-                    Box(modifier = Modifier.weight(1f).clickable {
-                        isLiked = !isLiked
-                    }, contentAlignment = Alignment.BottomEnd) {
+                    Box(modifier = Modifier
+                        .weight(1f)
+                        .clickable {
+                            isLiked = !isLiked
+                        }, contentAlignment = Alignment.BottomEnd
+                    ) {
                         val tint = if (isLiked) Color(0xFFEC407A) else Color(0xFF636363)
                         Icon(
                             imageVector = Icons.Default.Favorite,
@@ -215,26 +235,15 @@ fun RestoCard(near: near, modifier: Modifier = Modifier) {
             }
 
 
-
-
-
         }
 
     }
 }
 
 
-
-
-
-
-
-
-
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun wishlistPreview(){
-    WishListView(loadNear())
-
-}
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun wishlistPreview() {
+//    WishListView(loadNear())
+//
+//}
