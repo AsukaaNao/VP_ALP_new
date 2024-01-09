@@ -57,8 +57,8 @@ class MyDBRepository(private val myDBService: MyDBService) {
         return myDBService.getUser("Bearer $token")
     }
 
-    suspend fun getRestoReviews(token: String): List<Restaurant_review> {
-        val response: APIResponse = myDBService.getRestoReviews()
+    suspend fun getRestoReviews(token: String, id: Int): List<Restaurant_review> {
+        val response: APIResponse = myDBService.getRestoReviews("Bearer $token", id)
 
             val data = response.data
             if (data is List<*>) {
@@ -68,10 +68,7 @@ class MyDBRepository(private val myDBService: MyDBService) {
                         // Extract necessary fields from the item map and create Restaurant_review objects
                         Restaurant_review(
                             id = item["id"] as? Int ?: 0,
-                            // Parse 'user', 'restaurant', and other fields accordingly
-                            // Assuming 'user' and 'restaurant' are nested objects or IDs
-                            user = User(/* Populate user fields */),
-                            restaurant = parseRestaurant(data["restaurant"] as Map<*, *>),
+                            user = parseUser(item["user"] as Map<*, *>),
                             content = item["content"] as? String ?: "",
                             rating = (item["rating"] as? Double ?: 0.0).toFloat()
                         )
@@ -86,34 +83,34 @@ class MyDBRepository(private val myDBService: MyDBService) {
         return emptyList()
     }
 
-    suspend fun getFoodReviews(token: String): List<Food_review> {
-        val response: APIResponse = myDBService.getFoodReviews()
-
-            val data = response.data
-            if (data is List<*>) {
-                // Map each item in the list to a Restaurant_review object
-                return data.mapNotNull { item ->
-                    if (item is LinkedHashMap<*, *>) {
-                        // Extract necessary fields from the item map and create Restaurant_review objects
-                        Food_review(
-                            id = item["id"] as? Int ?: 0,
-                            // Parse 'user', 'restaurant', and other fields accordingly
-                            // Assuming 'user' and 'restaurant' are nested objects or IDs
-                            user = User(/* Populate user fields */),
-                            food = parseFood(data["food"] as List<*>),
-                            content = item["content"] as? String ?: "",
-                            rating = (item["rating"] as? Double ?: 0.0).toFloat()
-                        )
-                    } else {
-                        null
-                    }
-                }
-            } else {
-                Log.e("API Request Error: ", "API request failed with status ${response.status}")
-            }
-
-        return emptyList()
-    }
+//    suspend fun getFoodReviews(token: String): List<Food_review> {
+//        val response: APIResponse = myDBService.getFoodReviews()
+//
+//            val data = response.data
+//            if (data is List<*>) {
+//                // Map each item in the list to a Restaurant_review object
+//                return data.mapNotNull { item ->
+//                    if (item is LinkedHashMap<*, *>) {
+//                        // Extract necessary fields from the item map and create Restaurant_review objects
+//                        Food_review(
+//                            id = item["id"] as? Int ?: 0,
+//                            // Parse 'user', 'restaurant', and other fields accordingly
+//                            // Assuming 'user' and 'restaurant' are nested objects or IDs
+//                            user = User(/* Populate user fields */),
+//                            food = parseFood(data["food"] as List<*>),
+//                            content = item["content"] as? String ?: "",
+//                            rating = (item["rating"] as? Double ?: 0.0).toFloat()
+//                        )
+//                    } else {
+//                        null
+//                    }
+//                }
+//            } else {
+//                Log.e("API Request Error: ", "API request failed with status ${response.status}")
+//            }
+//
+//        return emptyList()
+//    }
 
 
     suspend fun all_resto2(token: String): List<near> {
@@ -172,6 +169,16 @@ class MyDBRepository(private val myDBService: MyDBService) {
             open_time = LocalTime.parse(restaurantData["open_time"]?.toString() ?: "00:00:00"),
             close_time = LocalTime.parse(restaurantData["close_time"]?.toString() ?: "00:00:00"),
             image = restaurantData["image"]?.toString() ?: ""
+        )
+    }
+
+    private fun parseUser(userData: Map<*, *>): User {
+        return User(
+            id = (userData["id"] as? Int) ?: -1,
+            name = userData["name"]?.toString() ?: "",
+            phone = userData["phone"]?.toString() ?: "",
+            email = userData["email"]?.toString() ?: "",
+            password = userData["password"]?.toString() ?: ""
         )
     }
 

@@ -28,6 +28,9 @@ interface MyDBService {
     @GET("all_foodbyresto")
     suspend fun allFoodByResto(@Header("Authorization") token: String, @Query("id") id: Int): APIResponse
 
+    @GET("resto_reviews")
+    suspend fun getRestoReviews(@Header("Authorization") token: String, @Query("id") id: Int): APIResponse
+
 //    @PATCH("update_user")
 //    suspend fun updateUser(@Body request: UpdateUserRequest): APIResponse
 
@@ -73,8 +76,6 @@ interface MyDBService {
 //    @PATCH("edit_restoreviews")
 //    suspend fun updateRestoReviews(@Body request: UpdateRestoReviewRequest): APIResponse
 
-    @GET("resto_reviews")
-    suspend fun getRestoReviews(): APIResponse
 
 
     @GET("resto_details")
