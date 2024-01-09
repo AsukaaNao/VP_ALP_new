@@ -76,7 +76,11 @@ fun RestoDetailView(
                 Image(
                     painter = painterResource(id = R.drawable.baseline_arrow_back_24),
                     contentDescription = "image description",
-                    contentScale = ContentScale.None
+                    contentScale = ContentScale.None,
+                            modifier = Modifier .clickable {
+                        // Navigate back when the arrow back is clicked
+                        navController.popBackStack()
+                    }
                 )
             }
 //            Image(

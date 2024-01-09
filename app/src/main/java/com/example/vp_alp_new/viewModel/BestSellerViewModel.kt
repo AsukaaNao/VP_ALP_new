@@ -1,9 +1,8 @@
 package com.example.vp_alp_new.viewModel
-import androidx.lifecycle.viewModelScope
+
 import android.util.Log
 import androidx.lifecycle.ViewModel
-
-import com.example.vp_alp_new.model.Food
+import androidx.lifecycle.viewModelScope
 import com.example.vp_alp_new.model.Restaurant
 import com.example.vp_alp_new.model.near
 import com.example.vp_alp_new.repository.MyDBContainer
@@ -12,7 +11,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class Dibawah25kViewModel: ViewModel() {
+class BestSellerViewModel : ViewModel() {
     private val _uiState = MutableStateFlow<List<near>?>(null)
     val uiState: StateFlow<List<near>?> = _uiState.asStateFlow()
 
@@ -20,7 +19,7 @@ class Dibawah25kViewModel: ViewModel() {
 //        getRestaurantsData()
         viewModelScope.launch {
             val restaurantList: List<near> =
-                MyDBContainer().myDBRepositories.getDibawah25k(MyDBContainer.ACCESS_TOKEN)
+                MyDBContainer().myDBRepositories.getBestSeller(MyDBContainer.ACCESS_TOKEN)
             _uiState.value = restaurantList
         }
     }

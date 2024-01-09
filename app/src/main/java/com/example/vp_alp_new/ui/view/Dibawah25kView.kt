@@ -89,7 +89,7 @@ fun Dibawah25kView(
     navController: NavController,
 ) {
 
-    val foods by viewModel.foods.collectAsState()
+    val restaurants by viewModel.uiState.collectAsState()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -112,7 +112,7 @@ fun Dibawah25kView(
                     }
             )
             Text(
-                text = ">25K",
+                text = "Under 25K",
                 style = TextStyle(
                     fontSize = 20.sp,
                     lineHeight = 21.sp,
@@ -128,8 +128,15 @@ fun Dibawah25kView(
         LazyVerticalGrid(
             columns = GridCells.Fixed(1),
         ) {
-            items(foods) {
-                FoodCard(food = it)
+            restaurants?.let { restaurantList ->
+                items(restaurantList) { restaurant ->
+                    RestoCard(
+                        restaurant,
+                        Modifier
+                            .padding(4.dp),
+                        navController
+                    )
+                }
             }
             item {
                 Spacer(modifier = Modifier.height(80.dp))

@@ -49,11 +49,12 @@ import com.example.vp_alp.R
 
 //import com.example.vp_alp_new.data.loadNear
 import com.example.vp_alp_new.model.near
+import com.example.vp_alp_new.viewModel.BestSellerViewModel
 import com.example.vp_alp_new.viewModel.NearMeViewModel
 
 @Composable
-fun nearmeView(
-    viewModel: NearMeViewModel = viewModel(),
+fun bestSellerView(
+    viewModel: BestSellerViewModel = viewModel(),
     navController: NavController
 ) {
     val restaurants by viewModel.uiState.collectAsState()
@@ -79,7 +80,7 @@ fun nearmeView(
                 }
             )
             Text(
-                text = "Near Me",
+                text = "Best Seller",
                 style = TextStyle(
                     fontSize = 20.sp,
                     lineHeight = 21.sp,

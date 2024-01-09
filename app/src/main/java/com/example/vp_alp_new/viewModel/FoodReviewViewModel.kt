@@ -17,9 +17,9 @@ class FoodReviewViewModel : ViewModel() {
     init {
 //        getRestaurantsData()
         viewModelScope.launch {
-            val reviewList: List<Food_review> =
-                MyDBContainer().myDBRepositories.getFoodReviews(MyDBContainer.ACCESS_TOKEN)
-            _uiState.value = reviewList
+//            val reviewList: List<Food_review> =
+//                MyDBContainer().myDBRepositories.getFoodReviews(MyDBContainer.ACCESS_TOKEN)
+//            _uiState.value = reviewList
         }
     }
 }

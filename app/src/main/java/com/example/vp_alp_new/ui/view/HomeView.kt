@@ -241,11 +241,9 @@ fun HomeView(
                             .width(100.dp)
                             .padding(horizontal = 10.dp, vertical = 5.dp)
                             .border(1.dp, Color.LightGray, shape = RoundedCornerShape(10.dp))
-                            .clickable(
-                                onClick = {
-                                    //masi gatau
-                                }
-                            )
+                            .clickable{
+                                navController.navigate(ListScreen.BestSeller.name)
+                            }
                     ){
                         Column (
                             horizontalAlignment = Alignment.CenterHorizontally
@@ -273,11 +271,9 @@ fun HomeView(
                             .width(100.dp)
                             .padding(horizontal = 10.dp, vertical = 5.dp)
                             .border(1.dp, Color.LightGray, shape = RoundedCornerShape(10.dp))
-                            .clickable(
-                                onClick = {
-                                    //masi gatau
-                                }
-                            )
+                            .clickable{
+                                navController.navigate(ListScreen.Dibawah25k.name)
+                            }
                     ){
                         Column (
                             horizontalAlignment = Alignment.CenterHorizontally
