@@ -10,14 +10,22 @@ import kotlinx.coroutines.launch
 
 class SearchViewModel : ViewModel() {
     private val _uiState = MutableStateFlow<List<near>?>(null)
-    val uiState: StateFlow<List<near>?> = _uiState.asStateFlow()
+    private val _originalUiState = mutableListOf<near>()
 
     init {
-//        getRestaurantsData()
+        // Fetch the original list and store it for shuffling purposes
         viewModelScope.launch {
-            val restaurantList: List<near> =
-                MyDBContainer().myDBRepositories.all_resto2(MyDBContainer.ACCESS_TOKEN)
-            _uiState.value = restaurantList
+            _originalUiState.addAll(MyDBContainer().myDBRepositories.all_resto2(MyDBContainer.ACCESS_TOKEN))
+            shuffleUiState()
         }
     }
+
+    // Shuffle the UI state list
+    private fun shuffleUiState() {
+        _uiState.value = _originalUiState.shuffled()
+    }
+
+    // Computed property for accessing a shuffled UI state
+    val uiState: StateFlow<List<near>?>
+        get() = _uiState.asStateFlow()
 }

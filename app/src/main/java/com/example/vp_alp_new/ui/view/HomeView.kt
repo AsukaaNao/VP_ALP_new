@@ -66,6 +66,7 @@ import com.example.vp_alp.R
 //import com.example.vp_alp_new.data.loadNear
 import com.example.vp_alp_new.model.Restaurant
 import com.example.vp_alp_new.model.near
+import com.example.vp_alp_new.repository.MyDBContainer
 import com.example.vp_alp_new.ui.ListScreen
 import com.example.vp_alp_new.viewModel.HomeViewModel
 
@@ -137,7 +138,7 @@ fun HomeView(
                     .padding(horizontal = 5.dp)
                     .clickable(
                         onClick = {
-                            navController.navigate(ListScreen.LikedListResto.name)
+                            navController.navigate(ListScreen.LikedListResto.name+"/"+ MyDBContainer.user.id)
                         }
                     )
             )
