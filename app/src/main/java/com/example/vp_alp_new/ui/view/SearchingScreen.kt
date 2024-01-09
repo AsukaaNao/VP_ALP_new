@@ -196,11 +196,9 @@ fun SearchingScreen(
                             .padding(horizontal = 5.dp)
                             .background(LightGray, RoundedCornerShape(5.dp))
                             .padding(10.dp)
-                            .clickable(
-                                onClick = {
-                                    //masi gatau
-                                }
-                            )
+                            .clickable{
+                                navController.navigate(ListScreen.NearMe.name)
+                            }
                     )
                 }
                 item {
@@ -212,11 +210,9 @@ fun SearchingScreen(
                             .padding(horizontal = 5.dp)
                             .background(LightGray, RoundedCornerShape(5.dp))
                             .padding(10.dp)
-                            .clickable(
-                                onClick = {
-                                    //masi gatau
-                                }
-                            )
+                            .clickable{
+                                navController.navigate(ListScreen.BestSeller.name)
+                            }
                     )
                 }
                 item {
@@ -228,11 +224,9 @@ fun SearchingScreen(
                             .padding(horizontal = 5.dp)
                             .background(LightGray, RoundedCornerShape(5.dp))
                             .padding(10.dp)
-                            .clickable(
-                                onClick = {
-                                    //masi gatau
-                                }
-                            )
+                            .clickable{
+                                navController.navigate(ListScreen.Dibawah25k.name)
+                            }
                     )
                 }
 //                item {

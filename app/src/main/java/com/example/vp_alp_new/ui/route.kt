@@ -206,13 +206,13 @@ fun RestoAppsRoute() {
                 var rating_1 by remember{
                     mutableDoubleStateOf(0.0)
                 }
-                RatingRestoFormsView(
-                    modifier = Modifier.size(50.dp),
-                    rating = rating_1,
-//                    restoid = restoid
-                ){
-                    rating_1 = it
-                }
+//                RatingRestoFormsView(
+//                    modifier = Modifier.size(50.dp),
+//                    rating = rating_1,
+////                    restoid = restoid
+//                ){
+////                    rating_1 = it
+//                }
             }
             composable(ListScreen.AddFoodReview.name) {
                 bottomBarYes = true

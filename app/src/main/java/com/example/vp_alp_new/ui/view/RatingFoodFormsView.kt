@@ -59,6 +59,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 //sementara gini dulu wak, kalo ada tambahan dll nanti baru dirubah
 private val Orange = Color(0xFFFFC107)
@@ -73,7 +74,8 @@ fun RatingFoodFormsView(
     rating: Double = 0.0,
     stars: Int = 5,
     starsColor: Color = Orange,
-    onRatingChange: (Double) -> Unit
+    onRatingChange: (Double) -> Unit,
+    navController: NavController
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val context = LocalContext.current
@@ -99,11 +101,12 @@ fun RatingFoodFormsView(
                         tint = Color.Black,
                         modifier = Modifier
                             .padding(horizontal = 5.dp)
-                            .clickable(
-                                onClick = {
-                                    //masi gatau
-                                }
-                            )
+                            .clickable {
+
+                                navController.popBackStack()
+
+
+                            }
                     )
                     Text(
                         text = "Rate",
@@ -181,16 +184,16 @@ fun RatingFoodFormsView(
 
 
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun RatingFoodFormsPreview() {
-        var rating_1 by remember{
-            mutableDoubleStateOf(0.0)
-        }
-        RatingFoodFormsView(
-            modifier = Modifier.size(50.dp),
-            rating = rating_1,
-        ){
-            rating_1 = it
-        }
-}
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun RatingFoodFormsPreview() {
+//        var rating_1 by remember{
+//            mutableDoubleStateOf(0.0)
+//        }
+//        RatingFoodFormsView(
+//            modifier = Modifier.size(50.dp),
+//            rating = rating_1,
+//        ){
+//            rating_1 = it
+//        }
+//}
