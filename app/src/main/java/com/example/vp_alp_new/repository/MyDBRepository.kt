@@ -5,6 +5,7 @@ import com.example.vp_alp_new.model.APIResponse
 import com.example.vp_alp_new.model.Food
 import com.example.vp_alp_new.model.Food_review
 import com.example.vp_alp_new.model.Food_reviewModel
+import com.example.vp_alp_new.model.Liked_restaurant
 import com.example.vp_alp_new.model.Restaurant
 import com.example.vp_alp_new.model.Restaurant_review
 import com.example.vp_alp_new.model.Restaurant_reviewModel
@@ -94,6 +95,17 @@ class MyDBRepository(private val myDBService: MyDBService) {
         return result.message
     }
 
+    suspend fun addFavResto(user_id: Int, restaurant_id: Int):String {
+        val favResto = Liked_restaurant(
+            user_id = user_id,
+            restaurant_id = restaurant_id
+        )
+
+        val result = myDBService.addFavResto(favResto)
+
+        return result.message
+    }
+
 
     suspend fun getUser(token: String): User {
         return myDBService.getUser("Bearer $token")
@@ -133,7 +145,8 @@ class MyDBRepository(private val myDBService: MyDBService) {
     }
 
     suspend fun getFoodReviews(token: String, id: Int): List<Food_review> {
-        val response: APIResponse = myDBService.getRestoReviews("Bearer $token", id)
+        Log.d("sadasjk", "berhasil")
+        val response: APIResponse = myDBService.getFoodReviews("Bearer $token", id)
         val data = response.data
         Log.d("data", data.toString())
         if (data is List<*>) {
