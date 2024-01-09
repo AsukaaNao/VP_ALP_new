@@ -20,8 +20,7 @@ class RegisterViewModel: ViewModel() {
 
              MyDBContainer().myDBRepositories.register(username, email, password, phone)
 
-            navController.navigate(ListScreen.Home.name)
-
+            navController.navigate(ListScreen.Login.name)
         }
     }
 }

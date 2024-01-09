@@ -29,9 +29,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.example.vp_alp.R
 import com.example.vp_alp_new.viewModel.AccountViewModel
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun AccountView(
     viewModel: AccountViewModel = viewModel()
@@ -43,9 +46,9 @@ fun AccountView(
             .fillMaxSize()
             .padding(20.dp)
     ) {
-        Row (
+        Row(
             modifier = Modifier.fillMaxWidth()
-        ){
+        ) {
             Text(
                 text = "My Account",
                 style = TextStyle(
@@ -58,12 +61,12 @@ fun AccountView(
                 modifier = Modifier.padding(12.dp)
             )
             Spacer(modifier = Modifier.weight(1f))
-            Column (
+            Column(
                 modifier = Modifier
                     .padding(12.dp)
                     .width(24.dp)
                     .height(24.dp)
-            ){
+            ) {
                 Image(
                     painter = painterResource(id = R.drawable.exit),
                     contentDescription = "",
@@ -71,13 +74,21 @@ fun AccountView(
                 )
             }
         }
-        Row (
+        Row(
             Modifier
                 .fillMaxWidth()
                 .padding(10.dp)
-        ){
-            Image(
-                painter = painterResource(id = R.drawable.ajmere_dale_square_thumbnail),
+        ) {
+//            Image(
+//                painter = painterResource(id = R.drawable.ajmere_dale_square_thumbnail),
+//                contentDescription = "image description",
+//                modifier = Modifier
+//                    .size(58.dp)
+//                    .clip(CircleShape),
+//                contentScale = ContentScale.Crop
+//            )
+            GlideImage(
+                model = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
                 contentDescription = "image description",
                 modifier = Modifier
                     .size(58.dp)
@@ -85,12 +96,12 @@ fun AccountView(
                 contentScale = ContentScale.Crop
             )
 
-            Column (
+            Column(
                 Modifier
                     .fillMaxWidth()
                     .padding(start = 5.dp)
                     .weight(1f)
-            ){
+            ) {
                 user?.let {
                     Text(
                         text = it.name,
@@ -124,7 +135,7 @@ fun AccountView(
                     )
                 }
             }
-            Column  {
+            Column {
                 Image(
                     painter = painterResource(id = R.drawable.baseline_edit_24),
                     contentDescription = "",
@@ -144,15 +155,15 @@ fun AccountView(
 }
 
 @Composable
-fun template(text:String) {
-    Row (
+fun template(text: String) {
+    Row(
         Modifier
             .fillMaxWidth()
             .padding(15.dp)
-    ){
-        Row (
+    ) {
+        Row(
             Modifier.weight(1f)
-        ){
+        ) {
             Text(
                 text = text,
                 style = TextStyle(

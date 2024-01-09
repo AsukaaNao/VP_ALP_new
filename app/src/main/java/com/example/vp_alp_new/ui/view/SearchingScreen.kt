@@ -52,9 +52,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.vp_alp.R
 
-import com.example.vp_alp_new.data.loadNear
+//import com.example.vp_alp_new.data.loadNear
 import com.example.vp_alp_new.model.near
 
 private val Orange = Color(0xFFFF9F1C)
@@ -62,7 +63,10 @@ private val Kuning = Color(0xFFFFE456)
 private val LightGray = Color(0xFFCFCFCF)
 
 @Composable
-fun SearchingScreen(nearcardlist:List<near>) {
+fun SearchingScreen(
+    nearcardlist:List<near>,
+    navController: NavController
+) {
 
     //tambahin sini tepher
 
@@ -284,8 +288,8 @@ fun SearchingScreen(nearcardlist:List<near>) {
                     RestoCard(
                         it,
                         Modifier
-                            .padding(4.dp)
-
+                            .padding(4.dp),
+                        navController = navController
                     )
                 }
                 item {
@@ -316,12 +320,12 @@ fun SearchingScreen(nearcardlist:List<near>) {
 
 
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun SearchingScreenPreview(){
-    SearchingScreen(loadNear())
-
-}
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun SearchingScreenPreview(){
+//    SearchingScreen(loadNear())
+//
+//}
 
 
 

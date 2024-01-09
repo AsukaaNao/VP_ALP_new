@@ -38,6 +38,7 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.LocationOn
 import androidx.compose.material3.Icon
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -55,26 +56,27 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.vp_alp.R
 
-import com.example.vp_alp_new.data.loadNear
+//import com.example.vp_alp_new.data.loadNear
+import com.example.vp_alp_new.model.Restaurant
 import com.example.vp_alp_new.model.near
 import com.example.vp_alp_new.ui.ListScreen
+import com.example.vp_alp_new.viewModel.HomeViewModel
 
 private val Orange = Color(0xFFFF9F1C)
 private val Kuning = Color(0xFFFFE456)
 
 @Composable
-fun HomeView(nearcardlist:List<near>,  navController: NavController,
-
-             onNearClick: () -> Unit,
+fun HomeView(
+    viewModel: HomeViewModel = viewModel(),
+    navController: NavController,
 ) {
-
-
-
-
+    val restaurants by viewModel.uiState.collectAsState()
     //tambahin sini tepher
 
     val backgound = listOf(Orange, Kuning)
@@ -209,11 +211,9 @@ fun HomeView(nearcardlist:List<near>,  navController: NavController,
                             .width(100.dp)
                             .padding(horizontal = 10.dp, vertical = 5.dp)
                             .border(1.dp, Color.LightGray, shape = RoundedCornerShape(10.dp))
-                            .clickable(
-                                onClick = {
-                                    onNearClick()
-                                }
-                            )
+                            .clickable{
+                                navController.navigate(ListScreen.NearMe.name)
+                            }
                     ){
                         Column (
                             horizontalAlignment = Alignment.CenterHorizontally
@@ -347,7 +347,8 @@ fun HomeView(nearcardlist:List<near>,  navController: NavController,
                             horizontalAlignment = Alignment.CenterHorizontally
                         ){
                             Image(
-                                painter = painterResource(id = R.drawable.drinks),
+//                                painter = painterResource(id = R.drawable.drinks),
+                                painter = painterResource(id = R.drawable.foods),
                                 contentDescription ="",
                                 modifier = Modifier
                                     .width(70.dp)
@@ -401,13 +402,13 @@ fun HomeView(nearcardlist:List<near>,  navController: NavController,
             Column(
                 modifier = Modifier.padding(top = 10.dp)
             ) {
-                nearcardlist.forEach { item ->
+                restaurants?.forEach { item ->
                     // Buat elemen UI untuk setiap item dalam daftar
                     RestoCard(
                         item,
                         Modifier
-                            .padding(4.dp)
-
+                            .padding(4.dp),
+                        navController = navController
                     )
                 }
 
@@ -445,16 +446,16 @@ fun HomeView(nearcardlist:List<near>,  navController: NavController,
 
 
 
-@Preview
-@Composable
-fun homePreview() {
-    val navController = rememberNavController()
-
-    HomeView(
-        loadNear(),
-        navController = navController,
-        onNearClick = {
-            navController.navigate(ListScreen.NearMe.name)
-        }
-    )
-}
+//@Preview
+//@Composable
+//fun homePreview() {
+//    val navController = rememberNavController()
+//
+//    HomeView(
+//        loadNear(),
+//        navController = navController,
+//        onNearClick = {
+//            navController.navigate(ListScreen.NearMe.name)
+//        }
+//    )
+//}

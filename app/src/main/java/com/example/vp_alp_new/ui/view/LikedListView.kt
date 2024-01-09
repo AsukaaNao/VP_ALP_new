@@ -23,13 +23,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.vp_alp.R
 
-import com.example.vp_alp_new.data.loadNear
+//import com.example.vp_alp_new.data.loadNear
 import com.example.vp_alp_new.model.near
 
 @Composable
-fun LikedListView(nearcardlist:List<near>) {
+fun LikedListView(
+    nearcardlist:List<near>,
+    navController: NavController
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -68,8 +72,8 @@ fun LikedListView(nearcardlist:List<near>) {
                 RestoCard(
                     it,
                     Modifier
-                        .padding(4.dp)
-
+                        .padding(4.dp),
+                    navController = navController
                 )
             }
             item {
@@ -102,9 +106,9 @@ fun LikedListView(nearcardlist:List<near>) {
 
 
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun LikedListPreview(){
-    LikedListView(loadNear())
-
-}
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun LikedListPreview(){
+//    LikedListView(loadNear())
+//
+//}
