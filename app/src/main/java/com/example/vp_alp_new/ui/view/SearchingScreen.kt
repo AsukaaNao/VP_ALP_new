@@ -70,7 +70,7 @@ private val LightGray = Color(0xFFCFCFCF)
 @Composable
 fun SearchingScreen(
     viewModel: SearchViewModel = viewModel(),
-    navController: NavController
+    navController: NavController,
 ) {
     val restaurants by viewModel.uiState.collectAsState()
     //tambahin sini tepher
@@ -98,9 +98,9 @@ fun SearchingScreen(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Row (
+            Row(
                 verticalAlignment = Alignment.CenterVertically
-            ){
+            ) {
 //                Icon(
 //                    imageVector = Icons.Rounded.LocationOn,
 //                    contentDescription = "Back",
@@ -134,7 +134,6 @@ fun SearchingScreen(
                         }
                     )
             )
-
 
 
         }
@@ -196,7 +195,7 @@ fun SearchingScreen(
                             .padding(horizontal = 5.dp)
                             .background(LightGray, RoundedCornerShape(5.dp))
                             .padding(10.dp)
-                            .clickable{
+                            .clickable {
                                 navController.navigate(ListScreen.NearMe.name)
                             }
                     )
@@ -210,7 +209,7 @@ fun SearchingScreen(
                             .padding(horizontal = 5.dp)
                             .background(LightGray, RoundedCornerShape(5.dp))
                             .padding(10.dp)
-                            .clickable{
+                            .clickable {
                                 navController.navigate(ListScreen.BestSeller.name)
                             }
                     )
@@ -224,7 +223,7 @@ fun SearchingScreen(
                             .padding(horizontal = 5.dp)
                             .background(LightGray, RoundedCornerShape(5.dp))
                             .padding(10.dp)
-                            .clickable{
+                            .clickable {
                                 navController.navigate(ListScreen.Dibawah25k.name)
                             }
                     )
@@ -280,42 +279,60 @@ fun SearchingScreen(
             }
 
             val context = LocalContext.current
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(1),
-            ) {
-                restaurants?.let { restaurantList ->
-                    items(restaurantList) { restaurant ->
-                        RestoCard(
-                            restaurant,
-                            Modifier
-                                .padding(4.dp),
-                            navController
-                        )
+            if (searchresult == null) {
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(1),
+                ) {
+
+                    restaurants?.let { restaurantList ->
+                        items(restaurantList) { restaurant ->
+
+                            RestoCard(
+                                restaurant,
+                                Modifier
+                                    .padding(4.dp),
+                                navController
+                            )
+
+                        }
+                    }
+                    item {
+                        Spacer(modifier = Modifier.height(80.dp))
                     }
                 }
-                item {
-                    Spacer(modifier = Modifier.height(80.dp))
+            } else {
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(1),
+                ) {
+
+                    restaurants?.let { restaurantList ->
+                        items(restaurantList) { restaurant ->
+                            if (restaurant.name.uppercase().contains(searchresult.uppercase()) ||
+                                restaurant.address.uppercase().contains(searchresult.uppercase())
+                            ) {
+                                RestoCard(
+                                    restaurant,
+                                    Modifier
+                                        .padding(4.dp),
+                                    navController
+                                )
+                            }
+                        }
+                    }
+                    item {
+                        Spacer(modifier = Modifier.height(80.dp))
+                    }
                 }
-
-
             }
 
 
         }
 
 
-        }
+    }
+
+
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -325,12 +342,6 @@ fun SearchingScreen(
 //    SearchingScreen(loadNear())
 //
 //}
-
-
-
-
-
-
 
 
 //package com.example.vp_alp_new.ui.view
