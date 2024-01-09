@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -33,10 +34,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.vp_alp.R
 import com.example.vp_alp_new.model.Food
+import com.example.vp_alp_new.ui.ListScreen
 import com.example.vp_alp_new.viewModel.RestoDetailViewModel
 import java.text.DecimalFormat
 import java.text.NumberFormat
@@ -45,7 +48,8 @@ import java.util.Locale
 @Composable
 fun RestoDetailView(
     viewModel: RestoDetailViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
-    id: Int
+    id: Int,
+    navController: NavController
 ) {
     val restaurant by viewModel.restaurant.collectAsState()
     val foods by viewModel.foods.collectAsState()
@@ -134,7 +138,10 @@ fun RestoDetailView(
                         )
                     }
                     Row(
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.clickable {
+                            navController.navigate(ListScreen.AddRestoReview.name+"/"+id)
+                        }
                     ) {
                         Text(
                             text = "Ratings and reviews",

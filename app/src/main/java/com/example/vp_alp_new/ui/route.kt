@@ -18,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -40,6 +41,7 @@ import com.example.vp_alp_new.ui.view.AccountView
 import com.example.vp_alp_new.ui.view.DashboardSection
 import com.example.vp_alp_new.ui.view.HomeView
 import com.example.vp_alp_new.ui.view.LoginScreen
+import com.example.vp_alp_new.ui.view.RatingRestoFormsView
 import com.example.vp_alp_new.ui.view.RegisterView
 import com.example.vp_alp_new.ui.view.RestoDetailView
 import com.example.vp_alp_new.ui.view.nearmeView
@@ -189,8 +191,9 @@ fun RestoAppsRoute() {
                 AccountView()
             }
 
-            composable(ListScreen.AddRestoReview.name) {
+            composable(ListScreen.AddRestoReview.name+"/{id}") {
                 bottomBarYes = true
+
             }
             composable(ListScreen.AddFoodReview.name) {
                 bottomBarYes = true
@@ -277,7 +280,10 @@ fun RestoAppsRoute() {
             composable(ListScreen.RestoDetail.name+"/{id}") {backStackEntry ->
                 val id = backStackEntry.arguments?.getString("id")!!.toInt()
                 bottomBarYes = true
-                RestoDetailView(id = id)
+                RestoDetailView(
+                    id = id,
+                    navController = navController
+                )
             }
             composable(ListScreen.RestoReview.name) {
                 bottomBarYes = true
