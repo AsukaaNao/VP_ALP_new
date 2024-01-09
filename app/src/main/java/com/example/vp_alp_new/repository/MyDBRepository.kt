@@ -56,7 +56,12 @@ class MyDBRepository(private val myDBService: MyDBService) {
         return result.message
     }
 
-    suspend fun createRestoReviews(rating:Double, content: String, user_id: Int, restaurant_id:Int): String {
+    suspend fun createRestoReviews(
+        rating: Double,
+        content: String,
+        user_id: Int,
+        restaurant_id: Int,
+    ): String {
         // Create a User object with the provided parameters
         val restoreviews = Restaurant_reviewModel(
             rating = rating,
@@ -70,7 +75,12 @@ class MyDBRepository(private val myDBService: MyDBService) {
         return result.message
     }
 
-    suspend fun createFoodReviews(rating:Double, content: String, user_id: Int, food_id:Int): String {
+    suspend fun createFoodReviews(
+        rating: Double,
+        content: String,
+        user_id: Int,
+        food_id: Int,
+    ): String {
         // Create a User object with the provided parameters
         val foodreview = Food_reviewModel(
             rating = rating,
@@ -91,30 +101,30 @@ class MyDBRepository(private val myDBService: MyDBService) {
 
     suspend fun getRestoReviews(token: String, id: Int): List<Restaurant_review> {
         val response: APIResponse = myDBService.getRestoReviews("Bearer $token", id)
-            val data = response.data
-            Log.d("data", data.toString())
-            if (data is List<*>) {
-                // Map each item in the list to a Restaurant_review object
-                return data.mapNotNull { item ->
-                    if (item is LinkedTreeMap<*, *>) {
-                        val userMap = item["user"] as? Map<*, *>
-                        Log.d("user", userMap.toString())
-                        if (userMap != null) {
-                            Restaurant_review(
-                                id = (item["id"] as? Double)?.toInt() ?: 0,
-                                user = parseUser(userMap),
-                                content = item["content"] as? String ?: "",
-                                rating = (item["rating"] as? Double ?: 0.0).toFloat()
-                            )
-                        } else {
-                            Log.e("Error", "userMap")
-                            null
-                        }
+        val data = response.data
+        Log.d("data", data.toString())
+        if (data is List<*>) {
+            // Map each item in the list to a Restaurant_review object
+            return data.mapNotNull { item ->
+                if (item is LinkedTreeMap<*, *>) {
+                    val userMap = item["user"] as? Map<*, *>
+                    Log.d("user", userMap.toString())
+                    if (userMap != null) {
+                        Restaurant_review(
+                            id = (item["id"] as? Double)?.toInt() ?: 0,
+                            user = parseUser(userMap),
+                            content = item["content"] as? String ?: "",
+                            rating = (item["rating"] as? Double ?: 0.0).toFloat()
+                        )
                     } else {
-                        Log.e("Error", "gakebaca as Linkedhashmap")
+                        Log.e("Error", "userMap")
                         null
                     }
+                } else {
+                    Log.e("Error", "gakebaca as Linkedhashmap")
+                    null
                 }
+            }
         } else {
             Log.e("API Request Error: ", "API request failed with status ${response.status}")
         }
@@ -183,23 +193,6 @@ class MyDBRepository(private val myDBService: MyDBService) {
         return emptyList()
     }
 
-    suspend fun getAllFoodByResto(token: String, id: Int): Pair<Restaurant?, List<Food>> {
-        val response = myDBService.allFoodByResto("Bearer $token", id)
-
-        if (response.status == "200") {
-            val data = response.data
-            if (data is Map<*, *>) {
-                val restaurant = parseRestaurant(data["restaurant"] as Map<*, *>)
-                val foods = parseFoods(data["foods"] as List<*>)
-
-                return Pair(restaurant, foods)
-            } else {
-                Log.e("API Request Error: ", "API request failed with status ${response.status}")
-            }
-        }
-
-        return Pair(null, emptyList())
-    }
 
     private fun parseRestaurant(restaurantData: Map<*, *>): Restaurant {
         return Restaurant(
@@ -253,6 +246,7 @@ class MyDBRepository(private val myDBService: MyDBService) {
             }
         }
     }
+
     suspend fun getBestSeller(token: String): List<near> {
         val response: APIResponse = myDBService.bestSellers("Bearer $token")
         if (response.status == "200") {
@@ -280,6 +274,108 @@ class MyDBRepository(private val myDBService: MyDBService) {
         }
         return emptyList()
     }
+
+    suspend fun getAllFoodByResto(token: String, id: Int): Pair<Restaurant?, List<Food>> {
+        val response = myDBService.allFoodByResto("Bearer $token", id)
+
+        if (response.status == "200") {
+            val data = response.data
+            if (data is Map<*, *>) {
+                val restaurant = parseRestaurant(data["restaurant"] as Map<*, *>)
+                val foods = parseFoods(data["foods"] as List<*>)
+
+                return Pair(restaurant, foods)
+            } else {
+                Log.e("API Request Error: ", "API request failed with status ${response.status}")
+            }
+        }
+
+        return Pair(null, emptyList())
+    }
+
+    suspend fun likedlist(token: String, id: Int): List<near> {
+        val response: APIResponse = myDBService.likedlist("Bearer $token", id)
+        if (response.status == "200") {
+            val data = response.data
+            if (data is List<*>) {
+                // Map each item in the list to a Restaurant object
+                return data.mapNotNull { item ->
+                    if (item is LinkedTreeMap<*, *>) {
+                        near(
+                            id = (item["id"] as? Double)?.toInt() ?: 0,
+                            name = item["name"]?.toString() ?: "",
+                            address = item["address"]?.toString() ?: "",
+                            phone = item["phone"]?.toString() ?: "",
+                            rating = (item["rating"] as Double).toFloat(),
+                            image = item["image"]?.toString()
+                        )
+                    } else {
+                        null
+                    }
+                }
+            } else {
+                Log.e("API Request Error: ", "API request failed with status ${response.status}")
+                return emptyList() // or handle the error accordingly
+            }
+        }
+        return emptyList()
+    }
+
+    suspend fun userRestoReview(token: String, id: Int): List<Restaurant_review> {
+        val response: APIResponse = myDBService.userRestoReview("Bearer $token", id)
+        if (response.status == "200") {
+            val data = response.data
+            if (data is List<*>) {
+                // Map each item in the list to a Restaurant object
+                return data.mapNotNull { item ->
+                    if (item is LinkedTreeMap<*, *>) {
+                        Restaurant_review(
+                            id = (item["id"] as? Double)?.toInt() ?: 0,
+                            user = item["user"] as? User ?: User(), // Assuming User() is the default constructor for User
+                            content = item["content"] as? String ?: "",
+                            rating = (item["rating"] as? Double)?.toFloat() ?: 0.0f
+                        )
+                    } else {
+                        null
+                    }
+                }
+            } else {
+                Log.e("API Request Error: ", "API request failed with status ${response.status}")
+                return emptyList() // or handle the error accordingly
+            }
+        }
+        return emptyList() // Return an empty list in case of failure
+    }
+
+
+
+    suspend fun userFoodReview(token: String, id: Int): List<Food_review> {
+        val response: APIResponse = myDBService.userFoodReview("Bearer $token", id)
+        if (response.status == "200") {
+            val data = response.data
+            if (data is List<*>) {
+                // Map each item in the list to a Restaurant object
+                return data.mapNotNull { item ->
+                    if (item is LinkedTreeMap<*, *>) {
+                        Food_review(
+                            id = (item["id"] as? Double)?.toInt() ?: 0,
+                            user = item["user"] as? User ?: User(), // Assuming User() is the default constructor for User
+                            content = item["content"] as? String ?: "",
+                            rating = (item["rating"] as? Double)?.toFloat() ?: 0.0f
+                        )
+                    } else {
+                        null
+                    }
+                }
+            } else {
+                Log.e("API Request Error: ", "API request failed with status ${response.status}")
+                return emptyList() // or handle the error accordingly
+            }
+        }
+        return emptyList() // Return an empty list in case of failure
+    }
+
+
     suspend fun getDibawah25k(token: String): List<near> {
         val response: APIResponse = myDBService.getDibawah25k("Bearer $token")
         if (response.status == "200") {

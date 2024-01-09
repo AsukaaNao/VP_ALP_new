@@ -16,7 +16,7 @@ class LikedRestoViewModel : ViewModel() {
 //        getRestaurantsData()
         viewModelScope.launch {
             val restaurantList: List<near> =
-                MyDBContainer().myDBRepositories.all_resto2(MyDBContainer.ACCESS_TOKEN)
+                MyDBContainer().myDBRepositories.likedlist(MyDBContainer.ACCESS_TOKEN, MyDBContainer.user.id)
             _uiState.value = restaurantList
         }
     }

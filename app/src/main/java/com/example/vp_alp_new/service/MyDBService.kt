@@ -52,16 +52,16 @@ interface MyDBService {
     suspend fun getUser(@Header("Authorization") token: String): User
 
     @GET("user_favresto")
-    suspend fun favResto(): APIResponse
+    suspend fun likedlist(@Header("Authorization") token: String, @Query("id") id: Int): APIResponse
 
     @GET("user_wishlist")
     suspend fun wishlistResto(): APIResponse
 
     @GET("user_restoreview")
-    suspend fun userRestoreView(): APIResponse
+    suspend fun userRestoReview(@Header("Authorization") token: String, @Query("id") id: Int): APIResponse
 
     @GET("user_foodreview")
-    suspend fun userFoodReview(): APIResponse
+    suspend fun userFoodReview(@Header("Authorization") token: String, @Query("id") id: Int): APIResponse
 
     // Restaurant Endpoints
     @GET("best_sellers")

@@ -132,7 +132,7 @@ fun BottomBar2(
                         }
 
                         DashboardSection.Favorite -> {
-                            navController.navigate(ListScreen.LikedListResto.name)
+                            navController.navigate(ListScreen.LikedListResto.name+"/"+MyDBContainer.user.id)
                         }
 
                         DashboardSection.Profile -> {
@@ -255,7 +255,7 @@ fun RestoAppsRoute() {
             }
 
 
-            composable(ListScreen.LikedListResto.name) {
+            composable(ListScreen.LikedListResto.name+"/{id}") {
                 bottomBarYes = true
                 LikedListView(navController = navController)
             }
