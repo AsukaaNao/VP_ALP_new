@@ -40,16 +40,20 @@ import com.example.vp_alp_new.ui.theme.colorPrimary
 import com.example.vp_alp_new.ui.view.AccountView
 import com.example.vp_alp_new.ui.view.DashboardSection
 import com.example.vp_alp_new.ui.view.HomeView
+import com.example.vp_alp_new.ui.view.LikedListView
 import com.example.vp_alp_new.ui.view.LoginScreen
 import com.example.vp_alp_new.ui.view.RatingRestoFormsView
 import com.example.vp_alp_new.ui.view.RegisterView
 import com.example.vp_alp_new.ui.view.RestoDetailView
+import com.example.vp_alp_new.ui.view.SearchingScreen
+import com.example.vp_alp_new.ui.view.WishListView
 import com.example.vp_alp_new.ui.view.nearmeView
+import com.example.vp_alp_new.ui.view.reviewsandratingsResto
 
 import com.example.vp_alp_new.viewModel.FoodReviewUIState
 import com.example.vp_alp_new.viewModel.FoodReviewViewModel
-import com.example.vp_alp_new.viewModel.RestoReviewUIState
-import com.example.vp_alp_new.viewModel.RestoReviewViewModel
+//import com.example.vp_alp_new.viewModel.RestoReviewUIState
+//import com.example.vp_alp_new.viewModel.RestoReviewViewModel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -188,7 +192,7 @@ fun RestoAppsRoute() {
 
             composable(ListScreen.Account.name) {
                 bottomBarYes = true
-                AccountView()
+                AccountView(navController = navController)
             }
 
             composable(ListScreen.AddRestoReview.name+"/{id}") {
@@ -242,6 +246,7 @@ fun RestoAppsRoute() {
 
             composable(ListScreen.LikedListResto.name) {
                 bottomBarYes = true
+                LikedListView( navController = navController)
             }
 
 
@@ -287,33 +292,17 @@ fun RestoAppsRoute() {
             }
             composable(ListScreen.RestoReview.name) {
                 bottomBarYes = true
-                val restoReviewViewModel: RestoReviewViewModel = viewModel()
-                val status = restoReviewViewModel.restoReviewUIState
-                when (status) {
-                    is RestoReviewUIState.Loading -> {}
-                    is RestoReviewUIState.Success -> {}
-//                        nearme(
-                    //panggil api
-//                        movieList = status.data,
-//                        onFavClicked = {movie ->
-//                            listMovieViewModel.onFavClicked(movie)
-//                        },
-//                        onCardClick = {
-//                            navController.navigate(ListScreen.MovieDetail.name+"/"+it.id)
-//                        },
-//                        listRestoViewModel,
-//                        navController,
-//                        dataStore
-//                    )
-                    is RestoReviewUIState.Error -> {}
-                }
+                reviewsandratingsResto(navController = navController)
             }
+
             composable(ListScreen.SearchScreen.name) {
                 bottomBarYes = true
+                SearchingScreen(navController = navController)
             }
 
             composable(ListScreen.WishListResto.name) {
                 bottomBarYes = true
+               WishListView(navController = navController)
             }
 
 

@@ -16,19 +16,36 @@ import kotlinx.coroutines.launch
 
 class LoginViewModel: ViewModel() {
 
+
+    private fun isValidEmail(email: String): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
     fun ButtonLogin(
         email: String,
         password: String,
         context: Context,
         navController: NavController,
-        dataStore: DataStoreManager
+        dataStore: DataStoreManager,
+        onLoginError: (String) -> Unit // Callback to handle login errors
     ) {
         viewModelScope.launch {
+            if (email.isEmpty() || password.isEmpty()) {
+                onLoginError("Email and password cannot be empty")
+                return@launch
+            }
+
+            // Validate email format
+            if (!isValidEmail(email)) {
+                onLoginError("Invalid email format")
+                return@launch
+            }
+
             val token = MyDBContainer().myDBRepositories.login(email, password)
             if (token.equals("Incorrect Password", true)) {
-                Toast.makeText(context, token, Toast.LENGTH_LONG).show()
+                onLoginError("Incorrect password")
             } else if (token.equals("User not found", true)) {
-                Toast.makeText(context, token, Toast.LENGTH_LONG).show()
+                onLoginError("User not found")
             } else {
                 dataStore.saveToken(token)
 

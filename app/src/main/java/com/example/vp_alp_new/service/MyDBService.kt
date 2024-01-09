@@ -76,6 +76,7 @@ interface MyDBService {
     @GET("resto_reviews")
     suspend fun getRestoReviews(): APIResponse
 
+
     @GET("resto_details")
     suspend fun restoDetailsWithFood(): APIResponse
 
@@ -88,4 +89,7 @@ interface MyDBService {
 
     @GET("food_reviews")
     suspend fun getFoodReviews(): APIResponse
+
+
+
 }

@@ -36,6 +36,7 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.LocationOn
 import androidx.compose.material3.Icon
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -52,11 +53,15 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.vp_alp.R
 
 //import com.example.vp_alp_new.data.loadNear
 import com.example.vp_alp_new.model.near
+import com.example.vp_alp_new.ui.ListScreen
+import com.example.vp_alp_new.ui.viewModel.LikedRestoViewModel
+import com.example.vp_alp_new.ui.viewModel.SearchViewModel
 
 private val Orange = Color(0xFFFF9F1C)
 private val Kuning = Color(0xFFFFE456)
@@ -64,10 +69,10 @@ private val LightGray = Color(0xFFCFCFCF)
 
 @Composable
 fun SearchingScreen(
-    nearcardlist:List<near>,
+    viewModel: SearchViewModel = viewModel(),
     navController: NavController
 ) {
-
+    val restaurants by viewModel.uiState.collectAsState()
     //tambahin sini tepher
 
     val backgound = listOf(Orange, Kuning)
@@ -125,7 +130,7 @@ fun SearchingScreen(
                     .padding(horizontal = 5.dp)
                     .clickable(
                         onClick = {
-                            //masi gatau
+                            navController.navigate(ListScreen.LikedListResto.name)
                         }
                     )
             )
@@ -174,15 +179,15 @@ fun SearchingScreen(
 
         Column(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxSize()
                 .background(Color.White, RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp))
                 .padding(20.dp)
         ) {
 
             LazyRow(
                 modifier = Modifier.padding(5.dp)
-            ){
-                item{
+            ) {
+                item {
                     Text(
                         text = "Near Me",
                         fontSize = 12.sp,
@@ -190,7 +195,7 @@ fun SearchingScreen(
                         modifier = Modifier
                             .padding(horizontal = 5.dp)
                             .background(LightGray, RoundedCornerShape(5.dp))
-                            .padding (10.dp)
+                            .padding(10.dp)
                             .clickable(
                                 onClick = {
                                     //masi gatau
@@ -198,7 +203,7 @@ fun SearchingScreen(
                             )
                     )
                 }
-                item{
+                item {
                     Text(
                         text = "Best Sellers",
                         fontSize = 12.sp,
@@ -206,7 +211,7 @@ fun SearchingScreen(
                         modifier = Modifier
                             .padding(horizontal = 5.dp)
                             .background(LightGray, RoundedCornerShape(5.dp))
-                            .padding (10.dp)
+                            .padding(10.dp)
                             .clickable(
                                 onClick = {
                                     //masi gatau
@@ -214,7 +219,7 @@ fun SearchingScreen(
                             )
                     )
                 }
-                item{
+                item {
                     Text(
                         text = "Hemat <25k",
                         fontSize = 12.sp,
@@ -222,7 +227,7 @@ fun SearchingScreen(
                         modifier = Modifier
                             .padding(horizontal = 5.dp)
                             .background(LightGray, RoundedCornerShape(5.dp))
-                            .padding (10.dp)
+                            .padding(10.dp)
                             .clickable(
                                 onClick = {
                                     //masi gatau
@@ -230,67 +235,69 @@ fun SearchingScreen(
                             )
                     )
                 }
-                item{
-                    Text(
-                        text = "Foods",
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Medium,
-                        modifier = Modifier
-                            .padding(horizontal = 5.dp)
-                            .background(LightGray, RoundedCornerShape(5.dp))
-                            .padding (10.dp)
-                            .clickable(
-                                onClick = {
-                                    //masi gatau
-                                }
-                            )
-                    )
-                }
-                item{
-                    Text(
-                        text = "Drinks",
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Medium,
-                        modifier = Modifier
-                            .padding(horizontal = 5.dp)
-                            .background(LightGray, RoundedCornerShape(5.dp))
-                            .padding (10.dp)
-                            .clickable(
-                                onClick = {
-                                    //masi gatau
-                                }
-                            )
-                    )
-                }
-                item{
-                    Text(
-                        text = "Snacks",
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Medium,
-                        modifier = Modifier
-                            .padding(horizontal = 5.dp)
-                            .background(LightGray, RoundedCornerShape(5.dp))
-                            .padding (10.dp)
-                            .clickable(
-                                onClick = {
-                                    //masi gatau
-                                }
-                            )
-                    )
-                }
+//                item {
+//                    Text(
+//                        text = "Foods",
+//                        fontSize = 12.sp,
+//                        fontWeight = FontWeight.Medium,
+//                        modifier = Modifier
+//                            .padding(horizontal = 5.dp)
+//                            .background(LightGray, RoundedCornerShape(5.dp))
+//                            .padding(10.dp)
+//                            .clickable(
+//                                onClick = {
+//                                    //masi gatau
+//                                }
+//                            )
+//                    )
+//                }
+//                item {
+//                    Text(
+//                        text = "Drinks",
+//                        fontSize = 12.sp,
+//                        fontWeight = FontWeight.Medium,
+//                        modifier = Modifier
+//                            .padding(horizontal = 5.dp)
+//                            .background(LightGray, RoundedCornerShape(5.dp))
+//                            .padding(10.dp)
+//                            .clickable(
+//                                onClick = {
+//                                    //masi gatau
+//                                }
+//                            )
+//                    )
+//                }
+//                item {
+//                    Text(
+//                        text = "Snacks",
+//                        fontSize = 12.sp,
+//                        fontWeight = FontWeight.Medium,
+//                        modifier = Modifier
+//                            .padding(horizontal = 5.dp)
+//                            .background(LightGray, RoundedCornerShape(5.dp))
+//                            .padding(10.dp)
+//                            .clickable(
+//                                onClick = {
+//                                    //masi gatau
+//                                }
+//                            )
+//                    )
+//                }
             }
 
             val context = LocalContext.current
             LazyVerticalGrid(
                 columns = GridCells.Fixed(1),
             ) {
-                items(nearcardlist){
-                    RestoCard(
-                        it,
-                        Modifier
-                            .padding(4.dp),
-                        navController = navController
-                    )
+                restaurants?.let { restaurantList ->
+                    items(restaurantList) { restaurant ->
+                        RestoCard(
+                            restaurant,
+                            Modifier
+                                .padding(4.dp),
+                            navController
+                        )
+                    }
                 }
                 item {
                     Spacer(modifier = Modifier.height(80.dp))
@@ -298,14 +305,12 @@ fun SearchingScreen(
 
 
             }
+
+
         }
 
 
-
-
-
-
-    }
+        }
 }
 
 

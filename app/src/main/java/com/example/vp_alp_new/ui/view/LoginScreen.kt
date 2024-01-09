@@ -38,6 +38,7 @@ fun LoginScreen(
     navController: NavController,
     dataStore: DataStoreManager
 ) {
+    var errorText by remember { mutableStateOf("") }
     val context = LocalContext.current
     Box(
         modifier = Modifier
@@ -143,13 +144,19 @@ fun LoginScreen(
                             shape = RoundedCornerShape(size = 40.dp)
                         )
                         .clickable {
+                            if (!email.contains("@")) {
+                                errorText = "Invalid email format"
+                                return@clickable
+                            }
                             viewModel.ButtonLogin(
                                 email,
                                 password,
                                 context,
                                 navController,
                                 dataStore
-                            )
+                            ) { error ->
+                                errorText = "Email and Password Mismatch!" // Set the error text
+                            }
                         }, // Make the Row clickable
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center
@@ -163,6 +170,15 @@ fun LoginScreen(
                             color = Color(0xFFFFFFFF),
                             textAlign = TextAlign.Center,
                         )
+                    )
+
+                }
+                if (errorText.isNotEmpty()) {
+                    Text(
+                        text = errorText,
+                        color = Color.Red,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.padding(vertical = 8.dp)
                     )
                 }
                 Column(

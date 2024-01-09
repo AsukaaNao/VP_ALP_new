@@ -115,7 +115,7 @@ fun HomeView(
                         .padding(horizontal = 5.dp)
                         .clickable(
                             onClick = {
-                                //masi gatau
+                                navController.popBackStack()
                             }
                         )
                 )
@@ -136,7 +136,7 @@ fun HomeView(
                     .padding(horizontal = 5.dp)
                     .clickable(
                         onClick = {
-                            //masi gatau
+                            navController.navigate(ListScreen.LikedListResto.name)
                         }
                     )
             )
@@ -185,7 +185,7 @@ fun HomeView(
 
         Column(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxSize()
                 .background(Color.White, RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp))
                 .padding(20.dp)
         ) {
@@ -200,7 +200,7 @@ fun HomeView(
             )
 
             LazyVerticalGrid(
-                modifier = Modifier.height(200.dp),
+                modifier = Modifier.height(100.dp),
                 columns = GridCells.Fixed(3),
             ){
                 item {
@@ -297,103 +297,103 @@ fun HomeView(
                         }
                     }
                 }
-                item {
-                    Box(
-                        contentAlignment = Alignment.Center,
-                        modifier = Modifier
-                            .height(100.dp)
-                            .width(100.dp)
-                            .padding(horizontal = 10.dp, vertical = 5.dp)
-                            .border(1.dp, Color.LightGray, shape = RoundedCornerShape(10.dp))
-                            .clickable(
-                                onClick = {
-                                    //masi gatau
-                                }
-                            )
-                    ){
-                        Column (
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ){
-                            Image(
-                                painter = painterResource(id = R.drawable.foods),
-                                contentDescription ="",
-                                modifier = Modifier
-                                    .width(70.dp)
-                                    .height(70.dp)
-                            )
-                            Text(
-                                text = "Foods",
-                                fontWeight = FontWeight.Medium,
-                                fontSize = 12.sp
-                            )
-                        }
-                    }
-                }
-                item {
-                    Box(
-                        contentAlignment = Alignment.Center,
-                        modifier = Modifier
-                            .height(100.dp)
-                            .width(100.dp)
-                            .padding(horizontal = 10.dp, vertical = 5.dp)
-                            .border(1.dp, Color.LightGray, shape = RoundedCornerShape(10.dp))
-                            .clickable(
-                                onClick = {
-                                    //masi gatau
-                                }
-                            )
-                    ){
-                        Column (
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ){
-                            Image(
-//                                painter = painterResource(id = R.drawable.drinks),
-                                painter = painterResource(id = R.drawable.foods),
-                                contentDescription ="",
-                                modifier = Modifier
-                                    .width(70.dp)
-                                    .height(70.dp)
-                            )
-                            Text(
-                                text = "Drinks",
-                                fontWeight = FontWeight.Medium,
-                                fontSize = 12.sp
-                            )
-                        }
-                    }
-                }
-                item {
-                    Box(
-                        contentAlignment = Alignment.Center,
-                        modifier = Modifier
-                            .height(100.dp)
-                            .width(100.dp)
-                            .padding(horizontal = 10.dp, vertical = 5.dp)
-                            .border(1.dp, Color.LightGray, shape = RoundedCornerShape(10.dp))
-                            .clickable(
-                                onClick = {
-                                    //masi gatau
-                                }
-                            )
-                    ){
-                        Column (
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ){
-                            Image(
-                                painter = painterResource(id = R.drawable.bestseller),
-                                contentDescription ="",
-                                modifier = Modifier
-                                    .width(70.dp)
-                                    .height(70.dp)
-                            )
-                            Text(
-                                text = "Snacks",
-                                fontWeight = FontWeight.Medium,
-                                fontSize = 12.sp
-                            )
-                        }
-                    }
-                }
+//                item {
+//                    Box(
+//                        contentAlignment = Alignment.Center,
+//                        modifier = Modifier
+//                            .height(100.dp)
+//                            .width(100.dp)
+//                            .padding(horizontal = 10.dp, vertical = 5.dp)
+//                            .border(1.dp, Color.LightGray, shape = RoundedCornerShape(10.dp))
+//                            .clickable(
+//                                onClick = {
+//                                    //masi gatau
+//                                }
+//                            )
+//                    ){
+//                        Column (
+//                            horizontalAlignment = Alignment.CenterHorizontally
+//                        ){
+//                            Image(
+//                                painter = painterResource(id = R.drawable.foods),
+//                                contentDescription ="",
+//                                modifier = Modifier
+//                                    .width(70.dp)
+//                                    .height(70.dp)
+//                            )
+//                            Text(
+//                                text = "Foods",
+//                                fontWeight = FontWeight.Medium,
+//                                fontSize = 12.sp
+//                            )
+//                        }
+//                    }
+//                }
+//                item {
+//                    Box(
+//                        contentAlignment = Alignment.Center,
+//                        modifier = Modifier
+//                            .height(100.dp)
+//                            .width(100.dp)
+//                            .padding(horizontal = 10.dp, vertical = 5.dp)
+//                            .border(1.dp, Color.LightGray, shape = RoundedCornerShape(10.dp))
+//                            .clickable(
+//                                onClick = {
+//                                    //masi gatau
+//                                }
+//                            )
+//                    ){
+//                        Column (
+//                            horizontalAlignment = Alignment.CenterHorizontally
+//                        ){
+//                            Image(
+////                                painter = painterResource(id = R.drawable.drinks),
+//                                painter = painterResource(id = R.drawable.foods),
+//                                contentDescription ="",
+//                                modifier = Modifier
+//                                    .width(70.dp)
+//                                    .height(70.dp)
+//                            )
+//                            Text(
+//                                text = "Drinks",
+//                                fontWeight = FontWeight.Medium,
+//                                fontSize = 12.sp
+//                            )
+//                        }
+//                    }
+//                }
+//                item {
+//                    Box(
+//                        contentAlignment = Alignment.Center,
+//                        modifier = Modifier
+//                            .height(100.dp)
+//                            .width(100.dp)
+//                            .padding(horizontal = 10.dp, vertical = 5.dp)
+//                            .border(1.dp, Color.LightGray, shape = RoundedCornerShape(10.dp))
+//                            .clickable(
+//                                onClick = {
+//                                    //masi gatau
+//                                }
+//                            )
+//                    ){
+//                        Column (
+//                            horizontalAlignment = Alignment.CenterHorizontally
+//                        ){
+//                            Image(
+//                                painter = painterResource(id = R.drawable.bestseller),
+//                                contentDescription ="",
+//                                modifier = Modifier
+//                                    .width(70.dp)
+//                                    .height(70.dp)
+//                            )
+//                            Text(
+//                                text = "Snacks",
+//                                fontWeight = FontWeight.Medium,
+//                                fontSize = 12.sp
+//                            )
+//                        }
+//                    }
+//                }
             }
 
 
@@ -411,6 +411,9 @@ fun HomeView(
                         navController = navController
                     )
                 }
+
+                    Spacer(modifier = Modifier.height(80.dp))
+
 
 //                items(nearcardlist){
 //                    RestoCard(

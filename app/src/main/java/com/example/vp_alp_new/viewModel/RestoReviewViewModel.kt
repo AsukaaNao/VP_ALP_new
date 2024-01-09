@@ -1,65 +1,24 @@
-package com.example.vp_alp_new.viewModel
-
-
-import android.util.Log
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
+package com.example.vp_alp_new.ui.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
-import com.example.vp_alp_new.data.DataStoreManager
-import com.example.vp_alp_new.model.Restaurant
 import com.example.vp_alp_new.model.Restaurant_review
+import com.example.vp_alp_new.model.near
 import com.example.vp_alp_new.repository.MyDBContainer
-import com.example.vp_alp_new.ui.ListScreen
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
+class RestoReviewViewModel : ViewModel() {
+    private val _uiState = MutableStateFlow<List<Restaurant_review>?>(null)
+    val uiState: StateFlow<List<Restaurant_review>?> = _uiState.asStateFlow()
 
-sealed interface RestoReviewUIState{
-    data class Success(val data: List<Restaurant_review>):RestoReviewUIState
-    object Error: RestoReviewUIState
-    object Loading: RestoReviewUIState
-}
-class RestoReviewViewModel: ViewModel() {
-    var restoReviewUIState: RestoReviewUIState by mutableStateOf(RestoReviewUIState.Loading)
-        private set
-
-    private lateinit var data: List<Restaurant_review>
-
-    init{
-        loadData()
-    }
-
-    fun loadData(){
-//        viewModelScope.launch{
-//            try {
-//                data = MovieDBContainer().movieDBRepositories.getAllMovie(1)
-//                listMovieUIState = ListMovieUIState.Success(data)
-//            }catch(e: Exception){
-//                Log.d("NetworkTest", e.message.toString())
-//                listMovieUIState = ListMovieUIState.Error
-//            }
-//        }
-    }
-
-    fun onFavClicked(resto: Restaurant){
-//        resto.isLiked = !resto.isLiked
-
-        // sent server updated movie to server
-    }
-
-    fun logout(
-        navController: NavController,
-        dataStore: DataStoreManager
-    ) {
+    init {
+//        getRestaurantsData()
         viewModelScope.launch {
-            MyDBContainer().myDBRepositories.logout()
-            dataStore.saveToken("")
-            MyDBContainer.ACCESS_TOKEN = ""
-
-            navController.navigate(ListScreen.Login.name){
-                popUpTo(ListScreen.NearMe.name){inclusive = true}
-            }}
+            val reviewList: List<Restaurant_review> =
+                MyDBContainer().myDBRepositories.getRestoReviews(MyDBContainer.ACCESS_TOKEN)
+            _uiState.value = reviewList
+        }
     }
 }
