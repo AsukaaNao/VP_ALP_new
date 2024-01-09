@@ -2,6 +2,7 @@ package com.example.vp_alp_new.service
 
 import com.example.vp_alp_new.model.APIResponse
 import com.example.vp_alp_new.model.Food_reviewModel
+import com.example.vp_alp_new.model.Liked_restaurant
 import com.example.vp_alp_new.model.Restaurant
 import com.example.vp_alp_new.model.Restaurant_review
 import com.example.vp_alp_new.model.Restaurant_reviewModel
@@ -43,6 +44,12 @@ interface MyDBService {
     @GET("food_reviews")
     suspend fun getFoodReviews(@Header("Authorization") token: String, @Query("id") id: Int): APIResponse
 
+    @GET("food_reviews")
+    suspend fun getFoodReviews(@Header("Authorization") token: String, @Query("user_id") user_id: Int, @Query("restaurant_id") restaurant_id: Int): Boolean
+
+    @POST("add_favresto")
+    suspend fun addFavResto(@Body likedRestaurant: Liked_restaurant): APIResponse
+
 //    @PATCH("update_user")
 //    suspend fun updateUser(@Body request: UpdateUserRequest): APIResponse
 
@@ -50,9 +57,6 @@ interface MyDBService {
     suspend fun deleteUser(): APIResponse
     @GET("user")
     suspend fun getUser(@Header("Authorization") token: String): User
-
-    @GET("user_favresto")
-    suspend fun favResto(): APIResponse
 
     @GET("user_wishlist")
     suspend fun wishlistResto(): APIResponse

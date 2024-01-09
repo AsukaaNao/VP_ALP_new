@@ -74,7 +74,8 @@ fun WishListView(
                 painter = painterResource(id = R.drawable.baseline_arrow_back_24),
                 contentDescription = "image description",
                 contentScale = ContentScale.None,
-                modifier = Modifier.padding(end = 16.dp)
+                modifier = Modifier
+                    .padding(end = 16.dp)
                     .clickable {
                         // Navigate back when the arrow back is clicked
                         navController.popBackStack()
@@ -124,7 +125,8 @@ fun WishListView(
 fun RestoCard(
     near: near,
     modifier: Modifier = Modifier,
-    navController: NavController
+    navController: NavController,
+    viewModel: WishListViewModel = viewModel()
     ) {
     val context = LocalContext.current
     Column(modifier = Modifier
@@ -134,7 +136,7 @@ fun RestoCard(
 //                .makeText(context, "Do something ", Toast.LENGTH_SHORT)
 //                .show()
             Log.d("id", near.id.toString())
-            navController.navigate(ListScreen.RestoDetail.name+"/"+near.id)
+            navController.navigate(ListScreen.RestoDetail.name + "/" + near.id)
         })
     {
         Row(
@@ -250,6 +252,11 @@ fun RestoCard(
                             contentDescription = "Favorite",
                             tint = tint, modifier = Modifier.clickable {
                                 isLiked = !isLiked
+                                if (isLiked) {
+                                    viewModel.addFavResto(near.id)
+                                } else {
+
+                                }
                             }
                         )
                     }

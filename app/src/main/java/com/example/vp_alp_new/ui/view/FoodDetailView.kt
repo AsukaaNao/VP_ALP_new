@@ -40,6 +40,7 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.vp_alp.R
 import com.example.vp_alp_new.model.Food
+import com.example.vp_alp_new.ui.ListScreen
 import com.example.vp_alp_new.viewModel.FoodDetailViewModel
 import java.text.DecimalFormat
 import java.text.NumberFormat
@@ -49,7 +50,7 @@ import java.util.Locale
 @Composable
 fun foodDetailView(
 
-    navController: NavController,onClose: () -> Unit, food: Food
+    navController: NavController, onClose: () -> Unit, food: Food
 ) {
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -154,7 +155,10 @@ fun foodDetailView(
                         )
                     }
                     Row(
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.clickable {
+                            navController.navigate(ListScreen.FoodReview.name+"/"+food.id)
+                        }
                     ) {
                         Text(
                             text = "Ratings and reviews",
@@ -210,12 +214,16 @@ fun foodDetailView(
                             textAlign = TextAlign.Center,
                         ),
                         modifier = Modifier.padding(vertical = 21.dp, horizontal = 50.dp)
+                            .clickable {
+                                navController.navigate(ListScreen.AddFoodReview.name+"/"+food.id)
+                            }
                     )
                 }
             }
 
             fun formatPrice(price: Double): String {
-                val numberFormat = NumberFormat.getNumberInstance(Locale.getDefault()) as DecimalFormat
+                val numberFormat =
+                    NumberFormat.getNumberInstance(Locale.getDefault()) as DecimalFormat
                 numberFormat.applyPattern("#,###.###")
                 return numberFormat.format(price)
             }

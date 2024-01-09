@@ -337,7 +337,7 @@ fun RestoDetailView(
         foodDetailView(
             navController = navController,
             onClose = { selectedFood.value = null },
-            food = selectedFood.value!!
+            food = selectedFood.value!!,
         )
     }
 }
