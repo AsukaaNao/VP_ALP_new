@@ -45,7 +45,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
-import com.example.vp_alp_new.data.loadReview
+//import com.example.vp_alp_new.data.loadReview
 import com.example.vp_alp_new.model.Restaurant_review
 
 import com.example.vp_alp_new.ui.viewModel.RestoReviewViewModel

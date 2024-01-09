@@ -48,10 +48,11 @@ import com.example.vp_alp_new.ui.view.RestoDetailView
 import com.example.vp_alp_new.ui.view.SearchingScreen
 import com.example.vp_alp_new.ui.view.WishListView
 import com.example.vp_alp_new.ui.view.nearmeView
+import com.example.vp_alp_new.ui.view.reviewsandratingsFood
 import com.example.vp_alp_new.ui.view.reviewsandratingsResto
 
-import com.example.vp_alp_new.viewModel.FoodReviewUIState
-import com.example.vp_alp_new.viewModel.FoodReviewViewModel
+//import com.example.vp_alp_new.viewModel.FoodReviewUIState
+//import com.example.vp_alp_new.viewModel.FoodReviewViewModel
 //import com.example.vp_alp_new.viewModel.RestoReviewUIState
 //import com.example.vp_alp_new.viewModel.RestoReviewViewModel
 import kotlinx.coroutines.GlobalScope
@@ -214,26 +215,7 @@ fun RestoAppsRoute() {
             }
             composable(ListScreen.FoodReview.name) {
                 bottomBarYes = true
-                val foodReviewViewModel: FoodReviewViewModel = viewModel()
-                val status = foodReviewViewModel.foodReviewUIState
-                when (status) {
-                    is FoodReviewUIState.Loading -> {}
-                    is FoodReviewUIState.Success -> {}
-//                        nearme(
-                    //panggil api
-//                        movieList = status.data,
-//                        onFavClicked = {movie ->
-//                            listMovieViewModel.onFavClicked(movie)
-//                        },
-//                        onCardClick = {
-//                            navController.navigate(ListScreen.MovieDetail.name+"/"+it.id)
-//                        },
-//                        listRestoViewModel,
-//                        navController,
-//                        dataStore
-//                    )
-                    is FoodReviewUIState.Error -> {}
-                }
+                reviewsandratingsFood(navController = navController)
 
             }
             composable(ListScreen.Home.name) {
