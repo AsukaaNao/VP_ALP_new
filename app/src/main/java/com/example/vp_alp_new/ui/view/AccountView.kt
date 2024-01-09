@@ -142,9 +142,9 @@ fun AccountView(
         }
         template(text = "My Favourite Resto",onClick ={navController.navigate(ListScreen.LikedListResto.name)})
         template(text = "My Wishlist", onClick = { navController.navigate(ListScreen.WishListResto.name) })
-        template(text = "See restaurant reviews",onClick ={})
-        template(text = "See food reviews",onClick ={})
-        template(text = "Change my location",onClick ={})
+        template(text = "See restaurant reviews",onClick ={navController.navigate(ListScreen.RestoReview.name) })
+        template(text = "See food reviews",onClick ={navController.navigate(ListScreen.FoodReview.name)})
+//        template(text = "Change my location",onClick ={})
     }
 }
 

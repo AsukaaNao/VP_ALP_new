@@ -3,11 +3,14 @@ package com.example.vp_alp_new.repository
 import android.util.Log
 import com.example.vp_alp_new.model.APIResponse
 import com.example.vp_alp_new.model.Food
+import com.example.vp_alp_new.model.Food_review
 import com.example.vp_alp_new.model.Restaurant
+import com.example.vp_alp_new.model.Restaurant_review
 import com.example.vp_alp_new.model.User
 import com.example.vp_alp_new.model.near
 import com.example.vp_alp_new.service.MyDBService
 import com.google.gson.internal.LinkedTreeMap
+import retrofit2.Response
 import java.math.BigDecimal
 import java.net.HttpURLConnection
 import java.time.LocalTime
@@ -23,11 +26,11 @@ class MyDBRepository(private val myDBService: MyDBService) {
         return result.message
     }
 
-    suspend fun logout(): String {
-        val result = myDBService.logout()
-        return result.message
-    }
-
+//    suspend fun logout(): String {
+//        val result = myDBService.logout()
+//        return result.message
+//    }
+//message
     suspend fun register(username: String, email: String, password: String, phone: String): String {
         // Create a User object with the provided parameters
         val user = User(
@@ -53,6 +56,65 @@ class MyDBRepository(private val myDBService: MyDBService) {
     suspend fun getUser(token: String): User {
         return myDBService.getUser("Bearer $token")
     }
+
+    suspend fun getRestoReviews(token: String): List<Restaurant_review> {
+        val response: APIResponse = myDBService.getRestoReviews()
+
+            val data = response.data
+            if (data is List<*>) {
+                // Map each item in the list to a Restaurant_review object
+                return data.mapNotNull { item ->
+                    if (item is LinkedHashMap<*, *>) {
+                        // Extract necessary fields from the item map and create Restaurant_review objects
+                        Restaurant_review(
+                            id = item["id"] as? Int ?: 0,
+                            // Parse 'user', 'restaurant', and other fields accordingly
+                            // Assuming 'user' and 'restaurant' are nested objects or IDs
+                            user = User(/* Populate user fields */),
+                            restaurant = parseRestaurant(data["restaurant"] as Map<*, *>),
+                            content = item["content"] as? String ?: "",
+                            rating = (item["rating"] as? Double ?: 0.0).toFloat()
+                        )
+                    } else {
+                        null
+                    }
+                }
+            } else {
+                Log.e("API Request Error: ", "API request failed with status ${response.status}")
+            }
+
+        return emptyList()
+    }
+
+    suspend fun getFoodReviews(token: String): List<Food_review> {
+        val response: APIResponse = myDBService.getFoodReviews()
+
+            val data = response.data
+            if (data is List<*>) {
+                // Map each item in the list to a Restaurant_review object
+                return data.mapNotNull { item ->
+                    if (item is LinkedHashMap<*, *>) {
+                        // Extract necessary fields from the item map and create Restaurant_review objects
+                        Food_review(
+                            id = item["id"] as? Int ?: 0,
+                            // Parse 'user', 'restaurant', and other fields accordingly
+                            // Assuming 'user' and 'restaurant' are nested objects or IDs
+                            user = User(/* Populate user fields */),
+                            food = parseFood(data["food"] as List<*>),
+                            content = item["content"] as? String ?: "",
+                            rating = (item["rating"] as? Double ?: 0.0).toFloat()
+                        )
+                    } else {
+                        null
+                    }
+                }
+            } else {
+                Log.e("API Request Error: ", "API request failed with status ${response.status}")
+            }
+
+        return emptyList()
+    }
+
 
     suspend fun all_resto2(token: String): List<near> {
         val response: APIResponse = myDBService.all_resto2("Bearer $token")
@@ -113,6 +175,18 @@ class MyDBRepository(private val myDBService: MyDBService) {
         )
     }
 
+    private fun parseFood(item: Map<*, *>): Food {
+        return Food(
+            id = (item["id"] as? Double)?.toInt() ?: 0,
+            name = item["name"]?.toString() ?: "",
+            description = item["description"]?.toString() ?: "",
+            price = (item["price"] as? Double) ?: 0.0,
+//                    rating = (item["rating"] as? String)?.toDoubleOrNull() ?: 0.0,
+            rating = (item["rating"] as? Double) ?: 0.0,
+            image = item["image"]?.toString() ?: ""
+        )
+    }
+
     private fun parseFoods(foodsData: List<*>): List<Food> {
         return foodsData.mapNotNull { item ->
             if (item is Map<*, *>) {
@@ -130,4 +204,40 @@ class MyDBRepository(private val myDBService: MyDBService) {
             }
         }
     }
+
+//    private fun parseFood(foodsData: List<*>): List<Food> {
+//        return foodsData.mapNotNull { item ->
+//            if (item is Map<*, *>) {
+//                Food(
+//                    id = (item["id"] as? Double)?.toInt() ?: 0,
+//                    name = item["name"]?.toString() ?: "",
+//                    description = item["description"]?.toString() ?: "",
+//                    price = (item["price"] as? Double) ?: 0.0,
+////                    rating = (item["rating"] as? String)?.toDoubleOrNull() ?: 0.0,
+//                    rating = (item["rating"] as? Double) ?: 0.0,
+//                    image = item["image"]?.toString() ?: ""
+//                )
+//            } else {
+//                null
+//            }
+//        }
+//    }
+
+//    suspend fun updateUser(user: User): ApiResponse {
+//        val updateUserRequest = UpdateUserRequest(
+//            user.id,
+//            user.name,
+//            user.email,
+//            user.password,
+//            user.phone
+//        )
+//
+//        return try {
+//            userService.updateUser(updateUserRequest)
+//        } catch (e: Exception) {
+//            // Handle exceptions or errors during the API call
+//            ApiResponse(-1, e.message ?: "Unknown error", Any())
+//        }
+//    }
+
 }

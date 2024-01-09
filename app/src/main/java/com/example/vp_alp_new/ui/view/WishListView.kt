@@ -242,15 +242,15 @@ fun RestoCard(
 
                     Box(modifier = Modifier
                         .weight(1f)
-                        .clickable {
-                            isLiked = !isLiked
-                        }, contentAlignment = Alignment.BottomEnd
+                        , contentAlignment = Alignment.BottomEnd
                     ) {
                         val tint = if (isLiked) Color(0xFFEC407A) else Color(0xFF636363)
                         Icon(
                             imageVector = Icons.Default.Favorite,
                             contentDescription = "Favorite",
-                            tint = tint
+                            tint = tint, modifier = Modifier.clickable {
+                                isLiked = !isLiked
+                            }
                         )
                     }
                 }

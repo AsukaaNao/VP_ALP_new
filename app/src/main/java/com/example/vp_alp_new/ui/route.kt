@@ -46,11 +46,12 @@ import com.example.vp_alp_new.ui.view.RestoDetailView
 import com.example.vp_alp_new.ui.view.SearchingScreen
 import com.example.vp_alp_new.ui.view.WishListView
 import com.example.vp_alp_new.ui.view.nearmeView
+import com.example.vp_alp_new.ui.view.reviewsandratingsResto
 
 import com.example.vp_alp_new.viewModel.FoodReviewUIState
 import com.example.vp_alp_new.viewModel.FoodReviewViewModel
-import com.example.vp_alp_new.viewModel.RestoReviewUIState
-import com.example.vp_alp_new.viewModel.RestoReviewViewModel
+//import com.example.vp_alp_new.viewModel.RestoReviewUIState
+//import com.example.vp_alp_new.viewModel.RestoReviewViewModel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -285,27 +286,9 @@ fun RestoAppsRoute() {
             }
             composable(ListScreen.RestoReview.name) {
                 bottomBarYes = true
-                val restoReviewViewModel: RestoReviewViewModel = viewModel()
-                val status = restoReviewViewModel.restoReviewUIState
-                when (status) {
-                    is RestoReviewUIState.Loading -> {}
-                    is RestoReviewUIState.Success -> {}
-//                        nearme(
-                    //panggil api
-//                        movieList = status.data,
-//                        onFavClicked = {movie ->
-//                            listMovieViewModel.onFavClicked(movie)
-//                        },
-//                        onCardClick = {
-//                            navController.navigate(ListScreen.MovieDetail.name+"/"+it.id)
-//                        },
-//                        listRestoViewModel,
-//                        navController,
-//                        dataStore
-//                    )
-                    is RestoReviewUIState.Error -> {}
-                }
+                reviewsandratingsResto(navController = navController)
             }
+
             composable(ListScreen.SearchScreen.name) {
                 bottomBarYes = true
                 SearchingScreen(navController = navController)

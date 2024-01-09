@@ -3,7 +3,7 @@ package com.example.vp_alp_new.data
 import com.example.vp_alp.R
 import com.example.vp_alp_new.model.near
 
-import com.example.vp_alp_new.model.rating
+//import com.example.vp_alp_new.model.rating
 
 //public fun loadNear():List<near>{
 //    return listOf(
@@ -20,15 +20,15 @@ import com.example.vp_alp_new.model.rating
 //
 //}
 
-public fun loadReview():List<rating>{
-    return listOf(
-        rating("Ayamnya enak, kurang besar porsinya",4,"Nao",R.drawable.us1),
-        rating("Wenak tenan, wes langganan",5,"Barnaby",R.drawable.us2),
-        rating("P ingpo ada kecoa di lantai",1,"IIan",R.drawable.us3),
-        rating("Kurang sip minumnya, tapi ayamnya enak",4,"NCS",R.drawable.us4),
-        rating("I like KFC more",4,"Axe L",R.drawable.us5),
-        rating("Aja aja ada kasirnya...",3,"KoKipin",R.drawable.us6),
-
-        )
-
-}
+//public fun loadReview():List<rating>{
+//    return listOf(
+//        rating("Ayamnya enak, kurang besar porsinya",4,"Nao",R.drawable.us1),
+//        rating("Wenak tenan, wes langganan",5,"Barnaby",R.drawable.us2),
+//        rating("P ingpo ada kecoa di lantai",1,"IIan",R.drawable.us3),
+//        rating("Kurang sip minumnya, tapi ayamnya enak",4,"NCS",R.drawable.us4),
+//        rating("I like KFC more",4,"Axe L",R.drawable.us5),
+//        rating("Aja aja ada kasirnya...",3,"KoKipin",R.drawable.us6),
+//
+//        )
+//
+//}
