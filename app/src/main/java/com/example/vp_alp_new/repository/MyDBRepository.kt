@@ -6,9 +6,12 @@ import com.example.vp_alp_new.model.Food
 import com.example.vp_alp_new.model.Food_review
 import com.example.vp_alp_new.model.Restaurant
 import com.example.vp_alp_new.model.Restaurant_review
+import com.example.vp_alp_new.model.Restaurant_reviewModel
 import com.example.vp_alp_new.model.User
 import com.example.vp_alp_new.model.near
+import com.example.vp_alp_new.repository.MyDBContainer.Companion.user
 import com.example.vp_alp_new.service.MyDBService
+import com.example.vp_alp_new.ui.view.RestoReview
 import com.google.gson.internal.LinkedTreeMap
 import retrofit2.Response
 import java.math.BigDecimal
@@ -49,6 +52,20 @@ class MyDBRepository(private val myDBService: MyDBService) {
 //        }
 
         // Return the error message if the registration was not successful
+        return result.message
+    }
+
+    suspend fun createRestoReviews(rating:Double, content: String, user_id: Int, restaurant_id:Int): String {
+        // Create a User object with the provided parameters
+        val restoreviews = Restaurant_reviewModel(
+            rating = rating,
+            content = content,
+            user_id = user_id,
+            restaurant_id = restaurant_id
+        )
+
+        val result = myDBService.createRestoReviews(restoreviews)
+
         return result.message
     }
 

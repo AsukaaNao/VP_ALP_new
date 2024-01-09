@@ -2,6 +2,8 @@ package com.example.vp_alp_new.service
 
 import com.example.vp_alp_new.model.APIResponse
 import com.example.vp_alp_new.model.Restaurant
+import com.example.vp_alp_new.model.Restaurant_review
+import com.example.vp_alp_new.model.Restaurant_reviewModel
 import com.example.vp_alp_new.model.User
 import com.example.vp_alp_new.model.near
 import retrofit2.http.Body
@@ -30,6 +32,9 @@ interface MyDBService {
 
     @GET("resto_reviews")
     suspend fun getRestoReviews(@Header("Authorization") token: String, @Query("id") id: Int): APIResponse
+
+    @POST("make_restoreviews")
+    suspend fun createRestoReviews(@Body restoreview: Restaurant_reviewModel): APIResponse
 
 //    @PATCH("update_user")
 //    suspend fun updateUser(@Body request: UpdateUserRequest): APIResponse
@@ -70,8 +75,7 @@ interface MyDBService {
     @GET("search_resto")
     suspend fun searchResto(): APIResponse
 
-//    @POST("make_restoreviews")
-//    suspend fun createRestoReviews(@Body request: CreateRestoReviewRequest): APIResponse
+
 //
 //    @PATCH("edit_restoreviews")
 //    suspend fun updateRestoReviews(@Body request: UpdateRestoReviewRequest): APIResponse
