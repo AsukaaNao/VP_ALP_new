@@ -96,8 +96,8 @@ fun reviewsandratingsFood(
             )
             Spacer(modifier = Modifier.weight(1f))
 
-            var isLiked by remember { mutableStateOf(false) }
 
+            var isLiked by remember { mutableStateOf(false) }
             Box(modifier = Modifier.clickable {
                 isLiked = !isLiked
             }) {

@@ -39,6 +39,7 @@ import com.example.vp_alp_new.repository.MyDBContainer
 import com.example.vp_alp_new.ui.theme.colorPrimary
 import com.example.vp_alp_new.ui.view.AccountView
 import com.example.vp_alp_new.ui.view.DashboardSection
+import com.example.vp_alp_new.ui.view.Dibawah25kView
 import com.example.vp_alp_new.ui.view.FoodReview
 import com.example.vp_alp_new.ui.view.HomeView
 import com.example.vp_alp_new.ui.view.LikedListView
@@ -48,6 +49,7 @@ import com.example.vp_alp_new.ui.view.RegisterView
 import com.example.vp_alp_new.ui.view.RestoDetailView
 import com.example.vp_alp_new.ui.view.SearchingScreen
 import com.example.vp_alp_new.ui.view.WishListView
+import com.example.vp_alp_new.ui.view.bestSellerView
 import com.example.vp_alp_new.ui.view.nearmeView
 import com.example.vp_alp_new.ui.view.reviewsandratingsFood
 import com.example.vp_alp_new.ui.view.reviewsandratingsResto
@@ -62,6 +64,7 @@ enum class ListScreen() {
     Account,
     AddRestoReview,
     AddFoodReview,
+    BestSeller,
     Dashboard,
     EditAccount,
     FoodDetail,
@@ -75,6 +78,7 @@ enum class ListScreen() {
     RestoReview,
     SearchScreen,
     WishListResto,
+    Dibawah25k,
 
 
 }
@@ -205,13 +209,23 @@ fun RestoAppsRoute() {
                 RatingRestoFormsView(
                     modifier = Modifier.size(50.dp),
                     rating = rating_1,
-                    restoid = restoid
+//                    restoid = restoid
                 ){
                     rating_1 = it
                 }
             }
             composable(ListScreen.AddFoodReview.name) {
                 bottomBarYes = true
+            }
+
+            composable(ListScreen.BestSeller.name) {
+                bottomBarYes = true
+                bestSellerView(navController = navController)
+            }
+
+            composable(ListScreen.Dibawah25k.name) {
+                bottomBarYes = true
+                Dibawah25kView(navController = navController)
             }
 
             composable(ListScreen.EditAccount.name) {
@@ -294,7 +308,7 @@ fun RestoAppsRoute() {
 
             composable(ListScreen.WishListResto.name) {
                 bottomBarYes = true
-               WishListView(navController = navController)
+                WishListView(navController = navController)
             }
 
 

@@ -53,10 +53,10 @@ interface MyDBService {
 
     // Restaurant Endpoints
     @GET("best_sellers")
-    suspend fun bestSellers(): APIResponse
+    suspend fun bestSellers(@Header("Authorization") token: String): APIResponse
 
     @GET("hemat")
-    suspend fun restoHemat(): APIResponse
+    suspend fun getDibawah25k(@Header("Authorization") token: String): APIResponse
 
     @GET("resto_food")
     suspend fun restoFood(): APIResponse
