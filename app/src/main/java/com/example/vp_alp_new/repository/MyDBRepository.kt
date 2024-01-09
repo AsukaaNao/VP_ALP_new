@@ -96,6 +96,16 @@ class MyDBRepository(private val myDBService: MyDBService) {
         return result.message
     }
 
+    suspend fun deleteFavResto(user_id:Int, restaurant_id: Int) {
+        Log.d("Step", "3")
+        myDBService.deleteFavResto(MyDBContainer.ACCESS_TOKEN,user_id = user_id, restaurant_id = restaurant_id)
+    }
+
+    suspend fun isLikedResto(user_id: Int, restaurant_id: Int):Boolean {
+        Log.d("STep", "3")
+        return myDBService.isLikedResto(MyDBContainer.ACCESS_TOKEN,user_id = user_id, restaurant_id = restaurant_id)
+    }
+
 
     suspend fun getUser(token: String): User {
         return myDBService.getUser("Bearer $token")

@@ -28,6 +28,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.Icon
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -239,8 +240,13 @@ fun RestoCard(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-
+                    Log.d("STep", "1")
                     var isLiked by remember { mutableStateOf(false) }
+
+//                    LaunchedEffect(viewModel) {
+//
+//                        isLiked = viewModel.isLikedResto(near.id)
+//                    }
 
                     Box(modifier = Modifier
                         .weight(1f)
@@ -255,7 +261,8 @@ fun RestoCard(
                                 if (isLiked) {
                                     viewModel.addFavResto(near.id)
                                 } else {
-
+                                    Log.d("Step", "1")
+                                    viewModel.deleteFavResto(near.id)
                                 }
                             }
                         )
