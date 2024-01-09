@@ -44,6 +44,7 @@ import com.example.vp_alp_new.ui.view.FoodReview
 import com.example.vp_alp_new.ui.view.HomeView
 import com.example.vp_alp_new.ui.view.LikedListView
 import com.example.vp_alp_new.ui.view.LoginScreen
+import com.example.vp_alp_new.ui.view.RatingFoodFormsView
 import com.example.vp_alp_new.ui.view.RatingRestoFormsView
 import com.example.vp_alp_new.ui.view.RegisterView
 import com.example.vp_alp_new.ui.view.RestoDetailView
@@ -121,17 +122,20 @@ fun BottomBar2(
                 unselectedContentColor = Color.Gray,
                 selectedContentColor = colorPrimary,
                 onClick = {
-                    onSectionSelected (section)
+                    onSectionSelected(section)
                     when (section) {
                         DashboardSection.Home -> {
                             navController.navigate(ListScreen.Home.name)
                         }
+
                         DashboardSection.Search -> {
                             navController.navigate(ListScreen.SearchScreen.name)
                         }
+
                         DashboardSection.Favorite -> {
                             navController.navigate(ListScreen.LikedListResto.name)
                         }
+
                         DashboardSection.Profile -> {
                             navController.navigate(ListScreen.Account.name)
                         }
@@ -200,7 +204,7 @@ fun RestoAppsRoute() {
                 AccountView(navController = navController)
             }
 
-            composable(ListScreen.AddRestoReview.name+"/{id}") {
+            composable(ListScreen.AddRestoReview.name + "/{id}") {
                 bottomBarYes = true
                 val id = it.arguments?.getString("id")!!.toInt()
                 RatingRestoFormsView(
@@ -209,8 +213,14 @@ fun RestoAppsRoute() {
                     navController = navController
                 )
             }
-            composable(ListScreen.AddFoodReview.name) {
+            composable(ListScreen.AddFoodReview.name + "/{id}") {
                 bottomBarYes = true
+                val id = it.arguments?.getString("id")!!.toInt()
+                RatingFoodFormsView(
+                    modifier = Modifier.size(50.dp),
+                    id = id,
+                    navController = navController
+                )
             }
 
             composable(ListScreen.BestSeller.name) {
@@ -243,7 +253,7 @@ fun RestoAppsRoute() {
 
             composable(ListScreen.LikedListResto.name) {
                 bottomBarYes = true
-                LikedListView( navController = navController)
+                LikedListView(navController = navController)
             }
 
 
@@ -279,7 +289,7 @@ fun RestoAppsRoute() {
                 RegisterView(navController = navController)
             }
 
-            composable(ListScreen.RestoDetail.name+"/{id}") {backStackEntry ->
+            composable(ListScreen.RestoDetail.name + "/{id}") { backStackEntry ->
                 val id = backStackEntry.arguments?.getString("id")!!.toInt()
                 bottomBarYes = true
                 RestoDetailView(
@@ -287,7 +297,7 @@ fun RestoAppsRoute() {
                     navController = navController
                 )
             }
-            composable(ListScreen.RestoReview.name+"/{id}") {
+            composable(ListScreen.RestoReview.name + "/{id}") {
                 bottomBarYes = true
                 val id = it.arguments?.getString("id")!!.toInt()
                 reviewsandratingsResto(

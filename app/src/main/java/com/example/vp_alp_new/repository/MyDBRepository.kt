@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.vp_alp_new.model.APIResponse
 import com.example.vp_alp_new.model.Food
 import com.example.vp_alp_new.model.Food_review
+import com.example.vp_alp_new.model.Food_reviewModel
 import com.example.vp_alp_new.model.Restaurant
 import com.example.vp_alp_new.model.Restaurant_review
 import com.example.vp_alp_new.model.Restaurant_reviewModel
@@ -65,6 +66,20 @@ class MyDBRepository(private val myDBService: MyDBService) {
         )
 
         val result = myDBService.createRestoReviews(restoreviews)
+
+        return result.message
+    }
+
+    suspend fun createFoodReviews(rating:Double, content: String, user_id: Int, food_id:Int): String {
+        // Create a User object with the provided parameters
+        val foodreview = Food_reviewModel(
+            rating = rating,
+            content = content,
+            user_id = user_id,
+            food_id = food_id
+        )
+
+        val result = myDBService.createFoodReviews(foodreview)
 
         return result.message
     }
