@@ -202,17 +202,11 @@ fun RestoAppsRoute() {
 
             composable(ListScreen.AddRestoReview.name+"/{id}") {
                 bottomBarYes = true
-                val restoid = it.arguments?.getString("id")!!.toInt()
-                var rating_1 by remember{
-                    mutableDoubleStateOf(0.0)
-                }
+                val id = it.arguments?.getString("id")!!.toInt()
                 RatingRestoFormsView(
                     modifier = Modifier.size(50.dp),
-                    rating = rating_1,
-//                    restoid = restoid
-                ){
-                    rating_1 = it
-                }
+                    id = id
+                )
             }
             composable(ListScreen.AddFoodReview.name) {
                 bottomBarYes = true
