@@ -7,18 +7,18 @@ import com.example.vp_alp_new.repository.MyDBContainer
 import com.example.vp_alp_new.ui.ListScreen
 import kotlinx.coroutines.launch
 
-class RatingRestoViewModel: ViewModel() {
+class RatingFoodViewModel: ViewModel() {
     fun makeNewReview(
         rating:Double,
         content: String,
-        restaurant_id:Int,
-        navController:NavController
+        food_id:Int,
+        navController: NavController
     ) {
         viewModelScope.launch {
             val user_id = MyDBContainer.user.id
-            MyDBContainer().myDBRepositories.createRestoReviews(rating, content, user_id, restaurant_id)
+            MyDBContainer().myDBRepositories.createFoodReviews(rating, content, user_id, food_id)
 
-            navController.navigate(ListScreen.RestoReview.name+"/"+restaurant_id)
+            navController.navigate(ListScreen.FoodReview.name+"/"+food_id)
         }
     }
 }

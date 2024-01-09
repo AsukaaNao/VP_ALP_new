@@ -59,8 +59,14 @@ import com.example.vp_alp_new.viewModel.NearMeViewModel
 fun reviewsandratingsFood(
     viewModel: FoodReviewViewModel = viewModel(),
     navController: NavController,
+    id:Int
 ) {
     val reviews by viewModel.uiState.collectAsState()
+
+    LaunchedEffect(viewModel, id) {
+        viewModel.loadData(id)
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()

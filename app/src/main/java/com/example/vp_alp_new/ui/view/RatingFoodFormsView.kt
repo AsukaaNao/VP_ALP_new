@@ -60,6 +60,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.vp_alp_new.viewModel.RatingFoodViewModel
+import com.example.vp_alp_new.viewModel.RatingRestoViewModel
 
 //sementara gini dulu wak, kalo ada tambahan dll nanti baru dirubah
 private val Orange = Color(0xFFFFC107)
@@ -70,17 +72,20 @@ private val Abumuda = Color(0xFF9C9C9C)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RatingFoodFormsView(
+    viewModel: RatingFoodViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
     modifier: Modifier = Modifier,
-    rating: Double = 0.0,
     stars: Int = 5,
     starsColor: Color = Orange,
-    onRatingChange: (Double) -> Unit,
-    navController: NavController
+    id: Int,
+    navController :NavController
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val context = LocalContext.current
     var value by remember { mutableStateOf("") }
-
+    var rating by remember{
+        mutableDoubleStateOf(0.0)
+    }
+//    Log.d("Rating", rating.toString())
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },
         content = {
@@ -102,10 +107,7 @@ fun RatingFoodFormsView(
                         modifier = Modifier
                             .padding(horizontal = 5.dp)
                             .clickable {
-
                                 navController.popBackStack()
-
-
                             }
                     )
                     Text(
@@ -127,7 +129,7 @@ fun RatingFoodFormsView(
                 ){
                     for (index in 1 .. stars){
                         Icon (
-                            modifier = modifier.clickable{ onRatingChange(index.toDouble()) },
+                            modifier = modifier.clickable{ rating = index.toDouble() },
                             contentDescription = null,
                             tint =
                             if (index <= rating){
@@ -167,7 +169,14 @@ fun RatingFoodFormsView(
                         modifier = Modifier
                             .width(300.dp)
                             .padding(top = 200.dp),
-                        onClick = {  },
+                        onClick = {
+                            viewModel.makeNewReview(
+                                rating = rating,
+                                content = value,
+                                food_id = id,
+                                navController = navController
+                            )
+                        },
                         colors = ButtonDefaults.buttonColors(containerColor = Orange,)
                     ) {
                         Text("SEND")

@@ -147,7 +147,14 @@ fun RatingRestoFormsView(
                         modifier = Modifier
                             .width(300.dp)
                             .padding(top = 200.dp),
-                        onClick = {  },
+                        onClick = {
+                            viewModel.makeNewReview(
+                                rating = rating,
+                                content = value,
+                                restaurant_id = id,
+                                navController = navController
+                            )
+                        },
                         colors = ButtonDefaults.buttonColors(containerColor = Orange,)
                     ) {
                         Text("SEND")
