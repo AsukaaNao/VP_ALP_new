@@ -205,7 +205,8 @@ fun RestoAppsRoute() {
                 val id = it.arguments?.getString("id")!!.toInt()
                 RatingRestoFormsView(
                     modifier = Modifier.size(50.dp),
-                    id = id
+                    id = id,
+                    navController = navController
                 )
             }
             composable(ListScreen.AddFoodReview.name) {
