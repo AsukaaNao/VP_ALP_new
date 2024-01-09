@@ -25,7 +25,7 @@ class MyDBContainer() {
         lateinit var user: User
     }
 
-    private val BASE_URL = "http://192.168.0.110/api_alp_vp/public/api/"
+    private val BASE_URL = "http://192.168.1.10/Api_alp/public/api/"
 
     private val client = OkHttpClient.Builder()
         .addInterceptor(AuthInterceptor(ACCESS_TOKEN))

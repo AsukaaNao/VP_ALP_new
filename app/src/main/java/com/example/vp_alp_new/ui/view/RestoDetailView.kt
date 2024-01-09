@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -23,6 +24,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -53,6 +56,8 @@ fun RestoDetailView(
 ) {
     val restaurant by viewModel.restaurant.collectAsState()
     val foods by viewModel.foods.collectAsState()
+    val selectedFood = remember { mutableStateOf<Food?>(null) }
+
     Log.d("resto in view", restaurant.toString())
 
     Log.d("id in resto detail", id.toString())
@@ -60,6 +65,7 @@ fun RestoDetailView(
         Log.d("LaunchedEffect", "Triggered for id: $id")
         viewModel.fetchData(id)
     }
+
 
     Column(
         modifier = Modifier
@@ -292,8 +298,11 @@ fun RestoDetailView(
                         .background(color = Color(0xFF848484))
                 )
             }
-            items(foods) {
-                FoodCard(food = it)
+            items(foods) { food ->
+                FoodCard(food = food) {
+                    // Handle click event here, such as updating the selectedFood value
+                    selectedFood.value = food
+                }
             }
             item {
 //                Text(
@@ -320,18 +329,34 @@ fun RestoDetailView(
 //                FoodCard(food = it)
 //            }
         }
+
+
+
+    }
+    if (selectedFood.value != null) {
+        foodDetailView(
+            navController = navController,
+            onClose = { selectedFood.value = null },
+            food = selectedFood.value!!
+        )
     }
 }
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun FoodCard(food: Food) {
-    Row(
+fun FoodCard(food: Food, onItemClick: () -> Unit) {
+    Box(
         Modifier
             .fillMaxWidth()
-            .padding(16.dp),
-        verticalAlignment = Alignment.CenterVertically
+            .padding(16.dp)
+            .clickable { onItemClick() } // This makes the whole FoodCard clickable
     ) {
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
 //        Image(
 //            painter = painterResource(id = R.drawable.ajmere_dale_square_thumbnail),
 //            contentDescription = "image description",
@@ -349,71 +374,72 @@ fun FoodCard(food: Food) {
 //                    ambientColor = Color(0x66000000)
 //                )
 //        )
-        GlideImage(
-            model = food.image,
-            contentDescription = "",
-            contentScale = ContentScale.FillBounds,
-            modifier = Modifier
-                .size(119.dp)
-                .border(
-                    width = 1.dp,
-                    color = Color(0xFFFFFFFF),
-                    shape = RoundedCornerShape(size = 10.dp)
-                )
-                .shadow(
-                    elevation = 4.dp,
-                    spotColor = Color(0x66000000),
-                    ambientColor = Color(0x66000000)
-                )
-        )
-        Column(
-            Modifier.padding(start = 14.dp)
-        ) {
-            Text(
-                text = food.name,
-                style = TextStyle(
-                    fontSize = 14.sp,
-                    lineHeight = 21.sp,
-                    fontWeight = FontWeight(500),
-                    color = Color(0xFF000000),
-                )
+            GlideImage(
+                model = food.image,
+                contentDescription = "",
+                contentScale = ContentScale.FillBounds,
+                modifier = Modifier
+                    .size(119.dp)
+                    .border(
+                        width = 1.dp,
+                        color = Color(0xFFFFFFFF),
+                        shape = RoundedCornerShape(size = 10.dp)
+                    )
+                    .shadow(
+                        elevation = 4.dp,
+                        spotColor = Color(0x66000000),
+                        ambientColor = Color(0x66000000)
+                    )
             )
-            Row(
-                verticalAlignment = Alignment.CenterVertically
+            Column(
+                Modifier.padding(start = 14.dp)
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.star),
-                    contentDescription = "image description",
-                    contentScale = ContentScale.FillBounds
+                Text(
+                    text = food.name,
+                    style = TextStyle(
+                        fontSize = 14.sp,
+                        lineHeight = 21.sp,
+                        fontWeight = FontWeight(500),
+                        color = Color(0xFF000000),
+                    )
+                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.star),
+                        contentDescription = "image description",
+                        contentScale = ContentScale.FillBounds
+                    )
+                    Text(
+                        text = "${food.rating}",
+                        style = TextStyle(
+                            fontSize = 11.sp,
+                            lineHeight = 21.sp,
+                            fontWeight = FontWeight(400),
+                            color = Color(0xFF000000),
+                        )
+                    )
+                }
+                Text(
+                    text = food.description,
+                    style = TextStyle(
+                        fontSize = 11.sp,
+                        lineHeight = 13.sp,
+                        fontWeight = FontWeight(400),
+                        color = Color(0xFF848484),
+                    )
                 )
                 Text(
-                    text = "${food.rating}",
+                    text = formatPrice(food.price),
                     style = TextStyle(
                         fontSize = 11.sp,
                         lineHeight = 21.sp,
-                        fontWeight = FontWeight(400),
+                        fontWeight = FontWeight(600),
                         color = Color(0xFF000000),
                     )
                 )
             }
-            Text(
-                text = food.description,
-                style = TextStyle(
-                    fontSize = 11.sp,
-                    lineHeight = 13.sp,
-                    fontWeight = FontWeight(400),
-                    color = Color(0xFF848484),
-                )
-            )
-            Text(
-                text = formatPrice(food.price),
-                style = TextStyle(
-                    fontSize = 11.sp,
-                    lineHeight = 21.sp,
-                    fontWeight = FontWeight(600),
-                    color = Color(0xFF000000),
-                )
-            )
         }
     }
 }

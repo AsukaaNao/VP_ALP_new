@@ -50,6 +50,7 @@ import com.example.vp_alp_new.ui.view.RestoDetailView
 import com.example.vp_alp_new.ui.view.SearchingScreen
 import com.example.vp_alp_new.ui.view.WishListView
 import com.example.vp_alp_new.ui.view.bestSellerView
+import com.example.vp_alp_new.ui.view.foodDetailView
 import com.example.vp_alp_new.ui.view.nearmeView
 import com.example.vp_alp_new.ui.view.reviewsandratingsFood
 import com.example.vp_alp_new.ui.view.reviewsandratingsResto
@@ -65,7 +66,6 @@ enum class ListScreen() {
     AddRestoReview,
     AddFoodReview,
     BestSeller,
-    Dashboard,
     EditAccount,
     FoodDetail,
     FoodReview,
@@ -226,9 +226,10 @@ fun RestoAppsRoute() {
             composable(ListScreen.EditAccount.name) {
                 bottomBarYes = true
             }
-            composable(ListScreen.FoodDetail.name) {
-                bottomBarYes = true
-            }
+//            composable(ListScreen.FoodDetail.name) {
+//                bottomBarYes = true
+//                foodDetailView(navController = navController,)
+//            }
             composable(ListScreen.FoodReview.name) {
                 bottomBarYes = true
                 reviewsandratingsFood(navController = navController)
