@@ -185,7 +185,7 @@ fun HomeView(
 
         Column(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxSize()
                 .background(Color.White, RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp))
                 .padding(20.dp)
         ) {
@@ -411,6 +411,9 @@ fun HomeView(
                         navController = navController
                     )
                 }
+
+                    Spacer(modifier = Modifier.height(80.dp))
+
 
 //                items(nearcardlist){
 //                    RestoCard(

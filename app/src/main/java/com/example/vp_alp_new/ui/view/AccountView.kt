@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -65,18 +66,7 @@ fun AccountView(
                 modifier = Modifier.padding(12.dp)
             )
             Spacer(modifier = Modifier.weight(1f))
-            Column(
-                modifier = Modifier
-                    .padding(12.dp)
-                    .width(24.dp)
-                    .height(24.dp)
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.exit),
-                    contentDescription = "",
-                    contentScale = ContentScale.Crop
-                )
-            }
+            LogoutButton(navController = navController, accountViewModel = viewModel)
         }
         Row(
             Modifier
@@ -197,6 +187,25 @@ fun template(
             .height(0.3.dp)
             .background(color = Color(0xFFB2B2B2))
     )
+}
+
+@Composable
+fun LogoutButton(navController: NavController, accountViewModel: AccountViewModel) {
+    Column(
+        modifier = Modifier
+            .padding(12.dp)
+            .size(24.dp)
+            .clickable {
+                accountViewModel.logout()
+                navController.navigate(ListScreen.Login.name)
+            }
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.exit),
+            contentDescription = "",
+            contentScale = ContentScale.Crop
+        )
+    }
 }
 
 

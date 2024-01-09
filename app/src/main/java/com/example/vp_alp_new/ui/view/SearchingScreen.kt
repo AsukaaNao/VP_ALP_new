@@ -178,7 +178,7 @@ fun SearchingScreen(
 
         Column(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxSize()
                 .background(Color.White, RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp))
                 .padding(20.dp)
         ) {

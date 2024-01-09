@@ -50,17 +50,5 @@ class FoodReviewViewModel: ViewModel() {
         // sent server updated movie to server
     }
 
-    fun logout(
-        navController: NavController,
-        dataStore: DataStoreManager
-    ) {
-        viewModelScope.launch {
-            MyDBContainer().myDBRepositories.logout()
-            dataStore.saveToken("")
-            MyDBContainer.ACCESS_TOKEN = ""
 
-            navController.navigate(ListScreen.Login.name){
-                popUpTo(ListScreen.NearMe.name){inclusive = true}
-            }}
-    }
 }
