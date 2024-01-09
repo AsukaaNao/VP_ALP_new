@@ -2,6 +2,7 @@ package com.example.vp_alp_new.ui.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -29,15 +30,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.vp_alp.R
+import com.example.vp_alp_new.ui.ListScreen
 import com.example.vp_alp_new.viewModel.AccountViewModel
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun AccountView(
-    viewModel: AccountViewModel = viewModel()
+    viewModel: AccountViewModel = viewModel(),
+    navController: NavController,
 ) {
     val user by viewModel.uiState.collectAsState()
 
@@ -146,20 +150,24 @@ fun AccountView(
                 )
             }
         }
-        template(text = "My Favourite Resto")
-        template(text = "My Wishlist")
-        template(text = "See restaurant reviews")
-        template(text = "See food reviews")
-        template(text = "Change my location")
+        template(text = "My Favourite Resto",onClick ={navController.navigate(ListScreen.LikedListResto.name)})
+        template(text = "My Wishlist", onClick = { navController.navigate(ListScreen.WishListResto.name) })
+        template(text = "See restaurant reviews",onClick ={})
+        template(text = "See food reviews",onClick ={})
+        template(text = "Change my location",onClick ={})
     }
 }
 
 @Composable
-fun template(text: String) {
+fun template(
+    text: String,
+    onClick: () -> Unit
+) {
     Row(
         Modifier
             .fillMaxWidth()
             .padding(15.dp)
+            .clickable(onClick = onClick) // Adding clickable behavior
     ) {
         Row(
             Modifier.weight(1f)
@@ -169,7 +177,6 @@ fun template(text: String) {
                 style = TextStyle(
                     fontSize = 14.sp,
                     lineHeight = 21.sp,
-//                    fontFamily = FontFamily(Font(R.font.inter)),
                     fontWeight = FontWeight(400),
                     color = Color(0xFF525252)
                 )
@@ -191,6 +198,7 @@ fun template(text: String) {
             .background(color = Color(0xFFB2B2B2))
     )
 }
+
 
 //@Preview(showSystemUi = true, showBackground = true)
 //@Composable

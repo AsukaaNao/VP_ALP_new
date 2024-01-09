@@ -28,6 +28,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.Icon
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -41,6 +42,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
@@ -49,13 +51,14 @@ import com.example.vp_alp.R
 //import com.example.vp_alp_new.data.loadNear
 import com.example.vp_alp_new.model.near
 import com.example.vp_alp_new.ui.ListScreen
-import com.example.vp_alp_new.viewModel.FoodDetailViewModel
+import com.example.vp_alp_new.ui.viewModel.WishListViewModel
 
 @Composable
 fun WishListView(
-    nearcardlist: List<near>,
+    viewModel: WishListViewModel = viewModel(),
     navController: NavController
 ) {
+    val restaurants by viewModel.uiState.collectAsState()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -72,6 +75,10 @@ fun WishListView(
                 contentDescription = "image description",
                 contentScale = ContentScale.None,
                 modifier = Modifier.padding(end = 16.dp)
+                    .clickable {
+                        // Navigate back when the arrow back is clicked
+                        navController.popBackStack()
+                    }
             )
             Text(
                 text = "Wishlist",
@@ -90,13 +97,15 @@ fun WishListView(
         LazyVerticalGrid(
             columns = GridCells.Fixed(1),
         ) {
-            items(nearcardlist) {
-                RestoCard(
-                    it,
-                    Modifier
-                        .padding(4.dp),
-                    navController
-                )
+            restaurants?.let { restaurantList ->
+                items(restaurantList) { restaurant ->
+                    RestoCard(
+                        restaurant,
+                        Modifier
+                            .padding(4.dp),
+                        navController
+                    )
+                }
             }
             item {
                 Spacer(modifier = Modifier.height(80.dp))

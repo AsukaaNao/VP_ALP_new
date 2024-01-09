@@ -39,9 +39,12 @@ import com.example.vp_alp_new.ui.theme.colorPrimary
 import com.example.vp_alp_new.ui.view.AccountView
 import com.example.vp_alp_new.ui.view.DashboardSection
 import com.example.vp_alp_new.ui.view.HomeView
+import com.example.vp_alp_new.ui.view.LikedListView
 import com.example.vp_alp_new.ui.view.LoginScreen
 import com.example.vp_alp_new.ui.view.RegisterView
 import com.example.vp_alp_new.ui.view.RestoDetailView
+import com.example.vp_alp_new.ui.view.SearchingScreen
+import com.example.vp_alp_new.ui.view.WishListView
 import com.example.vp_alp_new.ui.view.nearmeView
 
 import com.example.vp_alp_new.viewModel.FoodReviewUIState
@@ -186,7 +189,7 @@ fun RestoAppsRoute() {
 
             composable(ListScreen.Account.name) {
                 bottomBarYes = true
-                AccountView()
+                AccountView(navController = navController)
             }
 
             composable(ListScreen.AddRestoReview.name) {
@@ -239,6 +242,7 @@ fun RestoAppsRoute() {
 
             composable(ListScreen.LikedListResto.name) {
                 bottomBarYes = true
+                LikedListView( navController = navController)
             }
 
 
@@ -304,10 +308,12 @@ fun RestoAppsRoute() {
             }
             composable(ListScreen.SearchScreen.name) {
                 bottomBarYes = true
+                SearchingScreen(navController = navController)
             }
 
             composable(ListScreen.WishListResto.name) {
                 bottomBarYes = true
+               WishListView(navController = navController)
             }
 
 
