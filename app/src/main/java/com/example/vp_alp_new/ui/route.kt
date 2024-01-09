@@ -239,9 +239,13 @@ fun RestoAppsRoute() {
             composable(ListScreen.FoodDetail.name) {
                 bottomBarYes = true
             }
-            composable(ListScreen.FoodReview.name) {
+            composable(ListScreen.FoodReview.name+"/{id}") {
                 bottomBarYes = true
-                reviewsandratingsFood(navController = navController)
+                val id = it.arguments?.getString("id")!!.toInt()
+                reviewsandratingsFood(
+                    navController = navController,
+                    id = id
+                )
             }
             composable(ListScreen.Home.name) {
                 bottomBarYes = true
