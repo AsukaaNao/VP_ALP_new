@@ -101,20 +101,20 @@ fun SearchingScreen(
             Row (
                 verticalAlignment = Alignment.CenterVertically
             ){
-                Icon(
-                    imageVector = Icons.Rounded.LocationOn,
-                    contentDescription = "Back",
-                    tint = Color.White,
-                    modifier = Modifier
-                        .padding(horizontal = 5.dp)
-                        .clickable(
-                            onClick = {
-                                //masi gatau
-                            }
-                        )
-                )
+//                Icon(
+//                    imageVector = Icons.Rounded.LocationOn,
+//                    contentDescription = "Back",
+//                    tint = Color.White,
+//                    modifier = Modifier
+//                        .padding(horizontal = 5.dp)
+//                        .clickable(
+//                            onClick = {
+//                                //masi gatau
+//                            }
+//                        )
+//                )
                 Text(
-                    text = "Denver Apartment",
+                    text = "Flover",
                     color = Color.White,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.SemiBold,

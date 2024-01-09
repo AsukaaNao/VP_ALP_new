@@ -107,20 +107,20 @@ fun HomeView(
             Row (
                 verticalAlignment = Alignment.CenterVertically
             ){
-                Icon(
-                    imageVector = Icons.Rounded.LocationOn,
-                    contentDescription = "Back",
-                    tint = Color.White,
-                    modifier = Modifier
-                        .padding(horizontal = 5.dp)
-                        .clickable(
-                            onClick = {
-                                navController.popBackStack()
-                            }
-                        )
-                )
+//                Icon(
+//                    imageVector = Icons.Rounded.LocationOn,
+//                    contentDescription = "Back",
+//                    tint = Color.White,
+//                    modifier = Modifier
+//                        .padding(horizontal = 5.dp)
+//                        .clickable(
+//                            onClick = {
+//                                navController.popBackStack()
+//                            }
+//                        )
+//                )
                 Text(
-                    text = "Denver Apartment",
+                    text = "Flover",
                     color = Color.White,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.SemiBold,
