@@ -58,59 +58,59 @@ class MyDBRepository(private val myDBService: MyDBService) {
     }
 
     suspend fun getRestoReviews(token: String): List<Restaurant_review> {
-        val response: APIResponse = myDBService.getRestoReviews()
-
-            val data = response.data
-            if (data is List<*>) {
-                // Map each item in the list to a Restaurant_review object
-                return data.mapNotNull { item ->
-                    if (item is LinkedHashMap<*, *>) {
-                        // Extract necessary fields from the item map and create Restaurant_review objects
-                        Restaurant_review(
-                            id = item["id"] as? Int ?: 0,
-                            // Parse 'user', 'restaurant', and other fields accordingly
-                            // Assuming 'user' and 'restaurant' are nested objects or IDs
-                            user = User(/* Populate user fields */),
-                            restaurant = parseRestaurant(data["restaurant"] as Map<*, *>),
-                            content = item["content"] as? String ?: "",
-                            rating = (item["rating"] as? Double ?: 0.0).toFloat()
-                        )
-                    } else {
-                        null
-                    }
-                }
-            } else {
-                Log.e("API Request Error: ", "API request failed with status ${response.status}")
-            }
+//        val response: APIResponse = myDBService.getRestoReviews()
+//
+//            val data = response.data
+//            if (data is List<*>) {
+//                // Map each item in the list to a Restaurant_review object
+//                return data.mapNotNull { item ->
+//                    if (item is LinkedHashMap<*, *>) {
+//                        // Extract necessary fields from the item map and create Restaurant_review objects
+//                        Restaurant_review(
+//                            id = item["id"] as? Int ?: 0,
+//                            // Parse 'user', 'restaurant', and other fields accordingly
+//                            // Assuming 'user' and 'restaurant' are nested objects or IDs
+//                            user = User(/* Populate user fields */),
+//                            restaurant = parseRestaurant(data["restaurant"] as Map<*, *>),
+//                            content = item["content"] as? String ?: "",
+//                            rating = (item["rating"] as? Double ?: 0.0).toFloat()
+//                        )
+//                    } else {
+//                        null
+//                    }
+//                }
+//            } else {
+//                Log.e("API Request Error: ", "API request failed with status ${response.status}")
+//            }
 
         return emptyList()
     }
 
     suspend fun getFoodReviews(token: String): List<Food_review> {
-        val response: APIResponse = myDBService.getFoodReviews()
-
-            val data = response.data
-            if (data is List<*>) {
-                // Map each item in the list to a Restaurant_review object
-                return data.mapNotNull { item ->
-                    if (item is LinkedHashMap<*, *>) {
-                        // Extract necessary fields from the item map and create Restaurant_review objects
-                        Food_review(
-                            id = item["id"] as? Int ?: 0,
-                            // Parse 'user', 'restaurant', and other fields accordingly
-                            // Assuming 'user' and 'restaurant' are nested objects or IDs
-                            user = User(/* Populate user fields */),
-                            food = parseFood(data["food"] as List<*>),
-                            content = item["content"] as? String ?: "",
-                            rating = (item["rating"] as? Double ?: 0.0).toFloat()
-                        )
-                    } else {
-                        null
-                    }
-                }
-            } else {
-                Log.e("API Request Error: ", "API request failed with status ${response.status}")
-            }
+//        val response: APIResponse = myDBService.getFoodReviews()
+//
+//            val data = response.data
+//            if (data is List<*>) {
+//                // Map each item in the list to a Restaurant_review object
+//                return data.mapNotNull { item ->
+//                    if (item is LinkedHashMap<*, *>) {
+//                        // Extract necessary fields from the item map and create Restaurant_review objects
+//                        Food_review(
+//                            id = item["id"] as? Int ?: 0,
+//                            // Parse 'user', 'restaurant', and other fields accordingly
+//                            // Assuming 'user' and 'restaurant' are nested objects or IDs
+//                            user = User(/* Populate user fields */),
+//                            food = parseFoods(data["food"] as List<*>),
+//                            content = item["content"] as? String ?: "",
+//                            rating = (item["rating"] as? Double ?: 0.0).toFloat()
+//                        )
+//                    } else {
+//                        null
+//                    }
+//                }
+//            } else {
+//                Log.e("API Request Error: ", "API request failed with status ${response.status}")
+//            }
 
         return emptyList()
     }
@@ -144,6 +144,11 @@ class MyDBRepository(private val myDBService: MyDBService) {
         return emptyList()
     }
 
+    suspend fun getDibawah25k(token: String): List<Food> {
+        // TODO: Implement logic to retrieve food items below 25k
+        TODO("Implement logic to retrieve food items below 25k")
+    }
+
     suspend fun getAllFoodByResto(token: String, id: Int): Pair<Restaurant?, List<Food>> {
         val response = myDBService.allFoodByResto("Bearer $token", id)
 
@@ -175,17 +180,7 @@ class MyDBRepository(private val myDBService: MyDBService) {
         )
     }
 
-    private fun parseFood(item: Map<*, *>): Food {
-        return Food(
-            id = (item["id"] as? Double)?.toInt() ?: 0,
-            name = item["name"]?.toString() ?: "",
-            description = item["description"]?.toString() ?: "",
-            price = (item["price"] as? Double) ?: 0.0,
-//                    rating = (item["rating"] as? String)?.toDoubleOrNull() ?: 0.0,
-            rating = (item["rating"] as? Double) ?: 0.0,
-            image = item["image"]?.toString() ?: ""
-        )
-    }
+
 
     private fun parseFoods(foodsData: List<*>): List<Food> {
         return foodsData.mapNotNull { item ->
