@@ -59,6 +59,7 @@ import com.example.vp_alp.R
 
 //import com.example.vp_alp_new.data.loadNear
 import com.example.vp_alp_new.model.near
+import com.example.vp_alp_new.ui.ListScreen
 import com.example.vp_alp_new.ui.viewModel.LikedRestoViewModel
 import com.example.vp_alp_new.ui.viewModel.SearchViewModel
 
@@ -129,7 +130,7 @@ fun SearchingScreen(
                     .padding(horizontal = 5.dp)
                     .clickable(
                         onClick = {
-                            //masi gatau
+                            navController.navigate(ListScreen.LikedListResto.name)
                         }
                     )
             )
@@ -234,54 +235,54 @@ fun SearchingScreen(
                             )
                     )
                 }
-                item {
-                    Text(
-                        text = "Foods",
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Medium,
-                        modifier = Modifier
-                            .padding(horizontal = 5.dp)
-                            .background(LightGray, RoundedCornerShape(5.dp))
-                            .padding(10.dp)
-                            .clickable(
-                                onClick = {
-                                    //masi gatau
-                                }
-                            )
-                    )
-                }
-                item {
-                    Text(
-                        text = "Drinks",
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Medium,
-                        modifier = Modifier
-                            .padding(horizontal = 5.dp)
-                            .background(LightGray, RoundedCornerShape(5.dp))
-                            .padding(10.dp)
-                            .clickable(
-                                onClick = {
-                                    //masi gatau
-                                }
-                            )
-                    )
-                }
-                item {
-                    Text(
-                        text = "Snacks",
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Medium,
-                        modifier = Modifier
-                            .padding(horizontal = 5.dp)
-                            .background(LightGray, RoundedCornerShape(5.dp))
-                            .padding(10.dp)
-                            .clickable(
-                                onClick = {
-                                    //masi gatau
-                                }
-                            )
-                    )
-                }
+//                item {
+//                    Text(
+//                        text = "Foods",
+//                        fontSize = 12.sp,
+//                        fontWeight = FontWeight.Medium,
+//                        modifier = Modifier
+//                            .padding(horizontal = 5.dp)
+//                            .background(LightGray, RoundedCornerShape(5.dp))
+//                            .padding(10.dp)
+//                            .clickable(
+//                                onClick = {
+//                                    //masi gatau
+//                                }
+//                            )
+//                    )
+//                }
+//                item {
+//                    Text(
+//                        text = "Drinks",
+//                        fontSize = 12.sp,
+//                        fontWeight = FontWeight.Medium,
+//                        modifier = Modifier
+//                            .padding(horizontal = 5.dp)
+//                            .background(LightGray, RoundedCornerShape(5.dp))
+//                            .padding(10.dp)
+//                            .clickable(
+//                                onClick = {
+//                                    //masi gatau
+//                                }
+//                            )
+//                    )
+//                }
+//                item {
+//                    Text(
+//                        text = "Snacks",
+//                        fontSize = 12.sp,
+//                        fontWeight = FontWeight.Medium,
+//                        modifier = Modifier
+//                            .padding(horizontal = 5.dp)
+//                            .background(LightGray, RoundedCornerShape(5.dp))
+//                            .padding(10.dp)
+//                            .clickable(
+//                                onClick = {
+//                                    //masi gatau
+//                                }
+//                            )
+//                    )
+//                }
             }
 
             val context = LocalContext.current
