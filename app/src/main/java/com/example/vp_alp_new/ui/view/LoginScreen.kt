@@ -20,6 +20,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -116,7 +117,7 @@ fun LoginScreen(
                         unfocusedBorderColor = Color.Gray
                     ),
                 )
-                CustomTextField1(
+                CustomPasswordField(
                     name = "Password",
                     value = password,
                     onValueChanged = { password = it },
@@ -240,6 +241,53 @@ fun CustomTextField1(
         )
     }
 }
+
+
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun CustomPasswordField(
+    name: String,
+    value: String,
+    onValueChanged: (String) -> Unit,
+    text: String,
+    keyboardOption: KeyboardOptions,
+    modifier: Modifier,
+    colors: TextFieldColors
+) {
+    Column(
+        modifier = Modifier.padding(vertical = 5.dp)
+    ) {
+        TextField(
+            value = value,
+            onValueChange = onValueChanged,
+            label = {
+                Text(
+                    text = name,
+                    style = TextStyle(
+                        fontSize = 16.sp,
+                        lineHeight = 21.sp,
+                        fontWeight = FontWeight(400),
+                        color = Color(0xFFFF9F1C),
+                    )
+                )
+            },
+            keyboardOptions = keyboardOption,
+            modifier = modifier,
+            colors = colors,
+            visualTransformation = PasswordVisualTransformation(), // Display as password
+            textStyle = TextStyle(
+                fontSize = 16.sp,
+                lineHeight = 21.sp,
+//                fontFamily = FontFamily(Font(R.font.inter)),
+                fontWeight = FontWeight(400),
+                color = Color(0xFFB2B2B2),
+            )
+        )
+    }
+}
+
 
 //@Preview
 //@Composable

@@ -28,7 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.vp_alp.R
-import com.example.vp_alp_new.data.loadNear
+
 import com.example.vp_alp_new.ui.theme.colorPrimary
 
 
@@ -50,19 +50,19 @@ fun Dashboard(
             )
         }) { innerPadding ->
         val modifier = Modifier.padding(innerPadding)
-        Crossfade(
-            modifier = modifier,
-            targetState = sectionState.value,
-            label = ""
-        ) { section ->
-            when (section) {
-                DashboardSection.Home -> HomeView(loadNear(),navController, onNearClick = {})
-                DashboardSection.Search -> SearchingScreen(loadNear())
-//                DashboardSection.Search -> SearchingScreen(navController)
-                DashboardSection.Favorite -> LikedListView(loadNear())
-                DashboardSection.Profile -> AccountView()
-            }
-        }
+//        Crossfade(
+//            modifier = modifier,
+//            targetState = sectionState.value,
+//            label = ""
+//        ) { section ->
+//            when (section) {
+//                DashboardSection.Home -> HomeView(navController = navController)
+//                DashboardSection.Search -> SearchingScreen()
+////                DashboardSection.Search -> SearchingScreen(navController)
+//                DashboardSection.Favorite -> LikedListView()
+//                DashboardSection.Profile -> AccountView()
+//            }
+//        }
     }
 }
 
