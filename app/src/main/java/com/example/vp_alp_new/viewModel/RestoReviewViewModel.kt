@@ -1,4 +1,5 @@
 package com.example.vp_alp_new.ui.viewModel
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.vp_alp_new.model.Restaurant_review
@@ -19,6 +20,7 @@ class RestoReviewViewModel : ViewModel() {
             val reviewList: List<Restaurant_review> =
                 MyDBContainer().myDBRepositories.getRestoReviews(MyDBContainer.ACCESS_TOKEN, id)
             _uiState.value = reviewList
+            Log.d("List Review", reviewList.toString())
         }
     }
 }

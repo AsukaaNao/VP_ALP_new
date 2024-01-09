@@ -61,18 +61,26 @@ class MyDBRepository(private val myDBService: MyDBService) {
         val response: APIResponse = myDBService.getRestoReviews("Bearer $token", id)
 
             val data = response.data
+            Log.d("data", data.toString())
             if (data is List<*>) {
                 // Map each item in the list to a Restaurant_review object
                 return data.mapNotNull { item ->
-                    if (item is LinkedHashMap<*, *>) {
-                        // Extract necessary fields from the item map and create Restaurant_review objects
-                        Restaurant_review(
-                            id = item["id"] as? Int ?: 0,
-                            user = parseUser(item["user"] as Map<*, *>),
-                            content = item["content"] as? String ?: "",
-                            rating = (item["rating"] as? Double ?: 0.0).toFloat()
-                        )
+                    if (item is LinkedTreeMap<*, *>) {
+                        val userMap = item["user"] as? Map<*, *>
+                        Log.d("user", userMap.toString())
+                        if (userMap != null) {
+                            Restaurant_review(
+                                id = (item["id"] as? Double)?.toInt() ?: 0,
+                                user = parseUser(userMap),
+                                content = item["content"] as? String ?: "",
+                                rating = (item["rating"] as? Double ?: 0.0).toFloat()
+                            )
+                        } else {
+                            Log.e("Error", "userMap")
+                            null
+                        }
                     } else {
+                        Log.e("Error", "gakebaca as Linkedhashmap")
                         null
                     }
                 }

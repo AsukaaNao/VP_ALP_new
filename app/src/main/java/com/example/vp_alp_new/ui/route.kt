@@ -278,12 +278,12 @@ fun RestoAppsRoute() {
                     navController = navController
                 )
             }
-            composable(ListScreen.RestoReview.name+"${id}") {
+            composable(ListScreen.RestoReview.name+"/{id}") {
                 bottomBarYes = true
                 val id = it.arguments?.getString("id")!!.toInt()
                 reviewsandratingsResto(
                     navController = navController,
-                    restoid = id
+                    id = id
                 )
             }
 

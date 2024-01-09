@@ -1,5 +1,6 @@
 package com.example.vp_alp_new.ui.view
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -57,11 +58,14 @@ import com.example.vp_alp_new.viewModel.NearMeViewModel
 fun reviewsandratingsResto(
     viewModel: RestoReviewViewModel = viewModel(),
     navController: NavController,
-    restoid: Int
+    id: Int
 ) {
-
+    Log.d("Status", "Berhasil masuk review")
     val reviews by viewModel.uiState.collectAsState()
-    viewModel.loadData(restoid)
+
+    LaunchedEffect(viewModel, id) {
+        viewModel.loadData(id)
+    }
 
     Column(
         modifier = Modifier
@@ -147,11 +151,11 @@ fun reviewCardResto(rating:Restaurant_review, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .padding(vertical = 8.dp)
-            .clickable {
-                Toast
-                    .makeText(context, "Do something", Toast.LENGTH_SHORT)
-                    .show()
-            }
+//            .clickable {
+//                Toast
+//                    .makeText(context, "Do something", Toast.LENGTH_SHORT)
+//                    .show()
+//            }
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),

@@ -218,48 +218,50 @@ fun RestoDetailView(
                             )
                         )
                     }
-            }
-        }
-
-        Divider(
-            Modifier
-                .padding(0.dp)
-                .width(291.dp)
-                .height(0.3.dp)
-                .background(color = Color(0xFF848484))
-        )
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(14.dp)
-        ) {
-            Row(
-                Modifier.weight(1f),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.edit_gray),
-                    contentDescription = "image description",
-                    contentScale = ContentScale.None
+                Divider(
+                    Modifier
+                        .padding(0.dp)
+                        .width(291.dp)
+                        .height(0.3.dp)
+                        .background(color = Color(0xFF848484))
                 )
-                Text(
-                    text = "Rate Us",
-                    style = TextStyle(
-                        fontSize = 11.sp,
-                        lineHeight = 21.sp,
-                        fontWeight = FontWeight(400),
-                        color = Color(0xFF000000),
-                    )
-                )
-            }
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.right_arrow),
-                    contentDescription = "image description",
-                    contentScale = ContentScale.None
-                )
+                Row(
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(14.dp)
+                        .clickable {
+                            navController.navigate(ListScreen.AddRestoReview.name+"/"+id)
+                        }
+                ) {
+                    Row(
+                        Modifier.weight(1f),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.edit_gray),
+                            contentDescription = "image description",
+                            contentScale = ContentScale.None
+                        )
+                        Text(
+                            text = "Rate Us",
+                            style = TextStyle(
+                                fontSize = 11.sp,
+                                lineHeight = 21.sp,
+                                fontWeight = FontWeight(400),
+                                color = Color(0xFF000000),
+                            )
+                        )
+                    }
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.right_arrow),
+                            contentDescription = "image description",
+                            contentScale = ContentScale.None
+                        )
+                    }
+                }
             }
         }
         LazyColumn(
