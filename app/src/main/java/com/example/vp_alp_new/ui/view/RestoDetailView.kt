@@ -79,11 +79,11 @@ fun RestoDetailView(
                     contentScale = ContentScale.None
                 )
             }
-            Image(
-                painter = painterResource(id = R.drawable.baseline_arrow_back_24),
-                contentDescription = "image description",
-                contentScale = ContentScale.None
-            )
+//            Image(
+//                painter = painterResource(id = R.drawable.baseline_arrow_back_24),
+//                contentDescription = "image description",
+//                contentScale = ContentScale.None
+//            )
         }
         restaurant?.let { restaurant ->
             Text(
@@ -140,7 +140,7 @@ fun RestoDetailView(
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.clickable {
-                            navController.navigate(ListScreen.AddRestoReview.name+"/"+id)
+                            navController.navigate(ListScreen.RestoReview.name+"/"+id)
                         }
                     ) {
                         Text(

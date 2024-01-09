@@ -13,11 +13,11 @@ class RestoReviewViewModel : ViewModel() {
     private val _uiState = MutableStateFlow<List<Restaurant_review>?>(null)
     val uiState: StateFlow<List<Restaurant_review>?> = _uiState.asStateFlow()
 
-    init {
-//        getRestaurantsData()
+
+    fun loadData(id: Int) {
         viewModelScope.launch {
             val reviewList: List<Restaurant_review> =
-                MyDBContainer().myDBRepositories.getRestoReviews(MyDBContainer.ACCESS_TOKEN)
+                MyDBContainer().myDBRepositories.getRestoReviews(MyDBContainer.ACCESS_TOKEN, id)
             _uiState.value = reviewList
         }
     }

@@ -39,6 +39,7 @@ import com.example.vp_alp_new.repository.MyDBContainer
 import com.example.vp_alp_new.ui.theme.colorPrimary
 import com.example.vp_alp_new.ui.view.AccountView
 import com.example.vp_alp_new.ui.view.DashboardSection
+import com.example.vp_alp_new.ui.view.FoodReview
 import com.example.vp_alp_new.ui.view.HomeView
 import com.example.vp_alp_new.ui.view.LikedListView
 import com.example.vp_alp_new.ui.view.LoginScreen
@@ -50,9 +51,8 @@ import com.example.vp_alp_new.ui.view.WishListView
 import com.example.vp_alp_new.ui.view.nearmeView
 import com.example.vp_alp_new.ui.view.reviewsandratingsFood
 import com.example.vp_alp_new.ui.view.reviewsandratingsResto
+import com.example.vp_alp_new.ui.viewModel.FoodReviewViewModel
 
-//import com.example.vp_alp_new.viewModel.FoodReviewUIState
-//import com.example.vp_alp_new.viewModel.FoodReviewViewModel
 //import com.example.vp_alp_new.viewModel.RestoReviewUIState
 //import com.example.vp_alp_new.viewModel.RestoReviewViewModel
 import kotlinx.coroutines.GlobalScope
@@ -198,12 +198,19 @@ fun RestoAppsRoute() {
 
             composable(ListScreen.AddRestoReview.name+"/{id}") {
                 bottomBarYes = true
-
+                val restoid = it.arguments?.getString("id")!!.toInt()
+                var rating_1 by remember{
+                    mutableDoubleStateOf(0.0)
+                }
+                RatingRestoFormsView(
+                    modifier = Modifier.size(50.dp),
+                    rating = rating_1,
+                    restoid = restoid
+                ){
+                    rating_1 = it
+                }
             }
             composable(ListScreen.AddFoodReview.name) {
-                bottomBarYes = true
-            }
-            composable(ListScreen.Dashboard.name) {
                 bottomBarYes = true
             }
 
@@ -216,7 +223,6 @@ fun RestoAppsRoute() {
             composable(ListScreen.FoodReview.name) {
                 bottomBarYes = true
                 reviewsandratingsFood(navController = navController)
-
             }
             composable(ListScreen.Home.name) {
                 bottomBarYes = true
@@ -272,9 +278,13 @@ fun RestoAppsRoute() {
                     navController = navController
                 )
             }
-            composable(ListScreen.RestoReview.name) {
+            composable(ListScreen.RestoReview.name+"${id}") {
                 bottomBarYes = true
-                reviewsandratingsResto(navController = navController)
+                val id = it.arguments?.getString("id")!!.toInt()
+                reviewsandratingsResto(
+                    navController = navController,
+                    restoid = id
+                )
             }
 
             composable(ListScreen.SearchScreen.name) {
@@ -284,7 +294,7 @@ fun RestoAppsRoute() {
 
             composable(ListScreen.WishListResto.name) {
                 bottomBarYes = true
-               WishListView(navController = navController)
+                WishListView(navController = navController)
             }
 
 

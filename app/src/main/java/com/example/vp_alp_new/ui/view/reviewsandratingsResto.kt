@@ -57,8 +57,12 @@ import com.example.vp_alp_new.viewModel.NearMeViewModel
 fun reviewsandratingsResto(
     viewModel: RestoReviewViewModel = viewModel(),
     navController: NavController,
+    restoid: Int
 ) {
+
     val reviews by viewModel.uiState.collectAsState()
+    viewModel.loadData(restoid)
+
     Column(
         modifier = Modifier
             .fillMaxSize()
