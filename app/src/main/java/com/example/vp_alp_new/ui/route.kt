@@ -68,7 +68,6 @@ enum class ListScreen() {
     AddFoodReview,
     BestSeller,
     EditAccount,
-    FoodDetail,
     FoodReview,
     Home,
     LikedListResto,
@@ -237,7 +236,7 @@ fun RestoAppsRoute() {
                 bottomBarYes = true
             }
 
-            
+
 
             composable(ListScreen.FoodReview.name+"/{id}") {
 

@@ -46,6 +46,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
@@ -167,7 +168,7 @@ fun HomeView(
                 value = searchresult,
                 onValueChange = {
                     searchresult = it
-//                    onSearch(it)
+                    // onSearch(it)
                 },
                 keyboardOptions = KeyboardOptions.Default.copy(
                     imeAction = ImeAction.Search
@@ -176,6 +177,12 @@ fun HomeView(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f)
+                    .onFocusChanged { focusState ->
+                        if (focusState.isFocused) {
+                            // Navigate to SearchScreen when the BasicTextField gains focus
+                            navController.navigate(ListScreen.SearchScreen.name)
+                        }
+                    }
             )
 
             // You can add a button here for additional actions if needed
@@ -398,6 +405,7 @@ fun HomeView(
             Column(
                 modifier = Modifier.padding(top = 10.dp)
             ) {
+
                 restaurants?.forEach { item ->
                     // Buat elemen UI untuk setiap item dalam daftar
                     RestoCard(

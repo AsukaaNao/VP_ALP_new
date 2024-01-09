@@ -3,12 +3,8 @@ package com.example.vp_alp_new.viewModel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.vp_alp_new.model.Restaurant
-import com.example.vp_alp_new.model.User
 import com.example.vp_alp_new.model.near
 import com.example.vp_alp_new.repository.MyDBContainer
-import com.example.vp_alp_new.ui.ListScreen
-import com.google.gson.Gson
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,25 +12,22 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
     private val _uiState = MutableStateFlow<List<near>?>(null)
-    val uiState: StateFlow<List<near>?> = _uiState.asStateFlow()
+    private val _originalUiState = mutableListOf<near>()
 
     init {
-//        getRestaurantsData()
+        // Fetch the original list and store it for shuffling purposes
         viewModelScope.launch {
-            Log.d("Resto", "Tes")
-            val restaurantList: List<near> =
-                MyDBContainer().myDBRepositories.all_resto2(MyDBContainer.ACCESS_TOKEN)
-           _uiState.value = restaurantList
-
-            Log.d("List restaurant", restaurantList.toString())
+            _originalUiState.addAll(MyDBContainer().myDBRepositories.all_resto2(MyDBContainer.ACCESS_TOKEN))
+            shuffleUiState()
         }
     }
 
-//    fun getRestaurantsData() {
-//        viewModelScope.launch {
-////            Log.d("Resto Near: ", MyDBContainer().myDBRepositories.all_resto2(MyDBContainer.ACCESS_TOKEN).toString())
-////            _uiState.value = MyDBContainer().myDBRepositories.all_resto2(MyDBContainer.ACCESS_TOKEN)
-//
-//        }
-//    }
+    // Shuffle the UI state list
+    private fun shuffleUiState() {
+        _uiState.value = _originalUiState.shuffled()
+    }
+
+    // Computed property for accessing a shuffled UI state
+    val uiState: StateFlow<List<near>?>
+        get() = _uiState.asStateFlow()
 }
