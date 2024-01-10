@@ -1,4 +1,5 @@
 package com.example.vp_alp_new.ui.viewModel
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
@@ -23,12 +24,34 @@ class WishListViewModel : ViewModel() {
         }
     }
 
+    fun isLikedResto(
+        restaurant_id: Int
+    ):Boolean {
+        var bool = false
+        viewModelScope.launch {
+            Log.d("STep", "2")
+            val user_id = MyDBContainer.user.id
+            bool = MyDBContainer().myDBRepositories.isLikedResto(user_id, restaurant_id)
+        }
+        return bool
+    }
+
     fun addFavResto(
         restaurant_id: Int
     ) {
         viewModelScope.launch {
             val user_id = MyDBContainer.user.id
             MyDBContainer().myDBRepositories.addFavResto(user_id, restaurant_id)
+        }
+    }
+
+    fun deleteFavResto(
+        restaurant_id: Int
+    ) {
+        viewModelScope.launch {
+            Log.d("Step", "2")
+            val user_id = MyDBContainer.user.id
+            MyDBContainer().myDBRepositories.deleteFavResto(user_id, restaurant_id)
         }
     }
 }

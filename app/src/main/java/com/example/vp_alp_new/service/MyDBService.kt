@@ -44,11 +44,17 @@ interface MyDBService {
     @GET("food_reviews")
     suspend fun getFoodReviews(@Header("Authorization") token: String, @Query("id") id: Int): APIResponse
 
-    @GET("food_reviews")
-    suspend fun getFoodReviews(@Header("Authorization") token: String, @Query("user_id") user_id: Int, @Query("restaurant_id") restaurant_id: Int): Boolean
+//    @GET("food_reviews")
+//    suspend fun getFoodReviews(@Header("Authorization") token: String, @Query("user_id") user_id: Int, @Query("restaurant_id") restaurant_id: Int): Boolean
 
     @POST("add_favresto")
     suspend fun addFavResto(@Body likedRestaurant: Liked_restaurant): APIResponse
+
+    @DELETE("delete_favresto")
+    suspend fun deleteFavResto(@Header("Authorization") token: String, @Query("user_id") user_id: Int, @Query("restaurant_id") restaurant_id: Int): APIResponse
+
+    @GET("isliked_resto")
+    suspend fun isLikedResto(@Header("Authorization") token: String, @Query("user_id") user_id: Int, @Query("restaurant_id") restaurant_id: Int): Boolean
 
 //    @PATCH("update_user")
 //    suspend fun updateUser(@Body request: UpdateUserRequest): APIResponse
