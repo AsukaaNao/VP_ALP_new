@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -31,6 +32,8 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,7 +46,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.example.vp_alp.R
+import com.example.vp_alp_new.model.Food_review
+import com.example.vp_alp_new.model.Restaurant_review
+import com.example.vp_alp_new.viewModel.MyFoodReviewViewModel
+import com.example.vp_alp_new.viewModel.NearMeViewModel
 
 //sementara gini dulu wak, kalo ada tambahan dll nanti baru dirubah
 private val Orange = Color(0xFFFFC107)
@@ -52,9 +63,13 @@ private val Abu = Color(0xFF747474)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyFoodReviewsView() {
+fun MyFoodReviewsView(
+    viewModel: MyFoodReviewViewModel = viewModel(),
+    navController: NavController
+) {
     val snackbarHostState = remember { SnackbarHostState() }
     val context = LocalContext.current
+    val reviews by viewModel.uiState.collectAsState()
 
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },
@@ -96,37 +111,35 @@ fun MyFoodReviewsView() {
                     .fillMaxWidth()
                     .padding(15.dp)
                 ){
-                    item {
-                        FoodReview()
+                    reviews?.let { reviewList ->
+                        items(reviewList) {review->
+                            FoodReview(review)
+                        }
                     }
-                    item {
-                        FoodReview()
-                    }
+
                 }
             }
         }
     )
 }
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun FoodReview(){
+fun FoodReview(Review: Food_review){
     Column {
-        val namaresto = "Ayam Keprabon - Gwalk"
-        val namamakanan = "Paket Indomie Geprek"
-        val rating = 3
-        val comment = "asu kirik elek cik restone ancene jaran kabeh"
-        val harga = "30.000"
+        val namaresto = Review.food.name
+        val rating =Review.rating
+        val comment =Review.content
         Row (
             modifier = Modifier
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ){
-
-            Image(
-                painter = painterResource(id = R.drawable.geprek_matah),
+            GlideImage(
+                model = Review.food.image,
                 contentDescription ="Foto Resto",
                 modifier = Modifier
-                    .size(120.dp)
+                    .size(140.dp)
                     .padding(horizontal = 5.dp)
                     .clip(RoundedCornerShape(12.dp)),
                 contentScale = ContentScale.Crop,
@@ -136,7 +149,7 @@ fun FoodReview(){
                     .padding(horizontal = 10.dp)
             ){
                 Text(
-                    text = "$namamakanan",
+                    text = "$namaresto",
                     color = Color.Black,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.SemiBold,
@@ -144,77 +157,60 @@ fun FoodReview(){
                         .fillMaxWidth()
                         .padding(vertical = 3.dp)
                 )
+                Row (
+                    modifier = Modifier
+                        .padding(vertical = 3.dp)
+                ){
+                    Text(
+                        text = "Rating: ",
+                        color = Color.Black,
+                        fontSize = 14.sp,
+                    )
+                    Icon(
+                        imageVector = Icons.Filled.Star,
+                        contentDescription = "Bintang1",
+                        tint = Orange,
+                        modifier = Modifier
+                            .size(20.dp)
+                    )
+                    Icon(
+                        imageVector = Icons.Filled.Star,
+                        contentDescription = "Bintang2",
+                        tint = if (rating >= 2) Orange else Abu,
+                        modifier = Modifier
+                            .size(20.dp)
+                    )
+                    Icon(
+                        imageVector = Icons.Filled.Star,
+                        contentDescription = "Bintang3",
+                        tint = if (rating >= 3) Orange else Abu,
+                        modifier = Modifier
+                            .size(20.dp)
+                    )
+                    Icon(
+                        imageVector = Icons.Filled.Star,
+                        contentDescription = "Bintang4",
+                        tint = if (rating >= 4) Orange else Abu,
+                        modifier = Modifier
+                            .size(20.dp)
+                    )
+                    Icon(
+                        imageVector = Icons.Filled.Star,
+                        contentDescription = "Bintang5",
+                        tint = if (rating >= 5) Orange else Abu,
+                        modifier = Modifier
+                            .size(20.dp)
+                    )
+                }
                 Text(
-                    text = "Resto: ${namaresto}",
+                    text = "Comments: ${comment}",
                     color = Color.Black,
                     fontSize = 14.sp,
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 3.dp)
-                )
-                Text(
-                    text = "$harga",
-                    color = Color.Black,
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier
-                        .fillMaxWidth()
                         .padding(vertical = 3.dp)
                 )
             }
         }
-        Row (
-            modifier = Modifier
-                .padding(bottom = 3.dp, start = 5.dp, top = 10.dp)
-        ){
-            Text(
-                text = "Rating: ",
-                color = Color.Black,
-                fontSize = 14.sp,
-            )
-            Icon(
-                imageVector = Icons.Filled.Star,
-                contentDescription = "Bintang1",
-                tint = Orange,
-                modifier = Modifier
-                    .size(20.dp)
-            )
-            Icon(
-                imageVector = Icons.Filled.Star,
-                contentDescription = "Bintang2",
-                tint = if (rating >= 2) Orange else Abu,
-                modifier = Modifier
-                    .size(20.dp)
-            )
-            Icon(
-                imageVector = Icons.Filled.Star,
-                contentDescription = "Bintang3",
-                tint = if (rating >= 3) Orange else Abu,
-                modifier = Modifier
-                    .size(20.dp)
-            )
-            Icon(
-                imageVector = Icons.Filled.Star,
-                contentDescription = "Bintang4",
-                tint = if (rating >= 4) Orange else Abu,
-                modifier = Modifier
-                    .size(20.dp)
-            )
-            Icon(
-                imageVector = Icons.Filled.Star,
-                contentDescription = "Bintang5",
-                tint = if (rating >= 5) Orange else Abu,
-                modifier = Modifier
-                    .size(20.dp)
-            )
-        }
-        Text(
-            text = "Comments: ${comment}",
-            color = Color.Black,
-            fontSize = 14.sp,
-            modifier = Modifier
-                .padding(top = 3.dp, start = 5.dp)
-        )
         Divider(
             color = Abu,
             thickness = 1.dp,
@@ -223,9 +219,8 @@ fun FoodReview(){
         )
     }
 }
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun MyFoodReviewsPreview() {
-        MyFoodReviewsView()
-}
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun MyFoodReviewsPreview() {
+//        MyFoodReviewsView()
+//}

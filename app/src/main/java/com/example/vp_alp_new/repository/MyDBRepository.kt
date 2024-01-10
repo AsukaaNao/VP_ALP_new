@@ -115,6 +115,7 @@ class MyDBRepository(private val myDBService: MyDBService) {
         val response: APIResponse = myDBService.getRestoReviews("Bearer $token", id)
         val data = response.data
         Log.d("data", data.toString())
+
         if (data is List<*>) {
             // Map each item in the list to a Restaurant_review object
             return data.mapNotNull { item ->
@@ -126,14 +127,15 @@ class MyDBRepository(private val myDBService: MyDBService) {
                             id = (item["id"] as? Double)?.toInt() ?: 0,
                             user = parseUser(userMap),
                             content = item["content"] as? String ?: "",
-                            rating = (item["rating"] as? Double ?: 0.0).toFloat()
+                            rating = (item["rating"] as? Double ?: 0.0).toFloat(),
+                            near = item["restaurant"] as? near ?: near(-1,"",0.0f,"","","")
                         )
                     } else {
-                        Log.e("Error", "userMap")
+                        Log.e("Error", "userMap is null")
                         null
                     }
                 } else {
-                    Log.e("Error", "gakebaca as Linkedhashmap")
+                    Log.e("Error", "item is not LinkedTreeMap")
                     null
                 }
             }
@@ -143,6 +145,7 @@ class MyDBRepository(private val myDBService: MyDBService) {
 
         return emptyList()
     }
+
 
     suspend fun getFoodReviews(token: String, id: Int): List<Food_review> {
         Log.d("sadasjk", "berhasil")
@@ -160,7 +163,9 @@ class MyDBRepository(private val myDBService: MyDBService) {
                             id = (item["id"] as? Double)?.toInt() ?: 0,
                             user = parseUser(userMap),
                             content = item["content"] as? String ?: "",
-                            rating = (item["rating"] as? Double ?: 0.0).toFloat()
+                            rating = (item["rating"] as? Double ?: 0.0).toFloat(),
+                            food = item["food"] as? Food ?: Food(-1,"","",0.0,0.0,"") // Assuming Food() is the default constructor for Food
+
                         )
                     } else {
                         Log.e("Error", "userMap")
@@ -339,14 +344,15 @@ class MyDBRepository(private val myDBService: MyDBService) {
         if (response.status == "200") {
             val data = response.data
             if (data is List<*>) {
-                // Map each item in the list to a Restaurant object
+                // Map each item in the list to a RestaurantReview object
                 return data.mapNotNull { item ->
                     if (item is LinkedTreeMap<*, *>) {
                         Restaurant_review(
                             id = (item["id"] as? Double)?.toInt() ?: 0,
-                            user = item["user"] as? User ?: User(), // Assuming User() is the default constructor for User
+                            user = MyDBContainer.user,
                             content = item["content"] as? String ?: "",
-                            rating = (item["rating"] as? Double)?.toFloat() ?: 0.0f
+                            rating = (item["rating"] as? Double ?: 0.0).toFloat(),
+                            near = item["restaurant"] as? near ?: near(-1,"",0.0f,"","","")
                         )
                     } else {
                         null
@@ -359,6 +365,7 @@ class MyDBRepository(private val myDBService: MyDBService) {
         }
         return emptyList() // Return an empty list in case of failure
     }
+
 
 
 
@@ -367,14 +374,15 @@ class MyDBRepository(private val myDBService: MyDBService) {
         if (response.status == "200") {
             val data = response.data
             if (data is List<*>) {
-                // Map each item in the list to a Restaurant object
+                // Map each item in the list to a Food_review object
                 return data.mapNotNull { item ->
                     if (item is LinkedTreeMap<*, *>) {
                         Food_review(
                             id = (item["id"] as? Double)?.toInt() ?: 0,
                             user = item["user"] as? User ?: User(), // Assuming User() is the default constructor for User
                             content = item["content"] as? String ?: "",
-                            rating = (item["rating"] as? Double)?.toFloat() ?: 0.0f
+                            rating = (item["rating"] as? Double)?.toFloat() ?: 0.0f,
+                            food = item["food"] as? Food ?: Food(-1,"","",0.0,0.0,"") // Assuming Food() is the default constructor for Food
                         )
                     } else {
                         null
@@ -387,6 +395,7 @@ class MyDBRepository(private val myDBService: MyDBService) {
         }
         return emptyList() // Return an empty list in case of failure
     }
+
 
 
     suspend fun getDibawah25k(token: String): List<near> {

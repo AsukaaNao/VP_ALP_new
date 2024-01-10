@@ -44,6 +44,8 @@ import com.example.vp_alp_new.ui.view.FoodReview
 import com.example.vp_alp_new.ui.view.HomeView
 import com.example.vp_alp_new.ui.view.LikedListView
 import com.example.vp_alp_new.ui.view.LoginScreen
+import com.example.vp_alp_new.ui.view.MyFoodReviewsView
+import com.example.vp_alp_new.ui.view.MyRestoReviewsView
 import com.example.vp_alp_new.ui.view.RatingFoodFormsView
 import com.example.vp_alp_new.ui.view.RatingRestoFormsView
 import com.example.vp_alp_new.ui.view.RegisterView
@@ -79,6 +81,8 @@ enum class ListScreen() {
     SearchScreen,
     WishListResto,
     Dibawah25k,
+    MyRR,
+    MyFR
 
 
 }
@@ -234,6 +238,15 @@ fun RestoAppsRoute() {
 
             composable(ListScreen.EditAccount.name) {
                 bottomBarYes = true
+            }
+            composable(ListScreen.MyRR.name+"/{id}") {
+                bottomBarYes = true
+                MyRestoReviewsView(navController = navController)
+
+            }
+            composable(ListScreen.MyFR.name+"/{id}") {
+                bottomBarYes = true
+                MyFoodReviewsView(navController = navController)
             }
 
 

@@ -35,6 +35,7 @@ import androidx.navigation.NavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.vp_alp.R
+import com.example.vp_alp_new.repository.MyDBContainer
 import com.example.vp_alp_new.ui.ListScreen
 import com.example.vp_alp_new.viewModel.AccountViewModel
 
@@ -140,10 +141,10 @@ fun AccountView(
                 )
             }
         }
-        template(text = "My Favourite Resto",onClick ={navController.navigate(ListScreen.LikedListResto.name+"/{id}")})
+        template(text = "My Favourite Resto",onClick ={navController.navigate(ListScreen.LikedListResto.name+"/"+ MyDBContainer.user.id)})
 //        template(text = "My Wishlist", onClick = { navController.navigate(ListScreen.WishListResto.name) })
-        template(text = "See restaurant reviews",onClick ={navController.navigate(ListScreen.RestoReview.name+"/{id}") })
-        template(text = "See food reviews",onClick ={navController.navigate(ListScreen.FoodReview.name+"/{id}")})
+        template(text = "See restaurant reviews",onClick ={navController.navigate(ListScreen.MyRR.name+"/"+MyDBContainer.user.id) })
+        template(text = "See food reviews",onClick ={navController.navigate(ListScreen.MyFR.name+"/"+MyDBContainer.user.id)})
 //        template(text = "Change my location",onClick ={})
     }
 }

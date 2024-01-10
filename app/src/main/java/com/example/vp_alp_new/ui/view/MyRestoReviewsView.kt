@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -31,6 +32,8 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,7 +46,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.example.vp_alp.R
+import com.example.vp_alp_new.model.Restaurant
+import com.example.vp_alp_new.model.Restaurant_review
+import com.example.vp_alp_new.viewModel.MyRestoReviewViewModel
+import com.example.vp_alp_new.viewModel.NearMeViewModel
 
 //sementara gini dulu wak, kalo ada tambahan dll nanti baru dirubah
 private val Orange = Color(0xFFFFC107)
@@ -52,9 +63,13 @@ private val Abu = Color(0xFF747474)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyRestoReviewsView() {
+fun MyRestoReviewsView(
+    viewModel: MyRestoReviewViewModel = viewModel(),
+    navController: NavController
+) {
     val snackbarHostState = remember { SnackbarHostState() }
     val context = LocalContext.current
+    val reviews by viewModel.uiState.collectAsState()
 
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },
@@ -96,31 +111,32 @@ fun MyRestoReviewsView() {
                     .fillMaxWidth()
                     .padding(15.dp)
                 ){
-                    item {
-                        RestoReview()
+                    reviews?.let { reviewList ->
+                        items(reviewList) {review->
+                            RestoReview(review)
+                        }
                     }
-                    item {
-                        RestoReview()
-                    }
+
                 }
             }
         }
     )
 }
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun RestoReview(){
+fun RestoReview(Review:Restaurant_review){
     Column {
-        val namaresto = "Ayam Keprabon - Gwalk"
-        val rating =4
-        val comment = "asu kirik elek cik restone ancene jaran kabeh"
+        val namaresto = Review.near.name
+        val rating =Review.rating
+        val comment =Review.content
         Row (
             modifier = Modifier
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ){
-            Image(
-                painter = painterResource(id = R.drawable.geprek_matah),
+            GlideImage(
+                model = Review.near.image,
                 contentDescription ="Foto Resto",
                 modifier = Modifier
                     .size(140.dp)
@@ -204,9 +220,9 @@ fun RestoReview(){
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun MyRestoReviewsPreview() {
-
-        MyRestoReviewsView()
-}
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun MyRestoReviewsPreview() {
+//
+//        MyRestoReviewsView()
+//}
